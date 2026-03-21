@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Fence Installation Reviews & Projects | Twin Rivers LLC</title>
+
+<meta name="description" content="View real fence installation projects and customer reviews from Twin Rivers LLC. See completed fencing work across Sacramento, Elk Grove, Roseville, and Northern California.">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Inter',sans-serif;
+background:#0f1117;
+color:#eee;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+header{
+position:fixed;
+width:100%;
+background:rgba(10,10,10,.75);
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+
+nav{
+max-width:1200px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+}
+
+nav h2{
+color:white;
+}
+
+nav h2 a{
+color:white;
+text-decoration:none;
+}
+
+nav ul {
+display:flex;
+list-style:none;
+}
+
+nav li {
+position:relative;
+margin-left:25px;
+}
+
+nav a {
+display:block;
+padding:12px 15px;
+color:white;
+text-decoration:none;
+transition:color .2s ease;
+}
+
+nav a:hover {
+color:#ff7b00;
+}
+
+nav li ul {
+position:absolute;
+top:100%;
+left:0;
+background:#1c1f2a;
+border-radius:6px;
+min-width:220px;
+opacity:0;
+visibility:hidden;
+transform:translateY(10px);
+transition:all .25s ease;
+pointer-events:none;
+z-index:1001;
+display:grid;
+grid-template-columns:repeat(3, auto);
+gap:10px 40px;
+padding:15px 20px;
+}
+
+nav li:hover > ul,
+nav li ul:hover {
+opacity:1;
+visibility:visible;
+transform:translateY(0);
+pointer-events:auto;
+}
+
+nav li ul li {
+margin:0;
+}
+
+nav li ul li a {
+padding:8px 12px;
+white-space:nowrap;
+}
+
+nav li ul li a:hover {
+background:#ff7b00;
+border-radius:4px;
+}
+
+.nav-phone {
+color:#ff7b00;
+font-weight:bold;
+text-decoration:none;
+margin-left:30px;
+}
+
+.nav-phone:hover {
+text-decoration:underline;
+}
+
+.header-contact{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.contact-btn{
+background:#ff7b00;
+color:white;
+border:none;
+padding:8px 16px;
+border-radius:4px;
+cursor:pointer;
+font-weight:600;
+font-size:14px;
+transition:all .3s ease;
+}
+
+.contact-btn:hover{
+background:#e66f00;
+transform:translateY(-1px);
+}
+
+.contact-modal{
+display:none;
+position:fixed;
+z-index:9999;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+}
+
+.contact-modal-content{
+background:#111;
+margin:8% auto;
+padding:35px;
+width:90%;
+max-width:500px;
+max-height:80vh;
+overflow-y:auto;
+border-radius:8px;
+border:1px solid rgba(255,255,255,0.1);
+}
+
+.close-contact{
+float:right;
+font-size:28px;
+cursor:pointer;
+color:#999;
+line-height:20px;
+}
+
+.close-contact:hover{
+color:#ff7b00;
+}
+
+.contact-modal-content h2{
+margin-bottom:25px;
+color:#fff;
+}
+
+.contact-modal-content form{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.contact-modal-content label{
+font-weight:600;
+margin-bottom:5px;
+color:#ddd;
+}
+
+.contact-modal-content input,
+.contact-modal-content textarea{
+padding:12px;
+border-radius:6px;
+border:1px solid rgba(255,255,255,0.2);
+background:rgba(255,255,255,0.05);
+color:#eee;
+font-family:'Inter',sans-serif;
+font-size:15px;
+}
+
+.contact-modal-content input:focus,
+.contact-modal-content textarea:focus{
+outline:none;
+border-color:#ff7b00;
+background:rgba(255,255,255,0.08);
+}
+
+.contact-modal-content button[type="submit"]{
+background:#ff7b00;
+color:white;
+border:none;
+padding:14px;
+border-radius:6px;
+cursor:pointer;
+font-weight:600;
+font-size:16px;
+transition:all .3s ease;
+margin-top:10px;
+}
+
+.contact-modal-content button[type="submit"]:hover{
+background:#ff8c1a;
+transform:translateY(-2px);
+}
+
+.hero{
+height:60vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+position:relative;
+width:100%;
+background:url("https://images.unsplash.com/photo-1503387762-592deb58ef4e");
+background-size:cover;
+background-position:center;
+}
+
+.hero::before{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.65);
+z-index:0;
+}
+
+.hero > *{
+position:relative;
+z-index:1;
+}
+
+.hero h1{
+font-size:48px;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:18px;
+opacity:.9;
+max-width:800px;
+margin:0 auto;
+line-height:1.6;
+}
+
+.content-section{
+max-width:1200px;
+margin:0 auto;
+padding:80px 20px;
+}
+
+.section-title{
+text-align:center;
+font-size:36px;
+margin-bottom:50px;
+color:#fff;
+}
+
+.project-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
+margin-bottom:80px;
+}
+
+.testimonial-entry{
+background:#141414;
+border-radius:8px;
+border:1px solid rgba(255,255,255,0.08);
+margin-bottom:30px;
+padding:30px;
+}
+
+.testimonial-entry h3{
+font-size:22px;
+margin-bottom:12px;
+color:#fff;
+}
+
+.project-meta{
+font-size:14px;
+color:#999;
+margin-bottom:18px;
+font-weight:600;
+}
+
+.testimonial-entry p{
+font-size:16px;
+line-height:1.7;
+color:#d0d0d0;
+margin-bottom:18px;
+}
+
+.testimonial-entry blockquote{
+font-style:italic;
+color:#e0e0e0;
+border-left:4px solid #ff7b00;
+padding-left:20px;
+margin:20px 0;
+font-size:16px;
+background:rgba(255,123,0,0.05);
+padding:15px 20px;
+border-radius:4px;
+}
+
+.reviewer{
+display:block;
+margin-top:10px;
+font-size:14px;
+color:#999;
+font-weight:600;
+}
+
+.testimonials-section{
+background:linear-gradient(rgba(0,0,0,0.85),rgba(0,0,0,0.9)),
+url("https://images.unsplash.com/photo-1585128792020-803d29415281?w=1600");
+background-size:cover;
+background-position:center;
+padding:80px 20px;
+}
+
+.testimonial-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:25px;
+max-width:1100px;
+margin:auto;
+}
+
+.testimonial-card{
+background:rgba(20,20,20,0.85);
+backdrop-filter:blur(4px);
+padding:28px;
+border-radius:8px;
+border-left:4px solid #ff7b00;
+}
+
+.testimonial-card p{
+font-size:16px;
+line-height:1.7;
+color:#e0e0e0;
+margin-bottom:15px;
+}
+
+.gallery-section{
+background:#0a0a0a;
+padding:80px 20px;
+}
+
+.gallery-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
+max-width:1200px;
+margin:auto;
+}
+
+.gallery-item{
+position:relative;
+overflow:hidden;
+border-radius:8px;
+height:200px;
+}
+
+.gallery-item img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:transform .3s ease;
+}
+
+.gallery-item:hover img{
+transform:scale(1.1);
+}
+
+.cta-section{
+background:#111;
+padding:80px 20px;
+text-align:center;
+}
+
+.cta-section h2{
+font-size:36px;
+margin-bottom:20px;
+}
+
+.cta-section p{
+font-size:18px;
+margin-bottom:30px;
+color:#d0d0d0;
+max-width:600px;
+margin-left:auto;
+margin-right:auto;
+}
+
+.cta-button{
+display:inline-block;
+background:#ff7b00;
+padding:16px 35px;
+border-radius:6px;
+color:white;
+text-decoration:none;
+font-weight:600;
+font-size:18px;
+transition:all .3s ease;
+}
+
+.cta-button:hover{
+background:#ff8c1a;
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(255,123,0,.4);
+}
+
+footer{
+background:#090b10;
+text-align:center;
+padding:50px;
+margin-top:0;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<nav>
+
+<h2><a href="/">Twin Rivers</a></h2>
+
+<div class="header-contact">
+<a href="tel:+19169062254" class="nav-phone">916-906-2254</a>
+<button class="contact-btn" id="openContactForm">Contact</button>
+</div>
+
+<ul>
+
+<li><a href="#">Fencing</a>
+<ul>
+<li><a href="/fencing/elk-grove">Elk Grove</a></li>
+<li><a href="/fencing/sacramento">Sacramento</a></li>
+<li><a href="/fencing/roseville">Roseville</a></li>
+<li><a href="/fencing/rocklin">Rocklin</a></li>
+<li><a href="/fencing/lincoln">Lincoln</a></li>
+<li><a href="/fencing/folsom">Folsom</a></li>
+<li><a href="/fencing/auburn">Auburn</a></li>
+<li><a href="/fencing/grass-valley">Grass Valley</a></li>
+<li><a href="/fencing/nevada-city">Nevada City</a></li>
+<li><a href="/fencing/penn-valley">Penn Valley</a></li>
+<li><a href="/fencing/alta-sierra">Alta Sierra</a></li>
+<li><a href="/fencing/north-san-juan">North San Juan</a></li>
+<li><a href="/fencing/chicago-park">Chicago Park</a></li>
+<li><a href="/fencing/rough-and-ready">Rough and Ready</a></li>
+<li><a href="/fencing/lake-wildwood">Lake Wildwood</a></li>
+</ul>
+</li>
+
+<li><a href="#">Services</a>
+<ul>
+<li><a href="/services/wood-fence-installation/">Wood Fence Installation</a></li>
+<li><a href="/services/chain-link-fence-installation/">Chain Link Fence Installation</a></li>
+<li><a href="/services/vinyl-fence-installation/">Vinyl Fence Installation</a></li>
+<li><a href="/services/privacy-fence-installation/">Privacy Fence Installation</a></li>
+<li><a href="/services/fence-repair/">Fence Repair</a></li>
+<li><a href="/services/gate-installation/">Gate Installation</a></li>
+</ul>
+</li>
+
+<li><a href="#">Property Improvement</a>
+<ul>
+<li><a href="/property-improvement/deck-installation">Deck Installation</a></li>
+<li><a href="/property-improvement/gate-installation">Gate Installation</a></li>
+<li><a href="/property-improvement/fence-repair">Fence Repair</a></li>
+<li><a href="/property-improvement/property-upgrades">Property Upgrades</a></li>
+<li><a href="/property-improvement/yard-improvements">Yard Improvements</a></li>
+</ul>
+</li>
+
+<li><a href="/#areas">Service Areas</a></li>
+<li><a href="/testimonials/">Testimonials</a></li>
+<li><a href="/#about">About Us</a></li>
+<li><a href="/faq/">FAQ</a></li>
+
+</ul>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>Customer Reviews & Fence Installation Projects</h1>
+
+<p>See real fencing work completed by Twin Rivers LLC across Sacramento, Elk Grove, Roseville, and Northern California. Read what homeowners are saying about our fence installation and repair services.</p>
+
+</section>
+
+<div class="content-section">
+
+<h2 class="section-title">Customer Reviews & Completed Projects</h2>
+
+<div class="testimonial-entry">
+<h3>Wood Privacy Fence Installation — Elk Grove</h3>
+<p class="project-meta">Location: Elk Grove, CA | Fence Type: Cedar Privacy Fence</p>
+<p>Installed approximately 120 feet of cedar privacy fencing along a backyard property line replacing an aging fence damaged during winter storms. Project included custom gate installation and was completed in two days.</p>
+<blockquote>"The new fence completely transformed our backyard and the crew finished the work quickly. Very professional installation."</blockquote>
+<span class="reviewer">— Mark J., Elk Grove</span>
+</div>
+
+<div class="testimonial-entry">
+<h3>Fence Repair — Roseville</h3>
+<p class="project-meta">Location: Roseville, CA | Fence Type: Wood Fence Repair</p>
+<p>Repaired leaning fence posts and replaced damaged panels after storm damage. Reinforced weak sections and reset posts in concrete to prevent future issues.</p>
+<blockquote>"They fixed our fence quickly and it's holding up great. Very reasonable pricing for the repair work."</blockquote>
+<span class="reviewer">— Amanda R., Roseville</span>
+</div>
+
+<div class="testimonial-entry">
+<h3>Vinyl Fence Installation — Folsom</h3>
+<p class="project-meta">Location: Folsom, CA | Fence Type: White Vinyl Privacy Fence</p>
+<p>Installed 85 feet of white vinyl privacy fencing for backyard. Low-maintenance vinyl provides long-term durability without the need for staining or painting.</p>
+<blockquote>"We love the vinyl fence. It looks great and we don't have to worry about maintenance. Best decision we made."</blockquote>
+<span class="reviewer">— Daniel K., Folsom</span>
+</div>
+
+<div class="testimonial-entry">
+<h3>Gate Installation — Sacramento</h3>
+<p class="project-meta">Location: Sacramento, CA | Fence Type: Wood Gate with Hardware</p>
+<p>Installed custom wood gate with heavy-duty hardware for side yard access. Gate designed to match existing fence style with reinforced frame.</p>
+<blockquote>"The gate works perfectly and matches our fence. Installation was done professionally and on schedule."</blockquote>
+<span class="reviewer">— Robert M., Sacramento</span>
+</div>
+
+<div class="testimonial-entry">
+<h3>Fence Replacement — Rocklin</h3>
+<p class="project-meta">Location: Rocklin, CA | Fence Type: Cedar Wood Fence</p>
+<p>Removed old deteriorating wood fence and installed new cedar fencing with custom gate. Project included removal of old materials and post installation with concrete footings.</p>
+<blockquote>"The new fence looks amazing. They handled everything from removal to cleanup. Very satisfied with the work."</blockquote>
+<span class="reviewer">— Laura S., Rocklin</span>
+</div>
+
+<div class="testimonial-entry">
+<h3>Chain Link Fence — Auburn</h3>
+<p class="project-meta">Location: Auburn, CA | Fence Type: Galvanized Chain Link</p>
+<p>Installed chain link fencing around residential property for pet containment. Heavy-duty galvanized posts and fabric with privacy slats for partial screening.</p>
+<blockquote>"Perfect for keeping our dogs safe. The fence is sturdy and the installation was completed in one day."</blockquote>
+<span class="reviewer">— Jennifer T., Auburn</span>
+</div>
+
+<div class="testimonial-entry">
+<h3>Backyard Fence — Grass Valley</h3>
+<p class="project-meta">Location: Grass Valley, CA | Fence Type: Cedar Wood Fence</p>
+<p>Installed cedar fence along property boundary. Worked with neighbor to ensure proper placement and shared cost agreement. Survey completed before installation.</p>
+<blockquote>"Twin Rivers handled the coordination with our neighbor and made the whole process easy."</blockquote>
+<span class="reviewer">— Michael P., Grass Valley</span>
+</div>
+
+<div class="testimonial-entry">
+<h3>Fence Repair — Citrus Heights</h3>
+<p class="project-meta">Location: Citrus Heights, CA | Fence Type: Wood Fence Repair</p>
+<p>Repaired leaning fence posts and replaced damaged panels. Posts were reset in concrete and damaged boards were replaced with matching cedar.</p>
+<blockquote>"Our fence was leaning badly. They fixed it properly and it's been solid ever since."</blockquote>
+<span class="reviewer">— Sarah W., Citrus Heights</span>
+</div>
+
+<div class="testimonial-entry">
+<h3>Wood Fence Installation — Nevada City</h3>
+<p class="project-meta">Location: Nevada City, CA | Fence Type: Cedar Privacy Fence</p>
+<p>Installed wood fence around front yard perimeter. Design complements home's rustic style. Fence height kept at 4 feet to comply with front yard regulations.</p>
+<blockquote>"The fence fits perfectly with our property. Great craftsmanship and attention to detail."</blockquote>
+<span class="reviewer">— Karen H., Nevada City</span>
+</div>
+
+<div class="testimonial-entry">
+<h3>Fence Replacement — Lincoln</h3>
+<p class="project-meta">Location: Lincoln, CA | Fence Type: Redwood Privacy Fence</p>
+<p>Replaced aging backyard fence with new redwood privacy fencing. Installation included removal of old fence and installation of reinforced posts with concrete footings.</p>
+<blockquote>"The new fence looks professional and was installed quickly. Very happy with the quality of work."</blockquote>
+<span class="reviewer">— David L., Lincoln</span>
+</div>
+
+</div>
+
+<section class="testimonials-section">
+
+<h2 class="section-title">What Homeowners Are Saying</h2>
+
+<div class="testimonial-grid">
+
+<div class="testimonial-card">
+<p>"We had about 130 feet of old fence replaced after storm damage last year. Twin Rivers walked the property with us and helped redesign the gate so it opened properly with our driveway slope. Install took two days and the new cedar fence feels much sturdier than what we had before."</p>
+<span class="reviewer">— Mark Jensen, Roseville Homeowner</span>
+</div>
+
+<div class="testimonial-card">
+<p>"Our backyard fence was leaning badly and a section had completely collapsed. They repaired the damaged posts and replaced the panels without needing to rebuild the entire fence, which saved us a lot of money. The repair has held up perfectly through two winters now."</p>
+<span class="reviewer">— Amanda Ruiz, Citrus Heights</span>
+</div>
+
+<div class="testimonial-card">
+<p>"We installed a new privacy fence along the back of our property. The crew was professional and finished the install faster than expected. Everything was cleaned up before they left and the fence looks great. Our neighbors have asked for their contact info."</p>
+<span class="reviewer">— Daniel K., Folsom</span>
+</div>
+
+<div class="testimonial-card">
+<p>"We needed a gate replacement and some fence repairs before selling our house. The work was solid and the fence ended up being one of the things buyers commented on during showings. Very happy we went with Twin Rivers for the work."</p>
+<span class="reviewer">— Laura Simmons, Elk Grove</span>
+</div>
+
+<div class="testimonial-card">
+<p>"They installed a cedar fence for our backyard and it turned out better than we expected. The wood quality is excellent and the installation was done right. We've had the fence for over a year now and it still looks brand new."</p>
+<span class="reviewer">— Robert Martinez, Sacramento</span>
+</div>
+
+<div class="testimonial-card">
+<p>"We had chain link fencing installed around our property for our dogs. The fence is sturdy and the gates work smoothly. Installation was completed in one day and the crew was respectful of our property."</p>
+<span class="reviewer">— Jennifer Thompson, Auburn</span>
+</div>
+
+<div class="testimonial-card">
+<p>"Our fence was damaged during a storm and needed immediate repair. They came out quickly, assessed the damage, and had it fixed within a few days. The repaired section blends perfectly with the rest of the fence."</p>
+<span class="reviewer">— Michael Peterson, Grass Valley</span>
+</div>
+
+<div class="testimonial-card">
+<p>"We chose vinyl fencing for low maintenance and it was the right decision. Twin Rivers installed it professionally and it's held up perfectly. No painting, no staining, just occasional cleaning. Highly recommend."</p>
+<span class="reviewer">— Sarah Williams, Rocklin</span>
+</div>
+
+</div>
+
+</section>
+
+<section class="gallery-section">
+
+<h2 class="section-title">Fence Installation Gallery</h2>
+
+<div class="gallery-grid">
+
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=400" alt="Wood fence installation">
+</div>
+
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400" alt="Chain link fence">
+</div>
+
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" alt="Vinyl fence installation">
+</div>
+
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1585128792020-803d29415281?w=400" alt="Privacy fence">
+</div>
+
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400" alt="Gate installation">
+</div>
+
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400" alt="Backyard fence">
+</div>
+
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400" alt="Property line fence">
+</div>
+
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400" alt="Fence repair">
+</div>
+
+</div>
+
+</section>
+
+<section class="cta-section">
+
+<h2>Need a Fence Installation Quote?</h2>
+
+<p>Twin Rivers LLC provides free fence installation quotes for homeowners and businesses throughout Sacramento and Northern California. Contact us today to discuss your fencing project.</p>
+
+<a href="tel:+19169062254" class="cta-button">Call 916-906-2254</a>
+
+</section>
+
+<!-- Contact Modal -->
+<div id="contactModal" class="contact-modal">
+<div class="contact-modal-content">
+
+<span class="close-contact">&times;</span>
+
+<h2>Contact Twin Rivers LLC</h2>
+
+<form id="contactForm">
+
+<label>Name</label>
+<input type="text" name="name" placeholder="Your name">
+
+<label>Phone Number</label>
+<input type="tel" name="phone" placeholder="Your phone number" required>
+
+<label>Email</label>
+<input type="email" name="email" placeholder="Your email">
+
+<label>Description</label>
+<textarea name="description" rows="4" placeholder="Describe your project"></textarea>
+
+<button type="submit">Send Request</button>
+
+</form>
+
+</div>
+</div>
+
+<footer>
+
+<p>Twin Rivers LLC</p>
+<p>Sacramento Region • Northern California</p>
+<p>Licensed Contractor #1089233</p>
+
+</footer>
+
+<script>
+
+// Contact Modal
+const modal = document.getElementById("contactModal");
+const btn = document.getElementById("openContactForm");
+const closeBtn = document.querySelector(".close-contact");
+
+if(btn){
+btn.onclick = function() {
+modal.style.display = "block";
+}
+}
+
+if(closeBtn){
+closeBtn.onclick = function() {
+modal.style.display = "none";
+}
+}
+
+window.onclick = function(event) {
+if (event.target == modal) {
+modal.style.display = "none";
+}
+}
+
+</script>
+
+</body>
+</html>

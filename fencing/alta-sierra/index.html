@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Fence Installation in Alta Sierra, CA | Twin Rivers LLC</title>
+
+<meta name="description" content="Twin Rivers LLC provides fence installation, fence repair, and property improvement services for homeowners in Alta Sierra, California. Get a free quote today.">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"FenceContractor",
+"name":"Twin Rivers LLC",
+"areaServed":"Alta Sierra, California",
+"serviceType":"Fence Installation and Repair",
+"telephone":"+1-916-906-2254",
+"address":{
+"@type":"PostalAddress",
+"addressLocality":"Alta Sierra",
+"addressRegion":"CA",
+"addressCountry":"US"
+}
+}
+</script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Inter',sans-serif;
+background:#0f1117;
+color:#eee;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+header{
+position:fixed;
+width:100%;
+background:rgba(10,10,10,.75);
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+
+nav{
+max-width:1200px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+}
+
+nav h2{
+color:white;
+}
+
+nav h2 a{
+color:white;
+text-decoration:none;
+}
+
+nav ul {
+display:flex;
+list-style:none;
+}
+
+nav li {
+position:relative;
+margin-left:25px;
+}
+
+nav a {
+display:block;
+padding:12px 15px;
+color:white;
+text-decoration:none;
+transition:color .2s ease;
+}
+
+nav a:hover {
+color:#ff7b00;
+}
+
+nav li ul {
+position:absolute;
+top:100%;
+left:0;
+background:#1c1f2a;
+border-radius:6px;
+min-width:220px;
+opacity:0;
+visibility:hidden;
+transform:translateY(10px);
+transition:all .25s ease;
+pointer-events:none;
+z-index:1001;
+display:grid;
+grid-template-columns:repeat(3, auto);
+gap:10px 40px;
+padding:15px 20px;
+}
+
+nav li:hover > ul,
+nav li ul:hover {
+opacity:1;
+visibility:visible;
+transform:translateY(0);
+pointer-events:auto;
+}
+
+nav li ul li {
+margin:0;
+}
+
+nav li ul li a {
+padding:8px 12px;
+white-space:nowrap;
+}
+
+nav li ul li a:hover {
+background:#ff7b00;
+border-radius:4px;
+}
+
+.nav-phone {
+color:#ff7b00;
+font-weight:bold;
+text-decoration:none;
+margin-left:30px;
+}
+
+.nav-phone:hover {
+text-decoration:underline;
+}
+
+/* HERO */
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+position:relative;
+width:100%;
+background:url("https://images.unsplash.com/photo-1503387762-592deb58ef4e");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+.hero::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.55);
+z-index:0;
+}
+
+.hero > *{
+position:relative;
+z-index:1;
+}
+
+.hero h1{
+font-size:60px;
+margin-top:15px;
+}
+
+.hero p{
+font-size:22px;
+opacity:.9;
+max-width:800px;
+margin:0 auto;
+}
+
+.cta{
+margin-top:25px;
+background:#ff7b00;
+padding:14px 30px;
+border-radius:6px;
+color:white;
+text-decoration:none;
+font-weight:600;
+transition:all .3s ease;
+cursor:pointer;
+display:inline-block;
+}
+
+.cta:hover{
+background:#ff8c1a;
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(255,123,0,.4);
+}
+
+/* LOGO */
+
+.logo svg{
+width:120px;
+margin-bottom:15px;
+}
+
+/* SECTIONS */
+
+.content-section{
+max-width:1200px;
+margin:0 auto;
+padding:80px 20px;
+}
+
+.content-section h2{
+font-size:32px;
+margin-bottom:20px;
+color:#fff;
+}
+
+.content-section p{
+font-size:18px;
+line-height:1.8;
+margin-bottom:20px;
+color:#d0d0d0;
+}
+
+.content-section ul{
+margin:20px 0;
+padding-left:20px;
+}
+
+.content-section ul li{
+margin:10px 0;
+line-height:1.6;
+}
+
+.content-section a{
+color:#ff7b00;
+text-decoration:none;
+}
+
+.content-section a:hover{
+text-decoration:underline;
+}
+
+.section{
+width:100%;
+padding:100px 20px;
+position:relative;
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+.section::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.55);
+z-index:0;
+}
+
+.section > *{
+position:relative;
+z-index:1;
+max-width:1200px;
+margin:auto;
+}
+
+.section h2{
+text-align:center;
+margin-bottom:50px;
+font-size:36px;
+}
+
+.section p{
+font-size:18px;
+line-height:1.8;
+text-align:center;
+max-width:800px;
+margin:0 auto 30px;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+}
+
+.card{
+background:rgba(255,255,255,.05);
+border-radius:12px;
+padding:30px;
+border:1px solid rgba(255,255,255,.08);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+border:1px solid #ff7b00;
+}
+
+/* FAQ */
+
+.faq-item{
+background:#141414;
+padding:25px;
+border-radius:8px;
+margin-bottom:20px;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.faq-item h3{
+font-size:20px;
+margin-bottom:12px;
+color:#ff7b00;
+}
+
+.faq-item p{
+line-height:1.7;
+color:#d0d0d0;
+}
+
+/* CITY LINKS */
+
+.city-links{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:15px;
+margin-top:30px;
+}
+
+.city-links a{
+background:#1c1f2a;
+padding:15px;
+border-radius:6px;
+text-align:center;
+color:#fff;
+text-decoration:none;
+transition:all .3s ease;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.city-links a:hover{
+background:#ff7b00;
+transform:translateY(-2px);
+}
+
+/* QUOTE FORM */
+
+.quote-form{
+max-width:600px;
+margin:0 auto;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.quote-form input,
+.quote-form textarea{
+padding:15px;
+border-radius:8px;
+border:1px solid rgba(255,255,255,.2);
+background:rgba(255,255,255,.05);
+color:#eee;
+font-family:'Inter',sans-serif;
+font-size:16px;
+transition:all .3s ease;
+}
+
+.quote-form input:focus,
+.quote-form textarea:focus{
+outline:none;
+border-color:#ff7b00;
+background:rgba(255,255,255,.08);
+}
+
+.quote-form textarea{
+min-height:150px;
+resize:vertical;
+}
+
+.quote-form button{
+padding:15px 30px;
+background:#ff7b00;
+color:white;
+border:none;
+border-radius:8px;
+font-weight:600;
+font-size:16px;
+cursor:pointer;
+transition:all .3s ease;
+}
+
+.quote-form button:hover{
+background:#ff8c1a;
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(255,123,0,.4);
+}
+
+.residential-fencing,
+.commercial-fencing,
+.affordable-pricing{
+background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.9)),
+url("https://images.unsplash.com/photo-1585128792020-803d29415281?w=1600");
+background-size:cover;
+background-position:center;
+padding:100px 20px;
+text-align:center;
+}
+
+.residential-fencing h2,
+.commercial-fencing h2,
+.affordable-pricing h2{
+margin-bottom:20px;
+font-size:32px;
+}
+
+.residential-fencing p,
+.commercial-fencing p,
+.affordable-pricing p{
+max-width:800px;
+margin:12px auto;
+line-height:1.7;
+color:#e0e0e0;
+font-size:18px;
+}
+
+/* FOOTER */
+
+footer{
+background:#090b10;
+text-align:center;
+padding:50px;
+margin-top:80px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<nav>
+
+<h2><a href="/">Twin Rivers</a></h2>
+
+<a href="tel:+19169062254" class="nav-phone">916-906-2254</a>
+
+<ul>
+
+<li><a href="#">Fencing</a>
+<ul>
+<li><a href="/fencing/elk-grove">Elk Grove</a></li>
+<li><a href="/fencing/alta-sierra">Alta Sierra</a></li>
+<li><a href="/fencing/roseville">Roseville</a></li>
+<li><a href="/fencing/rocklin">Rocklin</a></li>
+<li><a href="/fencing/lincoln">Lincoln</a></li>
+<li><a href="/fencing/folsom">Folsom</a></li>
+<li><a href="/fencing/auburn">Auburn</a></li>
+<li><a href="/fencing/grass-valley">Grass Valley</a></li>
+<li><a href="/fencing/nevada-city">Nevada City</a></li>
+<li><a href="/fencing/penn-valley">Penn Valley</a></li>
+<li><a href="/fencing/alta-sierra">Alta Sierra</a></li>
+<li><a href="/fencing/north-san-juan">North San Juan</a></li>
+<li><a href="/fencing/chicago-park">Chicago Park</a></li>
+<li><a href="/fencing/rough-and-ready">Rough and Ready</a></li>
+<li><a href="/fencing/lake-wildwood">Lake Wildwood</a></li>
+</ul>
+</li>
+
+<li><a href="#">Property Improvement</a>
+<ul>
+<li><a href="/property-improvement/deck-installation">Deck Installation</a></li>
+<li><a href="/property-improvement/gate-installation">Gate Installation</a></li>
+<li><a href="/property-improvement/fence-repair">Fence Repair</a></li>
+<li><a href="/property-improvement/property-upgrades">Property Upgrades</a></li>
+<li><a href="/property-improvement/yard-improvements">Yard Improvements</a></li>
+</ul>
+</li>
+
+<li><a href="/#areas">Service Areas</a></li>
+<li><a href="/#faq">FAQ</a></li>
+
+</ul>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<div class="logo">
+
+<svg viewBox="0 0 200 80">
+
+<path d="M0 40 Q40 10 80 40 T160 40 T240 40"
+stroke="#ff7b00" stroke-width="4" fill="none"/>
+
+<path d="M0 50 Q40 20 80 50 T160 50 T240 50"
+stroke="#4db8ff" stroke-width="4" fill="none"/>
+
+</svg>
+
+</div>
+
+<h1>Fence Installation in Alta Sierra, California</h1>
+
+<p>Twin Rivers LLC provides professional fence installation, fence repair, and property improvement services for homeowners in Alta Sierra, CA and surrounding communities.</p>
+
+<a class="cta" href="#contact">Get a Free Quote</a>
+
+</section>
+
+<div class="content-section">
+
+<h2>Fence Installation in Alta Sierra</h2>
+
+<p>Twin Rivers LLC installs durable fencing systems designed for privacy, security, and long-term reliability for properties throughout Alta Sierra. Whether you need a new boundary fence, privacy fence, or decorative fencing, our team works with homeowners to design and install fencing solutions that match your property and budget.</p>
+
+<h2>Fence Repair in Alta Sierra</h2>
+
+<p>Older fences often require repairs due to weather damage, leaning posts, or worn panels. We repair fences across Alta Sierra to restore strength and appearance. Our fence repair services include post replacement, panel repair, gate repair, and structural reinforcement.</p>
+
+<h2>Wood Fence Installation</h2>
+
+<p>Wood fences remain one of the most popular choices for homeowners in Alta Sierra due to their natural look and strong privacy. Twin Rivers LLC installs cedar, redwood, and pressure-treated wood fencing designed to withstand California weather conditions.</p>
+
+<h2>Chain Link Fence Installation</h2>
+
+<p>Chain link fencing provides durable, low-maintenance boundary protection for residential and commercial properties in Alta Sierra. We install galvanized and vinyl-coated chain link fencing for yards, dog runs, and perimeter security.</p>
+
+<h2>Serving Homeowners in Alta Sierra</h2>
+
+<p>Twin Rivers LLC proudly serves homeowners throughout Alta Sierra, CA and nearby communities across the Alta Sierra region including:</p>
+
+<div class="city-links">
+<a href="/fencing/elk-grove/">Elk Grove</a>
+<a href="/fencing/roseville/">Roseville</a>
+<a href="/fencing/folsom/">Folsom</a>
+<a href="/fencing/citrus-heights/">Citrus Heights</a>
+<a href="/fencing/rancho-cordova/">Rancho Cordova</a>
+<a href="/fencing/fair-oaks/">Fair Oaks</a>
+</div>
+
+<h2>Fence Installation FAQ – Alta Sierra</h2>
+
+<div class="faq-item">
+<h3>How much does fence installation cost in Alta Sierra?</h3>
+<p>Fence installation costs in Alta Sierra depend on factors such as fence type, property size, and material selection. Wood fences typically range from $20-$40 per linear foot, while vinyl and chain link fencing may vary. Contact Twin Rivers LLC for a free estimate based on your specific project.</p>
+</div>
+
+<div class="faq-item">
+<h3>Do I need a permit for a fence in Alta Sierra?</h3>
+<p>Fence permit requirements in Alta Sierra may depend on fence height, property zoning, and local regulations. Most residential fences under 6 feet do not require permits, but it's recommended to check with the Alta Sierra Building Department before installation.</p>
+</div>
+
+<div class="faq-item">
+<h3>How long does fence installation take?</h3>
+<p>Most residential fence installations are completed within one to three days depending on the size of the project. Larger properties or complex installations may require additional time. Twin Rivers LLC provides project timelines during the estimate process.</p>
+</div>
+
+<div class="faq-item">
+<h3>What type of fence is best for Alta Sierra weather?</h3>
+<p>Alta Sierra's climate features hot, dry summers and mild, wet winters. Cedar and redwood fences perform well due to their natural resistance to rot and insects. Vinyl fencing is also popular for its low maintenance and durability in varying weather conditions.</p>
+</div>
+
+<h2>Related Services</h2>
+
+<p>Twin Rivers LLC offers a full range of fencing and property improvement services:</p>
+
+<ul>
+<li><a href="/property-improvement/fence-repair/">Fence Repair</a></li>
+<li><a href="/property-improvement/gate-installation/">Gate Installation</a></li>
+<li><a href="/property-improvement/deck-installation/">Deck Installation</a></li>
+<li><a href="/property-improvement/property-upgrades/">Property Upgrades</a></li>
+</ul>
+
+</div>
+
+<section class="residential-fencing">
+
+<h2>Residential Fence Installation in Alta Sierra</h2>
+
+<p>
+Twin Rivers LLC installs residential fencing for homeowners across Alta Sierra, helping improve privacy, security, and property appearance.
+</p>
+
+<p>
+Popular residential fencing options include wood privacy fences, decorative fencing, and boundary fencing designed to complement the surrounding property and neighborhood.
+</p>
+
+<p>
+Our team works with homeowners in Alta Sierra to design fencing systems that provide long-term durability and enhance outdoor living spaces.
+</p>
+
+</section>
+
+<section class="commercial-fencing">
+
+<h2>Commercial Fence Installation in Alta Sierra</h2>
+
+<p>
+Twin Rivers LLC also provides fencing installation and repair services for commercial properties in Alta Sierra, including businesses, industrial properties, and multi-unit developments.
+</p>
+
+<p>
+Commercial fencing solutions often include chain link fencing, security fencing, and property boundary fencing designed to protect assets and control property access.
+</p>
+
+<p>
+Our team works with property managers and business owners throughout Alta Sierra to install durable fencing systems that meet security and operational needs.
+</p>
+
+</section>
+
+<section class="affordable-pricing">
+
+<h2>Affordable Fence Installation in Alta Sierra</h2>
+
+<p>
+Twin Rivers LLC provides high-quality fencing services at competitive and affordable prices for homeowners and businesses in Alta Sierra, California.
+</p>
+
+<p>
+Fence installation costs depend on factors such as fence material, property size, and installation complexity. Our team works with property owners across Alta Sierra to find durable fencing solutions that deliver long-term value while staying within budget.
+</p>
+
+<p>
+Contact Twin Rivers LLC today to request a free quote and learn more about affordable fencing options available in Alta Sierra.
+</p>
+
+</section>
+
+<section id="contact" class="section">
+
+<h2>Get a Fence Quote in Alta Sierra</h2>
+
+<p>Twin Rivers LLC provides fence installation and repair services throughout Alta Sierra, CA. Contact us today to request a quote for your project.</p>
+
+<form action="/api/send-quote.php" method="POST" class="quote-form">
+
+<input type="text" name="name" placeholder="Your Name" required>
+
+<input type="tel" name="phone" placeholder="Phone Number" required>
+
+<input type="email" name="email" placeholder="Email Address" required>
+
+<textarea name="message" placeholder="Describe your fencing project in Alta Sierra" required></textarea>
+
+<button type="submit">Request Free Quote</button>
+
+</form>
+
+</section>
+
+<footer>
+
+<p>Twin Rivers LLC</p>
+
+<p>
+Alta Sierra • Elk Grove • Roseville • Folsom • Citrus Heights
+</p>
+
+<p>Licensed Contractor #1089233</p>
+
+</footer>
+
+</body>
+</html>

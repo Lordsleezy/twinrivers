@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Fence Installation & Repair Services | Twin Rivers LLC</title>
+
+<meta name="description" content="Twin Rivers LLC provides professional fence installation, repair, and property improvement services across Sacramento and Northern California. Explore our services.">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Inter',sans-serif;
+background:#0f1117;
+color:#eee;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+header{
+position:fixed;
+width:100%;
+background:rgba(10,10,10,.75);
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+
+nav{
+max-width:1200px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+}
+
+nav h2{
+color:white;
+}
+
+nav h2 a{
+color:white;
+text-decoration:none;
+}
+
+nav ul {
+display:flex;
+list-style:none;
+}
+
+nav li {
+position:relative;
+margin-left:25px;
+}
+
+nav a {
+display:block;
+padding:12px 15px;
+color:white;
+text-decoration:none;
+transition:color .2s ease;
+}
+
+nav a:hover {
+color:#ff7b00;
+}
+
+nav li ul {
+position:absolute;
+top:100%;
+left:0;
+background:#1c1f2a;
+border-radius:6px;
+min-width:220px;
+opacity:0;
+visibility:hidden;
+transform:translateY(10px);
+transition:all .25s ease;
+pointer-events:none;
+z-index:1001;
+display:grid;
+grid-template-columns:repeat(3, auto);
+gap:10px 40px;
+padding:15px 20px;
+}
+
+nav li:hover > ul,
+nav li ul:hover {
+opacity:1;
+visibility:visible;
+transform:translateY(0);
+pointer-events:auto;
+}
+
+nav li ul li {
+margin:0;
+}
+
+nav li ul li a {
+padding:8px 12px;
+white-space:nowrap;
+}
+
+nav li ul li a:hover {
+background:#ff7b00;
+border-radius:4px;
+}
+
+.nav-phone {
+color:#ff7b00;
+font-weight:bold;
+text-decoration:none;
+margin-left:30px;
+}
+
+.nav-phone:hover {
+text-decoration:underline;
+}
+
+.hero{
+height:70vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+position:relative;
+width:100%;
+background:url("https://images.unsplash.com/photo-1503387762-592deb58ef4e");
+background-size:cover;
+background-position:center;
+}
+
+.hero::before{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.6);
+z-index:0;
+}
+
+.hero > *{
+position:relative;
+z-index:1;
+}
+
+.hero h1{
+font-size:52px;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:20px;
+opacity:.9;
+max-width:800px;
+margin:0 auto;
+line-height:1.7;
+}
+
+.content-section{
+max-width:1200px;
+margin:0 auto;
+padding:80px 20px;
+}
+
+.section-title{
+text-align:center;
+font-size:36px;
+margin-bottom:50px;
+color:#fff;
+}
+
+.services-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
+margin-bottom:80px;
+}
+
+.service-card{
+background:#141414;
+border-radius:12px;
+padding:35px;
+border:1px solid rgba(255,255,255,0.08);
+transition:all .3s ease;
+text-align:center;
+}
+
+.service-card:hover{
+transform:translateY(-8px);
+border-color:#ff7b00;
+box-shadow:0 10px 30px rgba(255,123,0,0.2);
+}
+
+.service-card h3{
+font-size:24px;
+margin-bottom:15px;
+color:#fff;
+}
+
+.service-card p{
+font-size:16px;
+line-height:1.6;
+color:#d0d0d0;
+margin-bottom:25px;
+}
+
+.service-button{
+display:inline-block;
+background:#ff7b00;
+padding:12px 24px;
+border-radius:6px;
+color:white;
+text-decoration:none;
+font-weight:600;
+transition:all .3s ease;
+}
+
+.service-button:hover{
+background:#ff8c1a;
+transform:translateY(-2px);
+box-shadow:0 6px 15px rgba(255,123,0,.4);
+}
+
+.cities-section{
+background:linear-gradient(rgba(0,0,0,0.85),rgba(0,0,0,0.9)),
+url("https://images.unsplash.com/photo-1585128792020-803d29415281?w=1600");
+background-size:cover;
+background-position:center;
+padding:80px 20px;
+text-align:center;
+}
+
+.cities-section h2{
+font-size:36px;
+margin-bottom:20px;
+}
+
+.cities-section p{
+font-size:18px;
+max-width:700px;
+margin:0 auto 40px;
+color:#d0d0d0;
+line-height:1.7;
+}
+
+.cities-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+max-width:1000px;
+margin:0 auto;
+}
+
+.city-card{
+background:rgba(20,20,20,0.8);
+backdrop-filter:blur(4px);
+padding:20px;
+border-radius:8px;
+border:1px solid rgba(255,255,255,0.1);
+text-decoration:none;
+color:#fff;
+font-size:17px;
+font-weight:500;
+transition:all .3s ease;
+display:block;
+}
+
+.city-card:hover{
+background:rgba(30,30,30,0.9);
+border-color:#ff7b00;
+transform:translateY(-3px);
+}
+
+.cta-section{
+background:#0a0a0a;
+padding:80px 20px;
+text-align:center;
+}
+
+.cta-section h2{
+font-size:36px;
+margin-bottom:20px;
+}
+
+.cta-section p{
+font-size:18px;
+margin-bottom:30px;
+color:#d0d0d0;
+max-width:600px;
+margin-left:auto;
+margin-right:auto;
+}
+
+.cta-button{
+display:inline-block;
+background:#ff7b00;
+padding:16px 35px;
+border-radius:6px;
+color:white;
+text-decoration:none;
+font-weight:600;
+font-size:18px;
+transition:all .3s ease;
+}
+
+.cta-button:hover{
+background:#ff8c1a;
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(255,123,0,.4);
+}
+
+footer{
+background:#090b10;
+text-align:center;
+padding:50px;
+margin-top:0;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<nav>
+
+<h2><a href="/">Twin Rivers</a></h2>
+
+<a href="tel:+19169062254" class="nav-phone">916-906-2254</a>
+
+<ul>
+
+<li><a href="#">Fencing</a>
+<ul>
+<li><a href="/fencing/elk-grove">Elk Grove</a></li>
+<li><a href="/fencing/sacramento">Sacramento</a></li>
+<li><a href="/fencing/roseville">Roseville</a></li>
+<li><a href="/fencing/rocklin">Rocklin</a></li>
+<li><a href="/fencing/lincoln">Lincoln</a></li>
+<li><a href="/fencing/folsom">Folsom</a></li>
+<li><a href="/fencing/auburn">Auburn</a></li>
+<li><a href="/fencing/grass-valley">Grass Valley</a></li>
+<li><a href="/fencing/nevada-city">Nevada City</a></li>
+<li><a href="/fencing/penn-valley">Penn Valley</a></li>
+<li><a href="/fencing/alta-sierra">Alta Sierra</a></li>
+<li><a href="/fencing/north-san-juan">North San Juan</a></li>
+<li><a href="/fencing/chicago-park">Chicago Park</a></li>
+<li><a href="/fencing/rough-and-ready">Rough and Ready</a></li>
+<li><a href="/fencing/lake-wildwood">Lake Wildwood</a></li>
+</ul>
+</li>
+
+<li><a href="#">Services</a>
+<ul>
+<li><a href="/services/wood-fence-installation/">Wood Fence Installation</a></li>
+<li><a href="/services/chain-link-fence-installation/">Chain Link Fence Installation</a></li>
+<li><a href="/services/vinyl-fence-installation/">Vinyl Fence Installation</a></li>
+<li><a href="/services/privacy-fence-installation/">Privacy Fence Installation</a></li>
+<li><a href="/services/fence-repair/">Fence Repair</a></li>
+<li><a href="/services/gate-installation/">Gate Installation</a></li>
+</ul>
+</li>
+
+<li><a href="#">Property Improvement</a>
+<ul>
+<li><a href="/property-improvement/deck-installation">Deck Installation</a></li>
+<li><a href="/property-improvement/gate-installation">Gate Installation</a></li>
+<li><a href="/property-improvement/fence-repair">Fence Repair</a></li>
+<li><a href="/property-improvement/property-upgrades">Property Upgrades</a></li>
+<li><a href="/property-improvement/yard-improvements">Yard Improvements</a></li>
+</ul>
+</li>
+
+<li><a href="/#areas">Service Areas</a></li>
+<li><a href="/#testimonials">Testimonials</a></li>
+<li><a href="/#about">About Us</a></li>
+<li><a href="/faq/">FAQ</a></li>
+
+</ul>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>Fence Installation & Property Improvement Services</h1>
+
+<p>Twin Rivers LLC provides professional fence installation, repair, and property improvement services for homeowners and businesses across Sacramento and Northern California. Quality workmanship, durable materials, and reliable service.</p>
+
+</section>
+
+<div class="content-section">
+
+<h2 class="section-title">Our Services</h2>
+
+<div class="services-grid">
+
+<div class="service-card">
+<h3>Wood Fence Installation</h3>
+<p>Durable, classic wood fencing built for privacy and curb appeal. Cedar, redwood, and pressure-treated options available.</p>
+<a href="/services/wood-fence-installation/" class="service-button">Explore Wood Fence Installation</a>
+</div>
+
+<div class="service-card">
+<h3>Chain Link Fence Installation</h3>
+<p>Affordable, low-maintenance chain link fencing for residential and commercial properties. Galvanized and vinyl-coated options.</p>
+<a href="/services/chain-link-fence-installation/" class="service-button">Explore Chain Link Fencing</a>
+</div>
+
+<div class="service-card">
+<h3>Vinyl Fence Installation</h3>
+<p>Long-lasting vinyl fencing that requires minimal maintenance. Available in multiple styles and colors.</p>
+<a href="/services/vinyl-fence-installation/" class="service-button">Explore Vinyl Fence Installation</a>
+</div>
+
+<div class="service-card">
+<h3>Privacy Fence Installation</h3>
+<p>Maximum privacy fencing solutions for residential properties. Wood and vinyl privacy fence options available.</p>
+<a href="/services/privacy-fence-installation/" class="service-button">Explore Privacy Fencing</a>
+</div>
+
+<div class="service-card">
+<h3>Fence Repair</h3>
+<p>Professional fence repair services including post replacement, panel repair, and gate repair throughout the region.</p>
+<a href="/services/fence-repair/" class="service-button">Explore Fence Repair</a>
+</div>
+
+<div class="service-card">
+<h3>Gate Installation</h3>
+<p>Custom gate installation for residential and commercial properties. Manual and automated gate options available.</p>
+<a href="/services/gate-installation/" class="service-button">Explore Gate Installation</a>
+</div>
+
+</div>
+
+</div>
+
+<section class="cities-section">
+
+<h2>Fence Services Across Northern California</h2>
+
+<p>Twin Rivers LLC provides fence installation and repair services throughout the greater Sacramento region and Northern California. Select your city to learn more about local fencing services.</p>
+
+<div class="cities-grid">
+
+<a href="/fencing/sacramento/" class="city-card">Sacramento</a>
+<a href="/fencing/elk-grove/" class="city-card">Elk Grove</a>
+<a href="/fencing/roseville/" class="city-card">Roseville</a>
+<a href="/fencing/folsom/" class="city-card">Folsom</a>
+<a href="/fencing/rocklin/" class="city-card">Rocklin</a>
+<a href="/fencing/citrus-heights/" class="city-card">Citrus Heights</a>
+<a href="/fencing/grass-valley/" class="city-card">Grass Valley</a>
+<a href="/fencing/nevada-city/" class="city-card">Nevada City</a>
+<a href="/fencing/auburn/" class="city-card">Auburn</a>
+<a href="/fencing/lincoln/" class="city-card">Lincoln</a>
+<a href="/fencing/penn-valley/" class="city-card">Penn Valley</a>
+<a href="/fencing/lake-wildwood/" class="city-card">Lake Wildwood</a>
+
+</div>
+
+</section>
+
+<section class="cta-section">
+
+<h2>Get a Fence Installation Quote</h2>
+
+<p>Twin Rivers LLC provides free fence installation quotes for homeowners and businesses throughout Sacramento and Northern California. Contact us today to discuss your fencing project.</p>
+
+<a href="tel:+19169062254" class="cta-button">Call 916-906-2254</a>
+
+</section>
+
+<footer>
+
+<p>Twin Rivers LLC</p>
+<p>Sacramento Region • Northern California</p>
+<p>Licensed Contractor #1089233</p>
+
+</footer>
+
+</body>
+</html>

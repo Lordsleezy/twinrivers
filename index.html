@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Twin Rivers | Fencing & Property Services</title>
+
+<meta name="description" content="Twin Rivers provides professional fencing, handyman services, and property improvements across Sacramento, Auburn, Grass Valley and surrounding Northern California communities.">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Inter',sans-serif;
+background:#0f1117;
+color:#eee;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+header{
+position:fixed;
+width:100%;
+background:rgba(10,10,10,.75);
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+
+nav{
+max-width:1200px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+}
+
+nav h2{
+color:white;
+}
+
+nav ul {
+display:flex;
+list-style:none;
+}
+
+nav li {
+position:relative;
+margin-left:25px;
+}
+
+nav a {
+display:block;
+padding:12px 15px;
+color:white;
+text-decoration:none;
+transition:color .2s ease;
+}
+
+nav a:hover {
+color:#ff7b00;
+}
+
+nav li ul {
+position:absolute;
+top:100%;
+left:0;
+background:#1c1f2a;
+border-radius:6px;
+min-width:220px;
+opacity:0;
+visibility:hidden;
+transform:translateY(10px);
+transition:all .25s ease;
+pointer-events:none;
+z-index:1001;
+display:grid;
+grid-template-columns:repeat(3, auto);
+gap:10px 40px;
+padding:15px 20px;
+}
+
+nav li:hover > ul,
+nav li ul:hover {
+opacity:1;
+visibility:visible;
+transform:translateY(0);
+pointer-events:auto;
+}
+
+nav li ul li {
+margin:0;
+}
+
+nav li ul li a {
+padding:8px 12px;
+white-space:nowrap;
+}
+
+nav li ul li a:hover {
+background:#ff7b00;
+border-radius:4px;
+}
+
+.nav-phone {
+color:#ff7b00;
+font-weight:bold;
+text-decoration:none;
+margin-left:30px;
+}
+
+.nav-phone:hover {
+text-decoration:underline;
+}
+
+/* HERO */
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+position:relative;
+width:100%;
+background:url("https://images.unsplash.com/photo-1503387762-592deb58ef4e");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+.hero::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.55);
+z-index:0;
+}
+
+.hero > *{
+position:relative;
+z-index:1;
+}
+
+.hero h1{
+font-size:60px;
+margin-top:15px;
+}
+
+.hero p{
+font-size:22px;
+opacity:.9;
+}
+
+.cta{
+margin-top:25px;
+background:#ff7b00;
+padding:14px 30px;
+border-radius:6px;
+color:white;
+text-decoration:none;
+font-weight:600;
+transition:all .3s ease;
+cursor:pointer;
+display:inline-block;
+}
+
+.cta:hover{
+background:#ff8c1a;
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(255,123,0,.4);
+}
+
+/* LOGO */
+
+.logo svg{
+width:120px;
+margin-bottom:15px;
+}
+
+/* SECTIONS */
+
+.section{
+width:100%;
+padding:100px 20px;
+position:relative;
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+.section::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.55);
+z-index:0;
+}
+
+.section > *{
+position:relative;
+z-index:1;
+max-width:1200px;
+margin:auto;
+}
+
+.section h2{
+text-align:center;
+margin-bottom:50px;
+font-size:36px;
+}
+
+.section:nth-of-type(2){
+background-image:url("https://images.unsplash.com/photo-1581093458791-9f3c3f9c2c3d");
+}
+
+.section:nth-of-type(4){
+background-image:url("https://images.unsplash.com/photo-1504307651254-35680f356dfd");
+}
+
+.section:nth-of-type(5){
+background-image:url("https://images.unsplash.com/photo-1581093458791-9f3c3f9c2c3d");
+}
+
+.section:nth-of-type(6){
+background-image:url("https://images.unsplash.com/photo-1504307651254-35680f356dfd");
+}
+
+.section:nth-of-type(7){
+background-image:url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c");
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+}
+
+.card{
+background:rgba(255,255,255,.05);
+border-radius:12px;
+padding:30px;
+border:1px solid rgba(255,255,255,.08);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+border:1px solid #ff7b00;
+}
+
+/* PARALLAX */
+
+.parallax{
+background:rgba(0,0,0,.3);
+padding:120px 20px;
+text-align:center;
+position:relative;
+}
+
+/* REVIEWS */
+
+.reviews{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+}
+
+.review{
+background:#171922;
+padding:25px;
+border-radius:10px;
+}
+
+/* AREAS */
+
+.area-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:12px;
+}
+
+.area-grid div{
+background:#1c1f2a;
+padding:10px;
+border-radius:6px;
+text-align:center;
+}
+
+/* MAP */
+
+.map iframe{
+width:100%;
+height:400px;
+border:0;
+border-radius:10px;
+}
+
+.service-area-blocks{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:12px;
+max-width:900px;
+margin-top:30px;
+}
+
+.service-area-block{
+background:rgba(0,0,0,0.65);
+padding:10px 16px;
+border-radius:6px;
+font-size:14px;
+color:#ffffff;
+text-decoration:none;
+border:1px solid rgba(255,255,255,0.25);
+transition:all .2s ease;
+}
+
+.service-area-block:hover{
+background:rgba(0,0,0,0.9);
+transform:translateY(-2px);
+border-color:#ffffff;
+}
+
+.service-areas{
+min-height:420px;
+padding:80px 20px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.about-section{
+background:
+linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.85)),
+url("https://images.unsplash.com/photo-1585128792020-803d29415281?w=1600");
+background-size:cover;
+background-position:center;
+padding:100px 20px;
+width:100%;
+}
+
+.about-container{
+max-width:900px;
+margin:auto;
+text-align:center;
+}
+
+.about-section h2{
+margin-bottom:30px;
+font-size:32px;
+}
+
+.about-section h2::after{
+content:"";
+display:block;
+width:60px;
+height:2px;
+background:#ff7a00;
+margin:15px auto 0 auto;
+}
+
+.about-section p{
+line-height:1.7;
+margin:14px auto;
+color:#d2d2d2;
+}
+
+.services-section{
+background:#0f0f0f;
+padding:100px 20px;
+}
+
+.services-section .card{
+background:#141414;
+box-shadow:0 8px 30px rgba(0,0,0,0.6);
+}
+
+.project-stats{
+background:#101010;
+padding:60px 20px;
+text-align:center;
+}
+
+.stats-grid{
+display:flex;
+justify-content:center;
+gap:80px;
+flex-wrap:wrap;
+}
+
+.stat h3{
+font-size:36px;
+color:#ff7a00;
+margin-bottom:5px;
+}
+
+.stat p{
+color:#bbb;
+}
+
+.testimonials-section{
+background:
+linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.85)),
+url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600");
+background-size:cover;
+background-position:center;
+padding:100px 20px;
+text-align:center;
+border-top:1px solid rgba(255,255,255,0.05);
+}
+
+.testimonial-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+max-width:1100px;
+margin:auto;
+margin-top:40px;
+}
+
+.testimonial{
+background:rgba(20,20,20,0.85);
+backdrop-filter:blur(4px);
+padding:28px;
+border-radius:8px;
+border:1px solid rgba(255,255,255,0.06);
+text-align:left;
+}
+
+.testimonial p{
+font-size:15px;
+line-height:1.6;
+color:#e0e0e0;
+}
+
+.reviewer{
+display:block;
+margin-top:16px;
+font-weight:600;
+color:#a0a0a0;
+}
+
+/* FOOTER */
+
+footer{
+background:#090b10;
+text-align:center;
+padding:50px;
+margin-top:80px;
+}
+
+/* SCROLL ANIMATION */
+
+.fade-in-section{
+opacity:0;
+transform:translateX(-60px);
+transition:opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-section.visible{
+opacity:1;
+transform:translateX(0);
+}
+
+.slide-left{
+opacity:0;
+transform:translateX(-60px);
+transition:opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.slide-right{
+opacity:0;
+transform:translateX(-60px);
+transition:opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.visible{
+opacity:1;
+transform:translateX(0);
+}
+
+.header-contact{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.contact-btn{
+background:#ff7b00;
+color:white;
+border:none;
+padding:8px 16px;
+border-radius:4px;
+cursor:pointer;
+font-weight:600;
+font-size:14px;
+transition:all .3s ease;
+}
+
+.contact-btn:hover{
+background:#e66f00;
+transform:translateY(-1px);
+}
+
+.contact-modal{
+display:none;
+position:fixed;
+z-index:9999;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+}
+
+.contact-modal-content{
+background:#111;
+margin:8% auto;
+padding:35px;
+width:90%;
+max-width:500px;
+border-radius:8px;
+border:1px solid rgba(255,255,255,0.1);
+}
+
+.close-contact{
+float:right;
+font-size:28px;
+cursor:pointer;
+color:#999;
+line-height:20px;
+}
+
+.close-contact:hover{
+color:#ff7b00;
+}
+
+.contact-modal-content h2{
+margin-bottom:25px;
+color:#fff;
+}
+
+.contact-modal-content form{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.contact-modal-content label{
+font-weight:600;
+margin-bottom:5px;
+color:#ddd;
+}
+
+.contact-modal-content input,
+.contact-modal-content textarea{
+padding:12px;
+border-radius:6px;
+border:1px solid rgba(255,255,255,0.2);
+background:rgba(255,255,255,0.05);
+color:#eee;
+font-family:'Inter',sans-serif;
+font-size:15px;
+}
+
+.contact-modal-content input:focus,
+.contact-modal-content textarea:focus{
+outline:none;
+border-color:#ff7b00;
+background:rgba(255,255,255,0.08);
+}
+
+.contact-modal-content button[type="submit"]{
+background:#ff7b00;
+color:white;
+border:none;
+padding:14px;
+border-radius:6px;
+cursor:pointer;
+font-weight:600;
+font-size:16px;
+transition:all .3s ease;
+margin-top:10px;
+}
+
+.contact-modal-content button[type="submit"]:hover{
+background:#ff8c1a;
+transform:translateY(-2px);
+}
+
+/* MOBILE MENU */
+
+.menu-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    font-size: 28px;
+    z-index: 9999;
+    background: #000;
+    color: #fff;
+    padding: 6px 10px;
+    border: none;
+    cursor: pointer;
+  }
+
+  #mainNav {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 75%;
+    height: 100%;
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    padding: 60px 20px;
+    transition: left 0.3s ease;
+    z-index: 9998;
+    overflow-y: auto;
+  }
+
+  #mainNav.active {
+    left: 0;
+  }
+
+  #mainNav ul {
+    flex-direction: column;
+  }
+
+  #mainNav li {
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+
+  #mainNav li ul {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    padding: 10px;
+    grid-template-columns: 1fr;
+  }
+
+  .header-contact {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+  }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<button id="menuToggle" class="menu-toggle">☰</button>
+
+<nav id="mainNav">
+
+<h2>Twin Rivers</h2>
+
+<div class="header-contact">
+<a href="tel:+19169062254" class="nav-phone">916-906-2254</a>
+<button class="contact-btn" id="openContactForm">Contact</button>
+</div>
+
+<ul>
+
+<li><a href="#">Fencing</a>
+<ul>
+<li><a href="/fencing/elk-grove">Elk Grove</a></li>
+<li><a href="/fencing/sacramento">Sacramento</a></li>
+<li><a href="/fencing/roseville">Roseville</a></li>
+<li><a href="/fencing/rocklin">Rocklin</a></li>
+<li><a href="/fencing/lincoln">Lincoln</a></li>
+<li><a href="/fencing/folsom">Folsom</a></li>
+<li><a href="/fencing/auburn">Auburn</a></li>
+<li><a href="/fencing/grass-valley">Grass Valley</a></li>
+<li><a href="/fencing/nevada-city">Nevada City</a></li>
+<li><a href="/fencing/penn-valley">Penn Valley</a></li>
+<li><a href="/fencing/alta-sierra">Alta Sierra</a></li>
+<li><a href="/fencing/north-san-juan">North San Juan</a></li>
+<li><a href="/fencing/chicago-park">Chicago Park</a></li>
+<li><a href="/fencing/rough-and-ready">Rough and Ready</a></li>
+<li><a href="/fencing/lake-wildwood">Lake Wildwood</a></li>
+</ul>
+</li>
+
+<li><a href="#">Services</a>
+<ul>
+<li><a href="/services/wood-fence-installation/">Wood Fence Installation</a></li>
+<li><a href="/services/chain-link-fence-installation/">Chain Link Fence Installation</a></li>
+<li><a href="/services/vinyl-fence-installation/">Vinyl Fence Installation</a></li>
+<li><a href="/services/privacy-fence-installation/">Privacy Fence Installation</a></li>
+<li><a href="/services/fence-repair/">Fence Repair</a></li>
+<li><a href="/services/gate-installation/">Gate Installation</a></li>
+</ul>
+</li>
+
+<li><a href="#">Property Improvement</a>
+<ul>
+<li><a href="/property-improvement/deck-installation">Deck Installation</a></li>
+<li><a href="/property-improvement/gate-installation">Gate Installation</a></li>
+<li><a href="/property-improvement/fence-repair">Fence Repair</a></li>
+<li><a href="/property-improvement/property-upgrades">Property Upgrades</a></li>
+<li><a href="/property-improvement/yard-improvements">Yard Improvements</a></li>
+</ul>
+</li>
+
+<li><a href="#areas">Service Areas</a></li>
+<li><a href="/testimonials/">Testimonials</a></li>
+<li><a href="#about">About Us</a></li>
+<li><a href="/faq/">FAQ</a></li>
+
+</ul>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<div class="logo">
+
+<svg viewBox="0 0 200 80">
+
+<path d="M0 40 Q40 10 80 40 T160 40 T240 40"
+stroke="#ff7b00" stroke-width="4" fill="none"/>
+
+<path d="M0 50 Q40 20 80 50 T160 50 T240 50"
+stroke="#4db8ff" stroke-width="4" fill="none"/>
+
+</svg>
+
+</div>
+
+<h1>Twin Rivers</h1>
+
+<p>Fence Installation • Property Improvements</p>
+
+<a class="cta" href="/services/">Explore Services</a>
+
+</section>
+
+<section id="about" class="about-section">
+<div class="about-container">
+
+<h2>About Twin Rivers LLC</h2>
+
+<p>
+Twin Rivers LLC is a locally operated property improvement company serving homeowners across the greater Sacramento region. We specialize in fencing installation, repairs, and exterior property upgrades designed to improve privacy, security, and curb appeal.
+</p>
+
+<p>
+Our work focuses on durable materials, strong craftsmanship, and fencing systems built to last. Whether installing a new boundary fence, replacing aging panels, or repairing storm damage, we work closely with homeowners to create solutions that match their property and needs.
+</p>
+
+<p>
+Twin Rivers LLC proudly serves communities throughout Sacramento County including Elk Grove, Roseville, Folsom, Citrus Heights, Rancho Cordova, and surrounding areas.
+</p>
+
+<p>
+Our goal is simple: provide reliable service, quality workmanship, and fencing solutions that stand the test of time.
+</p>
+
+</div>
+</section>
+
+<section class="section slide-left services-section">
+
+<h2>Our Services</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Fence Installation</h3>
+<p>Wood, vinyl, chain link and custom fencing.</p>
+</div>
+
+<div class="card">
+<h3>Fence Repair</h3>
+<p>Repair damaged or aging fences quickly.</p>
+</div>
+
+<div class="card">
+<h3>Gate Installation</h3>
+<p>Custom gate installation and automation.</p>
+</div>
+
+<div class="card">
+<h3>Property Improvements</h3>
+<p>Repairs and upgrades for homes and investment properties.</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="project-stats">
+
+<div class="stats-grid">
+
+<div class="stat">
+<h3>5000+</h3>
+<p>Fences Installed & Repaired</p>
+</div>
+
+<div class="stat">
+<h3>15+</h3>
+<p>Cities Served Across Sacramento Region</p>
+</div>
+
+<div class="stat">
+<h3>35+</h3>
+<p>Years of Combined Experience</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="testimonials" class="testimonials-section">
+
+<h2>What Homeowners Are Saying</h2>
+
+<div class="testimonial-grid">
+
+<div class="testimonial">
+<p>
+"We had about 120 feet of old cedar fence replaced after the winter storms last year. Twin Rivers walked the property with us and helped redesign the gate so it opened properly with our driveway slope. Install took two days and the new fence feels much sturdier than what we had before."
+</p>
+<span class="reviewer">— Mark Jensen, Roseville Homeowner</span>
+</div>
+
+<div class="testimonial">
+<p>
+"Our backyard fence was leaning badly and a section had completely collapsed. They repaired the damaged posts and replaced the panels without needing to rebuild the entire fence, which saved us a lot of money."
+</p>
+<span class="reviewer">— Amanda Ruiz, Citrus Heights</span>
+</div>
+
+<div class="testimonial">
+<p>
+"We installed a new privacy fence along the back of our property. The crew was professional and finished the install faster than expected. Everything was cleaned up before they left and the fence looks great."
+</p>
+<span class="reviewer">— Daniel K., Folsom</span>
+</div>
+
+<div class="testimonial">
+<p>
+"We needed a gate replacement and some fence repairs before selling our house. The work was solid and the fence ended up being one of the things buyers commented on during showings."
+</p>
+<span class="reviewer">— Laura Simmons, Elk Grove</span>
+</div>
+
+</div>
+
+</section>
+
+<section id="areas" class="section slide-right">
+
+<h2>Service Areas</h2>
+
+<div class="area-grid">
+
+<div>Sacramento</div>
+<div>Elk Grove</div>
+<div>Roseville</div>
+<div>Rocklin</div>
+<div>Folsom</div>
+
+<div>Auburn</div>
+<div>Grass Valley</div>
+<div>Nevada City</div>
+<div>Colfax</div>
+<div>Alta Sierra</div>
+<div>Meadow Vista</div>
+<div>Foresthill</div>
+<div>Lake of the Pines</div>
+
+</div>
+
+</section>
+
+<section class="section slide-left">
+
+<h2>Materials We Use</h2>
+
+<div class="grid">
+
+<div class="card">Cedar</div>
+<div class="card">Redwood</div>
+<div class="card">Vinyl</div>
+<div class="card">Ornamental Iron</div>
+<div class="card">Chain Link</div>
+<div class="card">Composite</div>
+
+</div>
+
+</section>
+
+<section id="faq" class="section slide-right">
+
+<h2>Frequently Asked Questions</h2>
+
+<div class="reviews">
+
+<div class="review">
+<strong>Do you offer warranties?</strong>
+<p>Yes, we stand behind our work with installation guarantees.</p>
+</div>
+
+<div class="review">
+<strong>Do you install custom gates?</strong>
+<p>Yes. We install manual and automated gates.</p>
+</div>
+
+<div class="review">
+<strong>How fast can repairs be completed?</strong>
+<p>Most repairs can be completed within a few days depending on materials.</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="section map slide-left service-areas">
+
+<h2>Service Region</h2>
+
+<div class="service-area-blocks">
+
+<a href="/fencing/sacramento/" class="service-area-block">Sacramento</a>
+<a href="/fencing/elk-grove/" class="service-area-block">Elk Grove</a>
+<a href="/fencing/roseville/" class="service-area-block">Roseville</a>
+<a href="/fencing/folsom/" class="service-area-block">Folsom</a>
+<a href="/fencing/citrus-heights/" class="service-area-block">Citrus Heights</a>
+<a href="/fencing/rancho-cordova/" class="service-area-block">Rancho Cordova</a>
+<a href="/fencing/fair-oaks/" class="service-area-block">Fair Oaks</a>
+<a href="/fencing/antelope/" class="service-area-block">Antelope</a>
+<a href="/fencing/north-highlands/" class="service-area-block">North Highlands</a>
+<a href="/fencing/carmichael/" class="service-area-block">Carmichael</a>
+<a href="/fencing/orangevale/" class="service-area-block">Orangevale</a>
+<a href="/fencing/gold-river/" class="service-area-block">Gold River</a>
+
+</div>
+
+</section>
+
+<!-- Contact Modal -->
+<div id="contactModal" class="contact-modal">
+<div class="contact-modal-content">
+
+<span class="close-contact">&times;</span>
+
+<h2>Contact Twin Rivers LLC</h2>
+
+<form id="contactForm">
+
+<label>Name</label>
+<input type="text" name="name" required>
+
+<label>Phone Number</label>
+<input type="tel" name="phone" required>
+
+<label>Email</label>
+<input type="email" name="email">
+
+<label>Description</label>
+<textarea name="description" rows="4"></textarea>
+
+<button type="submit">Send Request</button>
+
+</form>
+
+</div>
+</div>
+
+<footer>
+
+<p>Twin Rivers</p>
+
+<p>
+Grass Valley • Auburn • Nevada City • Colfax • Sacramento
+</p>
+
+<p>Licensed Contractor #1089233</p>
+
+</footer>
+
+<script>
+
+// Contact Modal
+const modal = document.getElementById("contactModal");
+const btn = document.getElementById("openContactForm");
+const closeBtn = document.querySelector(".close-contact");
+
+if(btn){
+btn.onclick = function() {
+modal.style.display = "block";
+}
+}
+
+if(closeBtn){
+closeBtn.onclick = function() {
+modal.style.display = "none";
+}
+}
+
+window.onclick = function(event) {
+if (event.target == modal) {
+modal.style.display = "none";
+}
+}
+
+// Contact Form Submission
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+e.preventDefault();
+
+const formData = {
+name: e.target.name.value,
+phone: e.target.phone.value,
+email: e.target.email.value,
+description: e.target.description.value
+};
+
+try {
+const response = await fetch('http://localhost:3001/api/submit-quote', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify(formData)
+});
+
+const result = await response.json();
+
+if (result.success) {
+alert('Thank you! Your request has been submitted successfully. We will contact you soon.');
+e.target.reset();
+modal.style.display = "none";
+} else {
+alert('There was an error submitting your request. Please try again or call us directly.');
+}
+} catch (error) {
+console.error('Error submitting form:', error);
+alert('There was an error submitting your request. Please try again or call us directly.');
+}
+});
+
+// Scroll Animation
+
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("visible")
+}else{
+entry.target.classList.remove("visible")
+}
+})
+},{
+threshold: 0.15,
+rootMargin: '0px 0px -50px 0px'
+})
+
+document.querySelectorAll(".slide-left,.slide-right,.fade-in-section").forEach(el=>{
+observer.observe(el)
+})
+
+// Mobile Menu Toggle
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.getElementById("menuToggle");
+  const nav = document.getElementById("mainNav");
+
+  if (toggle && nav) {
+    toggle.addEventListener("click", () => {
+      nav.classList.toggle("active");
+    });
+
+    document.querySelectorAll("#mainNav a").forEach(link => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("active");
+      });
+    });
+  }
+});
+
+</script>
+
+</body>
+</html>

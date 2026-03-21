@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Deck Installation by Twin Rivers | Professional Deck Builders</title>
+
+<meta name="description" content="Twin Rivers provides professional deck installation and property improvement services throughout Northern California.">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Inter',sans-serif;
+background:#0f1117;
+color:#eee;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+header{
+position:fixed;
+width:100%;
+background:rgba(10,10,10,.75);
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+
+nav{
+max-width:1200px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+}
+
+nav h2{
+color:white;
+}
+
+nav h2 a{
+color:white;
+text-decoration:none;
+}
+
+nav ul {
+display:flex;
+list-style:none;
+}
+
+nav li {
+position:relative;
+margin-left:25px;
+}
+
+nav a {
+display:block;
+padding:12px 15px;
+color:white;
+text-decoration:none;
+transition:color .2s ease;
+}
+
+nav a:hover {
+color:#ff7b00;
+}
+
+nav li ul {
+position:absolute;
+top:100%;
+left:0;
+background:#1c1f2a;
+border-radius:6px;
+min-width:220px;
+opacity:0;
+visibility:hidden;
+transform:translateY(10px);
+transition:all .25s ease;
+pointer-events:none;
+z-index:1001;
+display:grid;
+grid-template-columns:repeat(3, auto);
+gap:10px 40px;
+padding:15px 20px;
+}
+
+nav li:hover > ul,
+nav li ul:hover {
+opacity:1;
+visibility:visible;
+transform:translateY(0);
+pointer-events:auto;
+}
+
+nav li ul li {
+margin:0;
+}
+
+nav li ul li a {
+padding:8px 12px;
+white-space:nowrap;
+}
+
+nav li ul li a:hover {
+background:#ff7b00;
+border-radius:4px;
+}
+
+.nav-phone {
+color:#ff7b00;
+font-weight:bold;
+text-decoration:none;
+margin-left:30px;
+}
+
+.nav-phone:hover {
+text-decoration:underline;
+}
+
+/* HERO */
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+position:relative;
+width:100%;
+background:url("https://images.unsplash.com/photo-1503387762-592deb58ef4e");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+.hero::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.55);
+z-index:0;
+}
+
+.hero > *{
+position:relative;
+z-index:1;
+}
+
+.hero h1{
+font-size:60px;
+margin-top:15px;
+}
+
+.hero p{
+font-size:22px;
+opacity:.9;
+max-width:800px;
+margin:0 auto;
+}
+
+.cta{
+margin-top:25px;
+background:#ff7b00;
+padding:14px 30px;
+border-radius:6px;
+color:white;
+text-decoration:none;
+font-weight:600;
+transition:all .3s ease;
+cursor:pointer;
+display:inline-block;
+}
+
+.cta:hover{
+background:#ff8c1a;
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(255,123,0,.4);
+}
+
+/* LOGO */
+
+.logo svg{
+width:120px;
+margin-bottom:15px;
+}
+
+/* SECTIONS */
+
+.section{
+width:100%;
+padding:100px 20px;
+position:relative;
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+.section::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.55);
+z-index:0;
+}
+
+.section > *{
+position:relative;
+z-index:1;
+max-width:1200px;
+margin:auto;
+}
+
+.section h2{
+text-align:center;
+margin-bottom:50px;
+font-size:36px;
+}
+
+.section p{
+font-size:18px;
+line-height:1.8;
+text-align:center;
+max-width:800px;
+margin:0 auto 30px;
+}
+
+.section:nth-of-type(2){
+background-image:url("https://images.unsplash.com/photo-1581093458791-9f3c3f9c2c3d");
+}
+
+.section:nth-of-type(4){
+background-image:url("https://images.unsplash.com/photo-1504307651254-35680f356dfd");
+}
+
+.section:nth-of-type(5){
+background-image:url("https://images.unsplash.com/photo-1581093458791-9f3c3f9c2c3d");
+}
+
+.section:nth-of-type(6){
+background-image:url("https://images.unsplash.com/photo-1504307651254-35680f356dfd");
+}
+
+.section:nth-of-type(7){
+background-image:url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c");
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+}
+
+.card{
+background:rgba(255,255,255,.05);
+border-radius:12px;
+padding:30px;
+border:1px solid rgba(255,255,255,.08);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+border:1px solid #ff7b00;
+}
+
+/* PARALLAX */
+
+.parallax{
+background:rgba(0,0,0,.3);
+padding:120px 20px;
+text-align:center;
+position:relative;
+}
+
+/* QUOTE FORM */
+
+.quote-form{
+max-width:600px;
+margin:0 auto;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.quote-form input,
+.quote-form textarea{
+padding:15px;
+border-radius:8px;
+border:1px solid rgba(255,255,255,.2);
+background:rgba(255,255,255,.05);
+color:#eee;
+font-family:'Inter',sans-serif;
+font-size:16px;
+transition:all .3s ease;
+}
+
+.quote-form input:focus,
+.quote-form textarea:focus{
+outline:none;
+border-color:#ff7b00;
+background:rgba(255,255,255,.08);
+}
+
+.quote-form textarea{
+min-height:150px;
+resize:vertical;
+}
+
+.quote-form button{
+padding:15px 30px;
+background:#ff7b00;
+color:white;
+border:none;
+border-radius:8px;
+font-weight:600;
+font-size:16px;
+cursor:pointer;
+transition:all .3s ease;
+}
+
+.quote-form button:hover{
+background:#ff8c1a;
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(255,123,0,.4);
+}
+
+/* FOOTER */
+
+footer{
+background:#090b10;
+text-align:center;
+padding:50px;
+margin-top:80px;
+}
+
+/* SCROLL ANIMATION */
+
+.fade-in-section{
+opacity:0;
+transform:translateX(-60px);
+transition:opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-section.visible{
+opacity:1;
+transform:translateX(0);
+}
+
+.slide-left{
+opacity:0;
+transform:translateX(-60px);
+transition:opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.slide-right{
+opacity:0;
+transform:translateX(-60px);
+transition:opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.visible{
+opacity:1;
+transform:translateX(0);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<nav>
+
+<h2><a href="/">Twin Rivers</a></h2>
+
+<a href="tel:+19169062254" class="nav-phone">916-906-2254</a>
+
+<ul>
+
+<li><a href="#">Fencing</a>
+<ul>
+<li><a href="/fencing/elk-grove">Elk Grove</a></li>
+<li><a href="/fencing/sacramento">Sacramento</a></li>
+<li><a href="/fencing/roseville">Roseville</a></li>
+<li><a href="/fencing/rocklin">Rocklin</a></li>
+<li><a href="/fencing/lincoln">Lincoln</a></li>
+<li><a href="/fencing/folsom">Folsom</a></li>
+<li><a href="/fencing/auburn">Auburn</a></li>
+<li><a href="/fencing/grass-valley">Grass Valley</a></li>
+<li><a href="/fencing/nevada-city">Nevada City</a></li>
+<li><a href="/fencing/penn-valley">Penn Valley</a></li>
+<li><a href="/fencing/alta-sierra">Alta Sierra</a></li>
+<li><a href="/fencing/north-san-juan">North San Juan</a></li>
+<li><a href="/fencing/chicago-park">Chicago Park</a></li>
+<li><a href="/fencing/rough-and-ready">Rough and Ready</a></li>
+<li><a href="/fencing/lake-wildwood">Lake Wildwood</a></li>
+</ul>
+</li>
+
+<li><a href="#">Property Improvement</a>
+<ul>
+<li><a href="/property-improvement/deck-installation">Deck Installation</a></li>
+<li><a href="/property-improvement/gate-installation">Gate Installation</a></li>
+<li><a href="/property-improvement/fence-repair">Fence Repair</a></li>
+<li><a href="/property-improvement/property-upgrades">Property Upgrades</a></li>
+<li><a href="/property-improvement/yard-improvements">Yard Improvements</a></li>
+</ul>
+</li>
+
+<li><a href="/#areas">Service Areas</a></li>
+<li><a href="/#faq">FAQ</a></li>
+
+</ul>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<div class="logo">
+
+<svg viewBox="0 0 200 80">
+
+<path d="M0 40 Q40 10 80 40 T160 40 T240 40"
+stroke="#ff7b00" stroke-width="4" fill="none"/>
+
+<path d="M0 50 Q40 20 80 50 T160 50 T240 50"
+stroke="#4db8ff" stroke-width="4" fill="none"/>
+
+</svg>
+
+</div>
+
+<h1>Deck Installation by Twin Rivers</h1>
+
+<p>Twin Rivers provides professional deck installation and property improvement services throughout the region.</p>
+
+<a class="cta" href="#contact">Get a Quote</a>
+
+</section>
+
+<section class="section slide-left">
+
+<h2>About Deck Installation</h2>
+
+<p>Twin Rivers specializes in custom deck construction using premium materials. We design and build decks that enhance your outdoor living space and add value to your property.</p>
+
+</section>
+
+<section class="parallax">
+
+<h2 style="font-size:42px">Professional Deck Construction</h2>
+
+<p>Quality Craftsmanship • Durable Materials</p>
+
+</section>
+
+<section class="section slide-right">
+
+<h2>Common Deck Projects</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Custom Decks</h3>
+<p>Tailored deck designs to fit your space and style.</p>
+</div>
+
+<div class="card">
+<h3>Multi-Level Decks</h3>
+<p>Complex deck structures with multiple levels.</p>
+</div>
+
+<div class="card">
+<h3>Deck Repairs</h3>
+<p>Restore and repair existing deck structures.</p>
+</div>
+
+<div class="card">
+<h3>Deck Refinishing</h3>
+<p>Staining and sealing to protect your investment.</p>
+</div>
+
+<div class="card">
+<h3>Composite Decking</h3>
+<p>Low-maintenance composite deck installation.</p>
+</div>
+
+<div class="card">
+<h3>Deck Railings</h3>
+<p>Custom railing systems for safety and style.</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="section slide-left">
+
+<h2>Why Choose Twin Rivers</h2>
+
+<p>With years of experience in deck construction, Twin Rivers delivers exceptional craftsmanship and attention to detail. We use quality materials and proven techniques to build decks that last.</p>
+
+</section>
+
+<section id="contact" class="section slide-right">
+
+<h2>Get a Quote</h2>
+
+<p>Contact Twin Rivers for a deck installation estimate.</p>
+
+<form action="/api/send-quote.php" method="POST" class="quote-form fade-in-section">
+
+<input type="text" name="name" placeholder="Your Name" required>
+
+<input type="tel" name="phone" placeholder="Phone Number" required>
+
+<textarea name="message" placeholder="Describe your deck project" required></textarea>
+
+<button type="submit">Request Quote</button>
+
+</form>
+
+</section>
+
+<footer>
+
+<p>Twin Rivers</p>
+
+<p>
+Grass Valley • Auburn • Nevada City • Colfax • Sacramento
+</p>
+
+<p>Licensed Contractor #1089233</p>
+
+</footer>
+
+<script>
+
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("visible")
+}else{
+entry.target.classList.remove("visible")
+}
+})
+},{
+threshold: 0.15,
+rootMargin: '0px 0px -50px 0px'
+})
+
+document.querySelectorAll(".slide-left,.slide-right,.fade-in-section").forEach(el=>{
+observer.observe(el)
+})
+
+</script>
+
+</body>
+</html>
