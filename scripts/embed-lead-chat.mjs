@@ -108,6 +108,7 @@ function buildBodySnippet(prefix) {
   </div>
   <div class="lead-chat-options" id="leadChatOptions" hidden></div>
   <p class="lead-chat-status" id="leadChatStatus"></p>
+  <p class="lead-chat-consent" id="leadChatConsent">By submitting your information, you agree to be contacted by Twin Rivers Fence regarding your project.</p>
   <div class="lead-chat-input-row">
     <input type="text" id="leadChatInput" placeholder="Type your message…" autocomplete="section-chat" enterkeyhint="send">
     <button type="button" class="lead-chat-send" id="leadChatSend">Send</button>
@@ -117,11 +118,19 @@ function buildBodySnippet(prefix) {
 ${BODY_END}`;
 }
 
+function skipTwinriversMobile(filePath) {
+  const rel = path.relative(REPO, filePath).replace(/\\/g, "/");
+  return rel.startsWith("admin/") || rel.startsWith("templates/");
+}
+
 function inject(html, filePath) {
   const prefix = relPrefix(filePath);
   html = stripInjection(html);
 
-  const headBlock = `\n${HEAD_START}\n<link rel="stylesheet" href="${prefix}assets/lead-chat.css">\n${HEAD_END}\n`;
+  const mobileLink = skipTwinriversMobile(filePath)
+    ? ""
+    : `<link rel="stylesheet" href="${prefix}assets/twinrivers-mobile.css">\n`;
+  const headBlock = `\n${HEAD_START}\n<link rel="stylesheet" href="${prefix}assets/lead-chat.css">\n${mobileLink}${HEAD_END}\n`;
   const bodyBlock = `\n${buildBodySnippet(prefix)}\n`;
 
   const headClose = html.search(/<\/head>/i);
@@ -148,6 +157,8 @@ function main() {
   const files = walkHtml(REPO);
   let n = 0;
   for (const fp of files) {
+    const base = path.basename(fp).toLowerCase();
+    if (base === "privacy.html" || base === "terms.html") continue;
     let h = fs.readFileSync(fp, "utf8").replace(/\r\n/g, "\n");
     h = inject(h, fp);
     fs.writeFileSync(fp, h);

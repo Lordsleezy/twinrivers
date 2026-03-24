@@ -275,6 +275,15 @@
   outline-offset: 2px;
 }
 
+
+.lead-chat-consent {
+  margin: 0 1rem;
+  padding: 0 0 0.65rem;
+  font-size: 0.68rem;
+  line-height: 1.45;
+  color: #9ca3af;
+}
+
 .lead-chat-input-row {
   display: flex;
   gap: 0.5rem;

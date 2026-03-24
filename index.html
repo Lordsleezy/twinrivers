@@ -33,12 +33,13 @@ overflow-x:hidden;
 
 /* NAVBAR */
 
-header{
+header.site-header{
 position:fixed;
 width:100%;
-background:rgba(10,10,10,.75);
-backdrop-filter:blur(10px);
+background:rgba(10,10,10,.88);
+backdrop-filter:blur(12px);
 z-index:1000;
+border-bottom:1px solid rgba(255,255,255,.06);
 }
 
 nav{
@@ -131,7 +132,8 @@ text-decoration:underline;
 /* HERO */
 
 .hero{
-height:100vh;
+min-height:100vh;
+min-height:100dvh;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -139,6 +141,8 @@ align-items:center;
 text-align:center;
 position:relative;
 width:100%;
+padding:5.5rem 1rem 2rem;
+box-sizing:border-box;
 background:url("https://images.unsplash.com/photo-1503387762-592deb58ef4e");
 background-size:cover;
 background-position:center;
@@ -173,21 +177,22 @@ opacity:.9;
 
 .cta{
 margin-top:25px;
-background:#ff7b00;
-padding:14px 30px;
-border-radius:6px;
-color:white;
+background:#22c55e;
+padding:14px 28px;
+border-radius:10px;
+color:#0a0c10;
 text-decoration:none;
-font-weight:600;
+font-weight:700;
 transition:all .3s ease;
 cursor:pointer;
 display:inline-block;
 }
 
 .cta:hover{
-background:#ff8c1a;
+background:#16a34a;
+color:#fff;
 transform:translateY(-2px);
-box-shadow:0 8px 20px rgba(255,123,0,.4);
+box-shadow:0 8px 24px rgba(34,197,94,.35);
 }
 
 /* LOGO */
@@ -393,8 +398,10 @@ color:#d2d2d2;
 }
 
 .services-section{
-background:#0f0f0f;
+background:#0a0c10;
 padding:100px 20px;
+border-top:1px solid rgba(255,255,255,.05);
+border-bottom:1px solid rgba(255,255,255,.05);
 }
 
 .services-section .card{
@@ -615,91 +622,31 @@ background:#ff8c1a;
 transform:translateY(-2px);
 }
 
-/* MOBILE MENU */
-
-.menu-toggle {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    font-size: 28px;
-    z-index: 9999;
-    background: #000;
-    color: #fff;
-    padding: 6px 10px;
-    border: none;
-    cursor: pointer;
-  }
-
-  #mainNav {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 75%;
-    height: 100%;
-    background: #111;
-    display: flex;
-    flex-direction: column;
-    padding: 60px 20px;
-    transition: left 0.3s ease;
-    z-index: 9998;
-    overflow-y: auto;
-  }
-
-  #mainNav.active {
-    left: 0;
-  }
-
-  #mainNav ul {
-    flex-direction: column;
-  }
-
-  #mainNav li {
-    margin-left: 0;
-    margin-bottom: 10px;
-  }
-
-  #mainNav li ul {
-    position: static;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    pointer-events: auto;
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-    padding: 10px;
-    grid-template-columns: 1fr;
-  }
-
-  .header-contact {
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 20px;
-  }
-}
-
 </style>
 
 <!-- twinrivers-lead-chat:head-start -->
 <link rel="stylesheet" href="assets/lead-chat.css">
+<link rel="stylesheet" href="assets/twinrivers-mobile.css">
 <!-- twinrivers-lead-chat:head-end -->
 </head>
 
 <body>
 
-<header>
+<header class="site-header">
 
-<button id="menuToggle" class="menu-toggle">☰</button>
+<div class="header-bar">
+<button type="button" id="menuToggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
+<span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+</button>
+<a href="/" class="header-brand">Twin Rivers</a>
+<a href="tel:+19169062254" class="header-phone-cta" aria-label="Call (916) 906-2254">Call</a>
+</div>
 
-<nav id="mainNav">
+<div id="navBackdrop" class="nav-backdrop" aria-hidden="true"></div>
 
-<h2>Twin Rivers</h2>
+<nav id="mainNav" class="site-nav" aria-label="Main">
+
+<h2><a href="/" style="color:inherit;text-decoration:none;">Twin Rivers</a></h2>
 
 <div class="header-contact">
 <a href="tel:+19169062254" class="nav-phone">916-906-2254</a>
@@ -1011,6 +958,8 @@ Our goal is simple: provide reliable service, quality workmanship, and fencing s
 <label>Description</label>
 <textarea name="description" rows="4"></textarea>
 
+<p class="contact-consent">By submitting your information, you agree to be contacted by Twin Rivers Fence regarding your project.</p>
+
 <button type="submit">Send Request</button>
 
 </form>
@@ -1028,7 +977,11 @@ Grass Valley • Auburn • Nevada City • Colfax • Sacramento
 
 <p>Licensed Contractor #1089233</p>
 
+<p class="footer-legal"><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a></p>
+
 </footer>
+
+<aside class="tr-sticky-call" aria-label="Call now"><a href="tel:+19169062254">Call Now</a></aside>
 
 <script>
 
@@ -1107,22 +1060,49 @@ document.querySelectorAll(".slide-left,.slide-right,.fade-in-section").forEach(e
 observer.observe(el)
 })
 
-// Mobile Menu Toggle
+// Mobile menu
 document.addEventListener("DOMContentLoaded", function () {
   const toggle = document.getElementById("menuToggle");
   const nav = document.getElementById("mainNav");
+  const backdrop = document.getElementById("navBackdrop");
+
+  function closeNav() {
+    if (!nav) return;
+    nav.classList.remove("is-open");
+    if (backdrop) backdrop.classList.remove("is-open");
+    document.body.classList.remove("tr-nav-open");
+    if (toggle) toggle.setAttribute("aria-expanded", "false");
+  }
+
+  function openNav() {
+    if (!nav) return;
+    nav.classList.add("is-open");
+    if (backdrop) backdrop.classList.add("is-open");
+    document.body.classList.add("tr-nav-open");
+    if (toggle) toggle.setAttribute("aria-expanded", "true");
+  }
 
   if (toggle && nav) {
-    toggle.addEventListener("click", () => {
-      nav.classList.toggle("active");
-    });
-
-    document.querySelectorAll("#mainNav a").forEach(link => {
-      link.addEventListener("click", () => {
-        nav.classList.remove("active");
-      });
+    toggle.addEventListener("click", function () {
+      if (nav.classList.contains("is-open")) closeNav();
+      else openNav();
     });
   }
+
+  if (backdrop) {
+    backdrop.addEventListener("click", closeNav);
+  }
+
+  document.querySelectorAll("#mainNav a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      var h = link.getAttribute("href");
+      if (h && h !== "#") closeNav();
+    });
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeNav();
+  });
 });
 
 </script>
@@ -1162,6 +1142,7 @@ document.addEventListener("DOMContentLoaded", function () {
   </div>
   <div class="lead-chat-options" id="leadChatOptions" hidden></div>
   <p class="lead-chat-status" id="leadChatStatus"></p>
+  <p class="lead-chat-consent" id="leadChatConsent">By submitting your information, you agree to be contacted by Twin Rivers Fence regarding your project.</p>
   <div class="lead-chat-input-row">
     <input type="text" id="leadChatInput" placeholder="Type your message…" autocomplete="section-chat" enterkeyhint="send">
     <button type="button" class="lead-chat-send" id="leadChatSend">Send</button>

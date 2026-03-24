@@ -461,6 +461,7 @@ margin-top:0;
 
 <!-- twinrivers-lead-chat:head-start -->
 <link rel="stylesheet" href="../assets/lead-chat.css">
+<link rel="stylesheet" href="../assets/twinrivers-mobile.css">
 <!-- twinrivers-lead-chat:head-end -->
 </head>
 
@@ -749,6 +750,8 @@ margin-top:0;
 <label>Description</label>
 <textarea name="description" rows="4" placeholder="Describe your project"></textarea>
 
+<p class="contact-consent">By submitting your information, you agree to be contacted by Twin Rivers Fence regarding your project.</p>
+
 <button type="submit">Send Request</button>
 
 </form>
@@ -761,6 +764,10 @@ margin-top:0;
 <p>Twin Rivers LLC</p>
 <p>Sacramento Region • Northern California</p>
 <p>Licensed Contractor #1089233</p>
+
+
+
+<p class="footer-legal"><a href="../privacy.html">Privacy Policy</a> · <a href="../terms.html">Terms of Service</a></p>
 
 </footer>
 
@@ -790,6 +797,7 @@ modal.style.display = "none";
 }
 
 </script>
+<aside class="tr-sticky-call" aria-label="Call now"><a href="tel:+19169062254">Call Now</a></aside>
 
 <!-- twinrivers-lead-chat:body-start -->
 <form name="lead-chat" method="POST" action="/" data-netlify="true" netlify>
@@ -826,6 +834,7 @@ modal.style.display = "none";
   </div>
   <div class="lead-chat-options" id="leadChatOptions" hidden></div>
   <p class="lead-chat-status" id="leadChatStatus"></p>
+  <p class="lead-chat-consent" id="leadChatConsent">By submitting your information, you agree to be contacted by Twin Rivers Fence regarding your project.</p>
   <div class="lead-chat-input-row">
     <input type="text" id="leadChatInput" placeholder="Type your message…" autocomplete="section-chat" enterkeyhint="send">
     <button type="button" class="lead-chat-send" id="leadChatSend">Send</button>
