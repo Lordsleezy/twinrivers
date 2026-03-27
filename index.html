@@ -636,6 +636,8 @@ transform:translateY(-2px);
 <link rel="stylesheet" href="assets/lead-chat.css">
 <link rel="stylesheet" href="assets/twinrivers-mobile.css">
 <!-- twinrivers-lead-chat:head-end -->
+
+<link rel="stylesheet" href="assets/global-ui.css">
 </head>
 
 <body>
@@ -658,7 +660,7 @@ transform:translateY(-2px);
 <span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
 </button>
 <a href="/" class="header-brand">Twin Rivers</a>
-<a href="tel:+19169062254" class="header-phone-cta" aria-label="Call (916) 906-2254">Call</a>
+<a href="contact/index.html" class="header-phone-cta" aria-label="Call ">Get Free Estimate</a>
 </div>
 
 <div id="navBackdrop" class="nav-backdrop" aria-hidden="true"></div>
@@ -668,7 +670,7 @@ transform:translateY(-2px);
 <h2><a href="/" style="color:inherit;text-decoration:none;">Twin Rivers</a></h2>
 
 <div class="header-contact">
-<a href="tel:+19169062254" class="nav-phone">916-906-2254</a>
+<a href="contact/index.html" class="nav-phone">Get Free Estimate</a>
 <button class="contact-btn" id="openContactForm" type="button">Contact</button>
 </div>
 
@@ -715,10 +717,11 @@ transform:translateY(-2px);
 </ul>
 </li>
 
-<li><a href="#areas">Service Areas</a></li>
+<li><a href="/service-areas/">Service Areas</a></li>
 <li><a href="/testimonials/">Testimonials</a></li>
 <li><a href="/gallery/">Gallery</a></li>
 <li><a href="#about">About Us</a></li>
+<li><a href="/contact/">Contact</a></li>
 <li><a href="/faq/">FAQ</a></li>
 
 </ul>
@@ -979,7 +982,7 @@ Call or send a note when you’re ready—we’ll look at photos or swing by, gi
 <input type="email" name="email">
 
 <label>What’s going on?</label>
-<textarea name="description" rows="4"></textarea>
+<textarea name="message" rows="4"></textarea>
 
 <p class="contact-consent">By submitting your information, you agree to be contacted by Twin Rivers Fence regarding your project.</p>
 
@@ -1004,7 +1007,7 @@ Grass Valley · Auburn · Nevada City · Colfax · Sacramento &amp; valley citie
 
 </footer>
 
-<aside class="tr-sticky-call" aria-label="Call now"><a href="tel:+19169062254">Call Now</a></aside>
+
 
 <script>
 
@@ -1044,53 +1047,36 @@ modal.style.display = "none";
 document.getElementById('contactForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 
-const formData = {
-name: e.target.name.value,
-phone: e.target.phone.value,
-email: e.target.email.value,
-description: e.target.description.value
+const form = e.target;
+
+const data = {
+name: form.name.value,
+email: form.email.value,
+phone: form.phone.value,
+message: form.message.value,
+client_id: "twinrivers"
 };
 
 try {
-const response = await fetch('http://localhost:3001/api/submit-quote', {
-method: 'POST',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify(formData)
+const res = await fetch("https://crm-backend-production-8eb9.up.railway.app/api/leads", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify(data)
 });
 
-const result = await response.json();
-
-if (result.success) {
-alert('Thanks — we got it. We’ll call or text you shortly.');
-e.target.reset();
+if (res.ok) {
+alert("Request sent successfully!");
+form.reset();
 modal.style.display = "none";
 } else {
-alert('Something didn’t go through. Try again or call 916-906-2254.');
+alert("Error submitting form");
 }
-} catch (error) {
-console.error('Error submitting form:', error);
-alert('Something didn’t go through. Try again or call 916-906-2254.');
+} catch (err) {
+alert("Network error");
 }
 });
-
-// Scroll Animation
-
-const observer = new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("visible")
-}else{
-entry.target.classList.remove("visible")
-}
-})
-},{
-threshold: 0.15,
-rootMargin: '0px 0px -50px 0px'
-})
-
-document.querySelectorAll(".slide-left,.slide-right,.fade-in-section").forEach(el=>{
-observer.observe(el)
-})
 
 // Mobile menu
 document.addEventListener("DOMContentLoaded", function () {
@@ -1181,5 +1167,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 <script src="assets/lead-chat.js" defer></script>
 <!-- twinrivers-lead-chat:body-end -->
+
+<script src="assets/global-ui.js" defer></script>
 </body>
 </html>
