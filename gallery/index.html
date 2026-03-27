@@ -1,29 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Fence Permit Requirements in {CITY_NAME}, CA | Twin Rivers LLC</title>
-
-<meta name="description" content="Learn about fence permit requirements in {CITY_NAME}, California. Twin Rivers LLC helps homeowners understand local fence regulations and permit rules.">
-
+<title>Fence Installation Gallery | Twin Rivers</title>
+<meta name="description" content="View recent Twin Rivers fence installation and repair project photos across Sacramento, Roseville, Folsom, Auburn, Grass Valley, and nearby cities.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<script type="application/ld+json">
-{
-"@context":"https://schema.org",
-"@type":"FenceContractor",
-"name":"Twin Rivers LLC",
-"areaServed":"{CITY_NAME}, California",
-"serviceType":"Fence Installation",
-"telephone":"+1-916-906-2254"
-}
-</script>
-
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -143,7 +126,7 @@ text-decoration:underline;
 }
 
 .hero{
-height:100vh;
+min-height:54vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -154,13 +137,14 @@ width:100%;
 background:url("https://images.unsplash.com/photo-1503387762-592deb58ef4e");
 background-size:cover;
 background-position:center;
+padding:7rem 1rem 3rem;
 }
 
 .hero::before{
 content:"";
 position:absolute;
 inset:0;
-background:rgba(0,0,0,0.55);
+background:rgba(0,0,0,0.65);
 z-index:0;
 }
 
@@ -170,102 +154,121 @@ z-index:1;
 }
 
 .hero h1{
-font-size:56px;
-margin-top:15px;
+font-size:clamp(2rem,5vw,3.4rem);
+margin-bottom:12px;
 }
 
 .hero p{
-font-size:20px;
+font-size:clamp(1rem,2.2vw,1.2rem);
 opacity:.9;
-max-width:800px;
-margin:20px auto;
-}
-
-.cta{
-margin-top:25px;
-background:#ff7b00;
-padding:14px 30px;
-border-radius:6px;
-color:white;
-text-decoration:none;
-font-weight:600;
-transition:all .3s ease;
-display:inline-block;
-}
-
-.cta:hover{
-background:#ff8c1a;
-transform:translateY(-2px);
-box-shadow:0 8px 20px rgba(255,123,0,.4);
+max-width:760px;
+line-height:1.7;
 }
 
 .content-section{
 max-width:1200px;
 margin:0 auto;
-padding:80px 20px;
+padding:70px 20px 80px;
 }
 
-.content-section h2{
-font-size:32px;
-margin-bottom:20px;
-color:#fff;
+.gallery-grid{
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:18px;
 }
 
-.content-section p{
-font-size:18px;
-line-height:1.8;
-margin-bottom:20px;
-color:#d0d0d0;
+.gallery-item{
+position:relative;
+overflow:hidden;
+border-radius:10px;
+border:1px solid rgba(255,255,255,0.1);
+background:#131824;
+cursor:pointer;
+transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;
 }
 
-.content-section ul{
-margin:20px 0;
-padding-left:20px;
+.gallery-item:hover{
+transform:translateY(-3px);
+border-color:#ff7b00;
+box-shadow:0 12px 28px rgba(0,0,0,.35);
 }
 
-.content-section ul li{
-margin:10px 0;
-line-height:1.6;
+.gallery-item img{
+display:block;
+width:100%;
+aspect-ratio:4/3;
+object-fit:cover;
+transition:transform .45s ease;
 }
 
-.content-section a{
-color:#ff7b00;
-text-decoration:none;
+.gallery-item:hover img{
+transform:scale(1.06);
 }
 
-.content-section a:hover{
-text-decoration:underline;
+.lightbox{
+position:fixed;
+inset:0;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+background:rgba(0,0,0,0.9);
+z-index:5000;
+opacity:0;
+pointer-events:none;
+transition:opacity .3s ease;
 }
 
-.price-table{
-background:#141414;
-padding:30px;
+.lightbox.is-open{
+opacity:1;
+pointer-events:auto;
+}
+
+.lightbox img{
+max-width:min(1200px,96vw);
+max-height:84vh;
 border-radius:8px;
-margin:30px 0;
-border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 18px 60px rgba(0,0,0,.55);
 }
 
-.price-table h3{
-color:#ff7b00;
-margin-bottom:15px;
+.lightbox-close{
+position:absolute;
+top:18px;
+right:22px;
+background:rgba(255,255,255,0.1);
+border:1px solid rgba(255,255,255,0.25);
+color:#fff;
+width:42px;
+height:42px;
+border-radius:999px;
+font-size:28px;
+line-height:1;
+cursor:pointer;
 }
 
 footer{
 background:#090b10;
 text-align:center;
 padding:50px;
-margin-top:80px;
+margin-top:0;
 }
 
+@media (max-width:960px){
+.gallery-grid{
+grid-template-columns:repeat(2,minmax(0,1fr));
+}
+}
+
+@media (max-width:640px){
+.gallery-grid{
+grid-template-columns:1fr;
+}
+}
 </style>
-
-<!-- twinrivers-lead-chat:head-start -->
 <link rel="stylesheet" href="../assets/lead-chat.css">
-<!-- twinrivers-lead-chat:head-end -->
+<link rel="stylesheet" href="../assets/twinrivers-mobile.css">
 </head>
-
 <body>
-<!-- twinrivers-lead-chat:form-start -->
 <form name="lead-chat" method="POST" action="/success.html" data-netlify="true">
   <input type="hidden" name="form-name" value="lead-chat">
   <input type="hidden" name="project_type">
@@ -275,18 +278,12 @@ margin-top:80px;
   <input type="hidden" name="phone">
   <input type="hidden" name="site_source" value="twinrivers-repo">
 </form>
-<!-- twinrivers-lead-chat:form-end -->
 
 <header>
-
 <nav>
-
 <h2><a href="/">Twin Rivers</a></h2>
-
 <a href="tel:+19169062254" class="nav-phone">916-906-2254</a>
-
 <ul>
-
 <li><a href="#">Fencing</a>
 <ul>
 <li><a href="/fencing/elk-grove">Elk Grove</a></li>
@@ -309,12 +306,12 @@ margin-top:80px;
 
 <li><a href="#">Services</a>
 <ul>
-<li><a href="/services/wood-fence-installation-sacramento/">Wood Fence Installation</a></li>
-<li><a href="/services/chain-link-fence-installation-sacramento/">Chain Link Fence Installation</a></li>
-<li><a href="/services/vinyl-fence-installation-sacramento/">Vinyl Fence Installation</a></li>
-<li><a href="/services/privacy-fence-installation-sacramento/">Privacy Fence Installation</a></li>
-<li><a href="/services/fence-repair-sacramento/">Fence Repair</a></li>
-<li><a href="/services/gate-installation-sacramento/">Gate Installation</a></li>
+<li><a href="/services/wood-fence-installation/">Wood Fence Installation</a></li>
+<li><a href="/services/chain-link-fence-installation/">Chain Link Fence Installation</a></li>
+<li><a href="/services/vinyl-fence-installation/">Vinyl Fence Installation</a></li>
+<li><a href="/services/privacy-fence-installation/">Privacy Fence Installation</a></li>
+<li><a href="/services/fence-repair/">Fence Repair</a></li>
+<li><a href="/services/gate-installation/">Gate Installation</a></li>
 </ul>
 </li>
 
@@ -332,97 +329,34 @@ margin-top:80px;
 <li><a href="/#testimonials">Testimonials</a></li>
 <li><a href="/gallery/">Gallery</a></li>
 <li><a href="/#about">About Us</a></li>
-<li><a href="/#faq">FAQ</a></li>
-
+<li><a href="/faq/">FAQ</a></li>
 </ul>
-
 </nav>
-
 </header>
 
 <section class="hero">
-
-<h1>Do You Need a Fence Permit in {CITY_NAME}, California?</h1>
-
-<p>Learn about fence permit requirements in {CITY_NAME}, CA. Twin Rivers LLC helps homeowners understand local regulations and fence installation rules.</p>
-
-<a class="cta" href="tel:+19169062254">Get Expert Guidance</a>
-
+<h1>Fence Project Gallery</h1>
+<p>Recent Twin Rivers installation and repair photos from Sacramento, Roseville, Folsom, Auburn, Grass Valley, and nearby cities.</p>
 </section>
 
-<div class="content-section">
+<main class="content-section">
+<div class="gallery-grid" id="gallery"></div>
+</main>
 
-<h2>Fence Permit Requirements in {CITY_NAME}</h2>
-
-<p>Fence permit requirements in {CITY_NAME}, California depend on several factors including fence height, property zoning, and local building codes. Understanding these regulations helps ensure your fence installation project complies with local rules and avoids potential fines or required removal.</p>
-
-<h2>Fence Height Rules in {CITY_NAME}</h2>
-
-<p>Fence height regulations in {CITY_NAME} typically follow these general guidelines:</p>
-
-<ul>
-<li><strong>Front Yard Fences:</strong> Most jurisdictions limit front yard fences to 3-4 feet in height to maintain visibility and neighborhood aesthetics.</li>
-<li><strong>Side and Rear Yard Fences:</strong> Backyard and side yard fences are typically allowed up to 6 feet in height without requiring special permits.</li>
-<li><strong>Fences Over 6 Feet:</strong> Taller fences may require building permits and structural engineering approval.</li>
-</ul>
-
-<p>Twin Rivers LLC helps homeowners in {CITY_NAME} understand local fence height regulations and design fencing systems that comply with local codes.</p>
-
-<h2>Property Line Fence Regulations</h2>
-
-<p>When installing a fence along property lines in {CITY_NAME}, several regulations may apply:</p>
-
-<ul>
-<li><strong>Property Survey:</strong> Accurate property surveys help ensure fences are installed within property boundaries.</li>
-<li><strong>Setback Requirements:</strong> Some jurisdictions require fences to be set back a specific distance from property lines.</li>
-<li><strong>Neighbor Notification:</strong> While not always required, notifying neighbors before fence installation helps avoid disputes.</li>
-<li><strong>Shared Fence Agreements:</strong> Fences installed on property lines may require agreements between property owners.</li>
-</ul>
-
-<h2>When a Permit May Be Required</h2>
-
-<p>Fence permits in {CITY_NAME} may be required in the following situations:</p>
-
-<ul>
-<li>Fences exceeding local height limits</li>
-<li>Fences installed in front yards or corner lots</li>
-<li>Fences near public rights-of-way or easements</li>
-<li>Commercial or industrial property fencing</li>
-<li>Fences in historic districts or HOA-regulated communities</li>
-</ul>
-
-<p>Twin Rivers LLC works with homeowners and property owners in {CITY_NAME} to navigate permit requirements and ensure fence installations comply with local regulations.</p>
-
-<h2>Fence Installation Services in {CITY_NAME}</h2>
-
-<p>Twin Rivers LLC provides professional fence installation services for residential and commercial properties throughout {CITY_NAME}, California. Our team understands local fence regulations and helps property owners design and install fencing systems that meet code requirements.</p>
-
-<p>Contact Twin Rivers LLC today to discuss your fence installation project in {CITY_NAME}.</p>
-
-<h2>Related Services</h2>
-
-<p>
-<a href="/fencing/{CITY_SLUG}/">Fence Installation in {CITY_NAME}</a><br>
-<a href="/property-improvement/fence-repair/">Fence Repair Services</a><br>
-<a href="/permits/fence-permit-{CITY_SLUG}/">Fence Permit Requirements in {CITY_NAME}</a>
-</p>
-
+<div class="lightbox" id="galleryLightbox" aria-hidden="true">
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close image">×</button>
+  <img src="" alt="" id="lightboxImage">
 </div>
 
 <footer>
-
-<p>Twin Rivers LLC</p>
-<p>{CITY_NAME} • Sacramento Region</p>
+<p>Twin Rivers — fence install, repair &amp; gates</p>
+<p>Sacramento metro · foothills · Gold Country</p>
 <p>Licensed Contractor #1089233</p>
-
-
-
 <p class="footer-legal"><a href="../privacy.html">Privacy Policy</a> · <a href="../terms.html">Terms of Service</a></p>
-
 </footer>
+
 <aside class="tr-sticky-call" aria-label="Call now"><a href="tel:+19169062254">Call Now</a></aside>
 
-<!-- twinrivers-lead-chat:body-start -->
 <div class="lead-chat-nudge" id="leadChatNudge" role="status" aria-live="polite">
   Need a fence quote?
   <button type="button" id="leadChatNudgeBtn">Open chat</button>
@@ -449,11 +383,70 @@ margin-top:80px;
   <p class="lead-chat-status" id="leadChatStatus"></p>
   <p class="lead-chat-consent" id="leadChatConsent">By submitting your information, you agree to be contacted by Twin Rivers Fence regarding your project.</p>
   <div class="lead-chat-input-row">
-    <input type="text" id="leadChatInput" placeholder="Type your message…" autocomplete="section-chat" enterkeyhint="send">
+    <input type="text" id="leadChatInput" placeholder="Type your message..." autocomplete="section-chat" enterkeyhint="send">
     <button type="button" class="lead-chat-send" id="leadChatSend">Send</button>
   </div>
 </section>
+
+<script>
+const lightbox = document.getElementById("galleryLightbox");
+const lightboxImage = document.getElementById("lightboxImage");
+const lightboxClose = document.getElementById("lightboxClose");
+const gallery = document.getElementById("gallery");
+
+async function loadGallery() {
+  try {
+    const response = await fetch("/assets/gallery/gallery-manifest.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Gallery manifest not found");
+    const images = await response.json();
+    if (!Array.isArray(images) || images.length === 0) {
+      gallery.innerHTML = "<p>No gallery images yet. Add images to /assets/gallery/.</p>";
+      return;
+    }
+
+    images.forEach((img) => {
+      const div = document.createElement("div");
+      div.className = "gallery-item";
+      const imageEl = document.createElement("img");
+      imageEl.src = "/assets/gallery/" + img;
+      imageEl.alt = "Fence project";
+      imageEl.loading = "lazy";
+      imageEl.addEventListener("click", () => openLightbox(imageEl.src, imageEl.alt));
+      div.appendChild(imageEl);
+      gallery.appendChild(div);
+    });
+  } catch (error) {
+    gallery.innerHTML = "<p>Unable to load gallery images.</p>";
+    console.error(error);
+  }
+}
+
+function openLightbox(src, alt) {
+  lightboxImage.src = src;
+  lightboxImage.alt = alt || "Fence project photo";
+  lightbox.classList.add("is-open");
+  lightbox.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+  lightbox.classList.remove("is-open");
+  lightbox.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+lightboxClose.addEventListener("click", closeLightbox);
+lightbox.addEventListener("click", (event) => {
+  if (event.target === lightbox) closeLightbox();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && lightbox.classList.contains("is-open")) {
+    closeLightbox();
+  }
+});
+
+loadGallery();
+</script>
 <script src="../assets/lead-chat.js" defer></script>
-<!-- twinrivers-lead-chat:body-end -->
 </body>
 </html>

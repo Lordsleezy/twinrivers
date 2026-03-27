@@ -265,6 +265,17 @@ margin-top:80px;
 </head>
 
 <body>
+<!-- twinrivers-lead-chat:form-start -->
+<form name="lead-chat" method="POST" action="/success.html" data-netlify="true">
+  <input type="hidden" name="form-name" value="lead-chat">
+  <input type="hidden" name="project_type">
+  <input type="hidden" name="city">
+  <input type="hidden" name="size">
+  <input type="hidden" name="name">
+  <input type="hidden" name="phone">
+  <input type="hidden" name="site_source" value="twinrivers-repo">
+</form>
+<!-- twinrivers-lead-chat:form-end -->
 
 <header>
 
@@ -319,6 +330,7 @@ margin-top:80px;
 
 <li><a href="/#areas">Service Areas</a></li>
 <li><a href="/#testimonials">Testimonials</a></li>
+<li><a href="/gallery/">Gallery</a></li>
 <li><a href="/#about">About Us</a></li>
 <li><a href="/#faq">FAQ</a></li>
 
@@ -407,18 +419,8 @@ margin-top:80px;
 <aside class="tr-sticky-call" aria-label="Call now"><a href="tel:+19169062254">Call Now</a></aside>
 
 <!-- twinrivers-lead-chat:body-start -->
-<form name="lead-chat" method="POST" action="/" data-netlify="true" netlify>
-  <input type="hidden" name="form-name" value="lead-chat">
-  <p style="display:none;">
-    <label>Project Type <input name="project_type"></label>
-    <label>City <input name="city"></label>
-    <label>Size <input name="size"></label>
-    <label>Name <input name="name"></label>
-    <label>Phone <input name="phone"></label>
-  </p>
-</form>
 <div class="lead-chat-nudge" id="leadChatNudge" role="status" aria-live="polite">
-  Want a quick fence estimate?
+  Need a fence quote?
   <button type="button" id="leadChatNudgeBtn">Open chat</button>
 </div>
 <button type="button" class="lead-chat-toggle" id="leadChatToggle" aria-label="Open chat" aria-expanded="false" aria-controls="leadChatPanel">
@@ -430,8 +432,8 @@ margin-top:80px;
 <section class="lead-chat-panel" id="leadChatPanel" role="dialog" aria-labelledby="leadChatTitle" aria-modal="true" hidden>
   <header class="lead-chat-header">
     <div>
-      <h2 id="leadChatTitle">Twin Rivers Assistant</h2>
-      <span>Usually replies instantly</span>
+      <h2 id="leadChatTitle">Twin Rivers</h2>
+      <span>We usually reply right away.</span>
     </div>
     <button type="button" class="lead-chat-close" id="leadChatClose" aria-label="Close chat">×</button>
   </header>
