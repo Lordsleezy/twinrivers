@@ -196,7 +196,7 @@ exports.handler = async function (event) {
     process.env.PLACES_API_KEY || ''
   ).trim();
 
-  let placeId = (process.env.GOOGLE_PLACE_ID || DEFAULT_PLACE_ID).trim();
+  let placeId = (event && event.queryStringParameters && event.queryStringParameters.place_id || process.env.GOOGLE_PLACE_ID || DEFAULT_PLACE_ID).trim();
   const query = process.env.GOOGLE_REVIEW_SEARCH_QUERY || DEFAULT_QUERY;
 
   if (debug) {
