@@ -3,911 +3,1611 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Twin Rivers Fence | Cinematic Fence Installation</title>
-<meta name="description" content="Twin Rivers Fence builds wood, vinyl, chain link, and custom gate projects across Sacramento Valley and the Sierra Foothills.">
+<title>Twin Rivers Fence | Sacramento Valley</title>
+<link rel="canonical" href="https://twinriversfence.com/">
+<meta name="description" content="Twin Rivers Fence - professional fence installation, repair, and custom gates across Sacramento Valley and the Sierra Foothills. Licensed contractor #1089233. Free estimates.">
+<meta property="og:title" content="Twin Rivers Fence | Sacramento Valley">
+<meta property="og:description" content="Cedar, vinyl, chain link, and custom gates. Sacramento to Grass Valley. Licensed #1089233.">
+<meta property="og:url" content="https://twinriversfence.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Cpath d='M7 23h18M9 13h14M11 8l3 4v14h-3V8Zm8 0 3 4v14h-3V8Z' fill='none' stroke='%23d4a853' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
-:root {
-  --gold: #d4a853;
-  --ink: #1a1008;
-  --muted: rgba(255,255,255,0.7);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-* {
-  box-sizing: border-box;
+:root {
+  --gold: #d4a853;
+  --gold-bright: #e8bb60;
+  --black: #0a0a0a;
+  --panel: #111;
+  --soft: rgba(255,255,255,0.65);
 }
 
 html {
   scroll-behavior: smooth;
-  background: #0a0a0a;
+  background: var(--black);
 }
 
 body {
-  margin: 0;
-  min-height: 100vh;
   overflow-x: hidden;
-  background: #0a0a0a;
-  color: white;
+  background: var(--black);
+  color: #fff;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-#main-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  display: block;
+body p {
+  color: var(--soft);
+  font-size: 16px;
+  line-height: 1.8;
 }
 
-#scroll-container {
-  position: relative;
-  z-index: 10;
-  height: calc(8000px + 100vh);
+a {
+  color: inherit;
+}
+
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
   pointer-events: none;
 }
 
-.screen {
-  position: absolute;
-  left: 0;
-  width: 100%;
+main,
+footer {
+  position: relative;
+  z-index: 2;
+}
+
+#hero {
+  position: relative;
+  z-index: 10;
   min-height: 100vh;
   display: grid;
   place-items: center;
-  padding: 6rem 1.25rem;
-  pointer-events: none;
-}
-
-.hero-section {
-  top: 0;
-}
-
-.build-label {
-  top: 2450px;
-}
-
-.vinyl-label {
-  top: 5550px;
-}
-
-.chain-label {
-  top: 6350px;
-}
-
-.gate-label {
-  top: 7150px;
-}
-
-.contact-section {
-  top: 7200px;
-  min-height: 800px;
-  align-content: center;
-  background: rgba(0,0,0,0.67);
-  pointer-events: auto;
-}
-
-.hero {
-  max-width: 980px;
+  padding: 6rem 8vw;
+  overflow: hidden;
   text-align: center;
-  padding: 0 1rem;
-  pointer-events: auto;
 }
 
-.hero-tag {
-  margin: 0 0 1rem;
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 980px;
+}
+
+.eyebrow,
+.section-tag {
+  display: block;
+  margin-bottom: 1rem;
+  color: rgba(255,255,255,0.5);
   font-size: 11px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
 }
 
-.hero h1 {
-  margin: 0;
+.section-tag {
+  color: var(--gold);
+}
+
+h1 {
+  color: #fff;
   font-size: clamp(2.5rem, 7vw, 5rem);
   font-weight: 300;
-  line-height: 1.05;
   letter-spacing: 0;
+  line-height: 1.05;
 }
 
-.hero h1 em {
+h1 em {
   color: var(--gold);
   font-style: normal;
 }
 
-.hero-sub {
-  margin: 1.4rem auto 2rem;
-  max-width: 620px;
-  color: var(--muted);
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  line-height: 1.65;
+h2 {
+  color: #fff;
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  font-weight: 300;
+  line-height: 1.15;
+}
+
+.sub {
+  margin-top: 1.35rem;
+  color: rgba(255,255,255,0.76);
+  font-size: clamp(1rem, 2vw, 1.2rem);
 }
 
 .btn-gold {
   display: inline-block;
-  padding: 16px 36px;
+  margin-top: 2rem;
+  padding: 15px 36px;
   border-radius: 3px;
   background: var(--gold);
-  color: var(--ink);
+  color: #1a1008;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-decoration: none;
   text-transform: uppercase;
-  box-shadow: 0 20px 60px rgba(212,168,83,0.22);
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .btn-gold:hover,
 .btn-gold:focus-visible {
+  background: var(--gold-bright);
   transform: translateY(-2px);
-  box-shadow: 0 24px 70px rgba(212,168,83,0.32);
 }
 
-.fence-label {
-  max-width: min(960px, 92vw);
-  text-align: center;
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 600ms ease, transform 600ms ease;
-}
-
-.fence-label.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.fence-label h2 {
-  margin: 0 0 0.65rem;
-  color: white;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 200;
-  letter-spacing: 0.05em;
-  line-height: 1.08;
-  text-shadow: 0 2px 30px rgba(0,0,0,0.8);
-}
-
-.fence-label p {
-  margin: 0 auto;
-  max-width: 610px;
-  color: rgba(255,255,255,0.74);
-  font-size: clamp(0.95rem, 2vw, 1.12rem);
-  line-height: 1.65;
-  text-shadow: 0 2px 16px rgba(0,0,0,0.8);
-}
-
-#contact-form {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translateY(-50%);
-  transform: translate(-50%, -50%);
-  width: min(480px, calc(100vw - 2rem));
-  margin: 0 auto;
-  padding: 3rem 2rem;
-  background: rgba(0,0,0,0.7);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 30px 100px rgba(0,0,0,0.45);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 400ms ease;
-}
-
-body.contact-active #contact-form {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-#contact-form h2 {
-  margin: 0 0 0.75rem;
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 300;
-  letter-spacing: 0;
-}
-
-#contact-form p {
-  margin: 0 0 1.5rem;
-  color: var(--muted);
-  line-height: 1.55;
-}
-
-#contact-form input,
-#contact-form textarea {
-  width: 100%;
-  margin-bottom: 12px;
-  padding: 14px;
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 4px;
-  background: rgba(255,255,255,0.05);
-  color: white;
-  font: inherit;
-  font-size: 15px;
-  resize: vertical;
-}
-
-#contact-form input::placeholder,
-#contact-form textarea::placeholder {
-  color: rgba(255,255,255,0.45);
-}
-
-#contact-form button {
-  width: 100%;
-  padding: 16px;
-  border: 0;
-  border-radius: 4px;
-  background: var(--gold);
-  color: var(--ink);
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 500;
-}
-
-#contact-form .fine {
-  margin: 1rem 0 0;
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.48);
-}
-
-.site-footer {
+.scroll-cue {
   position: absolute;
+  z-index: 2;
+  bottom: 2.5rem;
   left: 50%;
-  bottom: 26px;
-  width: min(760px, calc(100vw - 2rem));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   transform: translateX(-50%);
-  color: rgba(255,255,255,0.56);
+  color: rgba(255,255,255,0.35);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 0;
+  background: rgba(255,255,255,0.35);
+}
+
+.photo-section {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  isolation: isolate;
+  will-change: opacity, transform, filter;
+}
+
+.photo-section.short {
+  min-height: 70vh;
+  justify-content: center;
   text-align: center;
-  font-size: 0.82rem;
-  line-height: 1.7;
-  pointer-events: auto;
 }
 
-.site-footer a {
-  color: rgba(255,255,255,0.76);
-  text-decoration: none;
+.photo-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 115%;
+  object-fit: cover;
+  object-position: center;
+  transform: translateY(-7%);
 }
 
-.site-footer a:hover,
-.site-footer a:focus-visible {
+.photo-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+}
+
+.photo-section.overlay-right::before {
+  background: linear-gradient(to left, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+}
+
+.photo-section.overlay-soft::before {
+  background: rgba(0,0,0,0.45);
+}
+
+.photo-content {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.photo-content.left {
+  padding-left: 8vw;
+}
+
+.photo-content.right {
+  margin-left: auto;
+  padding-right: 8vw;
+  text-align: right;
+}
+
+.photo-content h2 {
+  margin-bottom: 1rem;
+}
+
+.photo-content p {
+  color: rgba(255,255,255,0.8);
+}
+
+.dark-section {
+  background: #0d0d0d;
+  padding: 6rem 8vw;
+  will-change: opacity, transform, filter;
+}
+
+.dark-section.alt {
+  background: #111;
+}
+
+.who-grid,
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: center;
+}
+
+.who-copy p {
+  margin-top: 1.4rem;
+  max-width: 760px;
+}
+
+.license,
+.small,
+.fine-print {
+  color: rgba(255,255,255,0.42);
+  font-size: 13px;
+}
+
+.stats {
+  display: grid;
+  gap: 1.7rem;
+}
+
+.stat-card {
+  border-left: 3px solid var(--gold);
+  padding-left: 1.5rem;
+}
+
+.stat-number {
+  color: var(--gold);
+  font-size: 2.8rem;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.stat-label {
+  margin-top: 0.65rem;
+  color: rgba(255,255,255,0.45);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.section-heading {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.service-card {
+  min-height: 245px;
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 4px;
+  background: #161616;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.service-card:hover,
+.service-card:focus-within {
+  border-color: rgba(212,168,83,0.4);
+  transform: translateY(-4px);
+}
+
+.service-icon {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 1.6rem;
   color: var(--gold);
 }
 
-@media (max-width: 640px) {
-  .screen {
-    padding: 4.5rem 1rem;
+.service-card h3 {
+  margin-bottom: 0.9rem;
+  font-size: 1.35rem;
+  font-weight: 400;
+}
+
+.testimonials h2,
+.areas h2 {
+  margin-bottom: 1rem;
+}
+
+.testimonial-row {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+}
+
+.quote-card {
+  flex: 1 1 280px;
+  max-width: 360px;
+  padding: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.quote-mark {
+  display: block;
+  height: 2.4rem;
+  color: var(--gold);
+  font-size: 4rem;
+  line-height: 0.75;
+}
+
+.attribution {
+  margin-top: 1rem;
+  color: rgba(255,255,255,0.4);
+  font-size: 13px;
+}
+
+.sub-text {
+  color: rgba(255,255,255,0.5);
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 2rem;
+}
+
+.city-tag {
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 2px;
+  padding: 8px 16px;
+  color: rgba(255,255,255,0.5);
+  font-size: 13px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.city-tag:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.panorama-title {
+  position: relative;
+  z-index: 2;
+  max-width: 920px;
+  padding: 0 1.5rem;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 200;
+  letter-spacing: 0.05em;
+}
+
+#contact {
+  min-height: 100vh;
+  background: #0a0a0a;
+}
+
+.contact-copy h2 {
+  margin-bottom: 1rem;
+}
+
+.contact-detail {
+  margin: 2rem 0 1rem;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.contact-detail span {
+  color: var(--gold);
+}
+
+.contact-detail a {
+  text-decoration: none;
+}
+
+.contact-detail a:hover {
+  color: var(--gold);
+}
+
+form {
+  width: 100%;
+}
+
+input,
+textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  outline: none;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--gold);
+}
+
+textarea {
+  resize: vertical;
+}
+
+form button {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 4px;
+  background: var(--gold);
+  color: #1a1008;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  transition: background 0.2s ease;
+}
+
+form button:hover,
+form button:focus-visible {
+  background: var(--gold-bright);
+}
+
+.fine-print,
+.success-message {
+  margin-top: 1rem;
+}
+
+.success-message {
+  min-height: 1.6em;
+  color: var(--gold);
+  font-size: 14px;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2rem 8vw;
+  background: #060606;
+  color: rgba(255,255,255,0.2);
+  font-size: 12px;
+}
+
+footer a {
+  color: rgba(255,255,255,0.28);
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: var(--gold);
+}
+
+@media (max-width: 780px) {
+  #hero {
+    padding: 5rem 1.25rem;
   }
 
-  .hero-sub br {
-    display: none;
+  .photo-section {
+    min-height: 86vh;
   }
 
-  .btn-gold {
-    width: min(100%, 330px);
-    padding-inline: 18px;
+  .photo-bg {
+    height: 105%;
+    transform: none;
   }
 
-  #contact-form {
+  .photo-content.left,
+  .photo-content.right {
+    max-width: none;
+    margin: 0;
+    padding: 0 1.25rem;
+    text-align: left;
+  }
+
+  .who-grid,
+  .contact-grid,
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dark-section {
+    padding: 4.5rem 1.25rem;
+  }
+
+  .testimonial-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    scroll-snap-type: x mandatory;
+  }
+
+  .quote-card {
+    flex-basis: 82vw;
+    scroll-snap-align: start;
+  }
+
+  footer {
+    flex-direction: column;
     padding: 2rem 1.25rem;
   }
 }
 </style>
 </head>
 <body>
-<canvas id="main-canvas" aria-hidden="true"></canvas>
-
-<div id="scroll-container">
-  <section class="screen hero-section">
-    <div class="hero">
-      <p class="hero-tag">Sacramento Valley · Licensed #1089233</p>
+<main>
+  <section id="hero">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <p class="eyebrow">Sacramento Valley · Licensed #1089233</p>
       <h1>Fencing built to last<br><em>decades</em>, not seasons.</h1>
-      <p class="hero-sub">Wood · Vinyl · Chain Link · Gates<br>Sacramento to the Sierra Foothills</p>
+      <p class="sub">Wood · Vinyl · Chain Link · Gates<br>Sacramento to the Sierra Foothills</p>
       <a href="#contact" class="btn-gold">Get a Free Estimate</a>
     </div>
-  </section>
-
-  <section class="screen build-label">
-    <div class="fence-label">
-      <h2>Cedar &amp; Wood Fencing</h2>
-      <p>Posts set true, rails pulled tight, and pickets built into a warm cedar line that feels settled from day one.</p>
+    <div class="scroll-cue" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
     </div>
   </section>
 
-  <section class="screen vinyl-label">
-    <div class="fence-label">
-      <h2>Vinyl Fencing</h2>
-      <p>Clean privacy runs with crisp white panels, low upkeep, and a finished look that stays bright through the seasons.</p>
+  <section class="photo-section" id="cedar">
+    <img class="photo-bg" src="https://images.unsplash.com/photo-1604015641586-6fa03629f976?auto=format&fit=crop&w=1920&q=85" alt="" loading="eager" decoding="async">
+    <div class="photo-content left">
+      <span class="section-tag">Cedar &amp; Wood Fencing</span>
+      <h2>Posts set true.<br>Lines that hold.</h2>
+      <p>Cedar and redwood built for California - planned for your soil, slope, and HOA. Every post plumb, every top line straight.</p>
     </div>
   </section>
 
-  <section class="screen chain-label">
-    <div class="fence-label">
-      <h2>Chain Link Fencing</h2>
-      <p>Durable galvanized fence lines for yards, rentals, utility spaces, and practical boundaries that need to work hard.</p>
+  <section class="dark-section who">
+    <div class="who-grid">
+      <div class="who-copy">
+        <h2>A local crew that lives and breathes fences.</h2>
+        <p>Twin Rivers LLC works valley neighborhoods and sloped foothill lots every day - new installs, storm damage, gates that stopped latching. We pick materials for how your yard actually behaves: soil, slope, sun, HOA specs. You get a clear plan before we dig.</p>
+        <p class="license">Licensed Contractor #1089233 · Grass Valley, CA</p>
+      </div>
+      <div class="stats" aria-label="Twin Rivers project statistics">
+        <div class="stat-card">
+          <div class="stat-number" data-count="5000" data-suffix="+">0</div>
+          <div class="stat-label">Projects completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-count="15" data-suffix="+">0</div>
+          <div class="stat-label">Towns we work</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-count="35" data-suffix="+">0</div>
+          <div class="stat-label">Years combined</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="screen gate-label">
-    <div class="fence-label">
-      <h2>Custom Gates</h2>
-      <p>Double gates, access points, and hardware details built to swing cleanly and hold up to everyday use.</p>
+  <section class="photo-section overlay-right" id="vinyl">
+    <img class="photo-bg" src="https://images.unsplash.com/photo-1593285247650-cd7bb44adcfd?auto=format&fit=crop&w=1920&q=85" alt="" loading="lazy" decoding="async">
+    <div class="photo-content right">
+      <span class="section-tag">Vinyl Fencing</span>
+      <h2>Low upkeep.<br>High impact.</h2>
+      <p>Hose it off, skip the stain crew - vinyl holds its color through Sacramento summers and foothill winters. Routed posts, proper spacing, panels that don't bow.</p>
     </div>
   </section>
 
-  <section class="screen contact-section" id="contact">
-    <form id="contact-form">
-      <h2>Get a free estimate</h2>
-      <p>Tell us about your project - we'll give you a straight answer.</p>
-      <input type="text" placeholder="Your name" name="name" autocomplete="name">
-      <input type="tel" placeholder="Phone number" name="phone" autocomplete="tel">
-      <textarea placeholder="Describe your project..." name="message" rows="4"></textarea>
-      <button type="submit">Send message</button>
-      <p class="fine">By submitting you agree to be contacted by Twin Rivers Fence.</p>
-    </form>
+  <section class="dark-section alt services">
+    <h2 class="section-heading">What we do</h2>
+    <div class="services-grid">
+      <article class="service-card">
+        <svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 34h32M10 18h28M13 10l5 6v22h-5V10Zm17 0 5 6v22h-5V10ZM5 22h38v6H5v-6Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <h3>Fence Installation</h3>
+        <p>New perimeter and backyard fences - wood privacy, picket, vinyl, chain link for pets or pools.</p>
+      </article>
+      <article class="service-card">
+        <svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M11 35 32 14l4 4-21 21H9v-4h2Zm20-20 4-4 4 4-4 4M14 12v10M9 17h10M31 31v9M26 36h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Fence Repair</h3>
+        <p>Leaning sections, rotted posts, blown panels - we fix what's salvageable, tell you when replace is smarter.</p>
+      </article>
+      <article class="service-card">
+        <svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 8v32M38 8v32M10 12h28M10 36h28M14 14h20v20H14V14Zm20 10h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Gate Installation</h3>
+        <p>Single and double gates, latches that line up, openings wide enough for your trailer. Manual and automated.</p>
+      </article>
+      <article class="service-card">
+        <svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 39h32M12 39V21l12-10 12 10v18M19 39V27h10v12M16 23h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <h3>Property Improvements</h3>
+        <p>Decks, yard tweaks, and exterior fixes for homes and rentals - work that pairs with a solid fence.</p>
+      </article>
+    </div>
   </section>
 
-  <footer class="site-footer">
-    Twin Rivers LLC · License #1089233 · Grass Valley, CA<br>
-    twinriversfence.com<br>
-    <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a>
-  </footer>
-</div>
+  <section class="photo-section" id="chain-link">
+    <img class="photo-bg" src="https://images.unsplash.com/photo-1586574208875-cd77c2bfb851?auto=format&fit=crop&w=1920&q=85" alt="" loading="lazy" decoding="async">
+    <div class="photo-content left">
+      <span class="section-tag">Chain Link Fencing</span>
+      <h2>Built to work.<br>Not just look good.</h2>
+      <p>Big dog runs, long back lines, rentals that need to pass inspection. Tight galvanized fabric, solid posts, long-run value.</p>
+    </div>
+  </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <section class="dark-section testimonials">
+    <h2>What neighbors say</h2>
+    <div class="testimonial-row">
+      <article class="quote-card">
+        <span class="quote-mark">"</span>
+        <p>Roughly 120 feet of tired cedar came out after last winter. They flagged the gate swing on our sloped driveway before we ordered lumber, then knocked it out in two days.</p>
+        <div class="attribution">- Mark J., Roseville</div>
+      </article>
+      <article class="quote-card">
+        <span class="quote-mark">"</span>
+        <p>Back line was leaning and one panel was on the ground. They swapped bad posts, reused what was sound, and didn't push a full tear-out. Bill matched what they quoted.</p>
+        <div class="attribution">- Amanda R., Citrus Heights</div>
+      </article>
+      <article class="quote-card">
+        <span class="quote-mark">"</span>
+        <p>Wanted a real privacy fence off the back patio - not a wobbly screen. Crew showed up, stayed on the line, and left the yard cleaner than they found it.</p>
+        <div class="attribution">- Daniel K., Folsom</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="dark-section alt areas">
+    <h2>Where we work</h2>
+    <p class="sub-text">Sacramento Valley to the Sierra Foothills</p>
+    <div class="tag-cloud" aria-label="Service areas">
+      <span class="city-tag">Sacramento</span>
+      <span class="city-tag">Elk Grove</span>
+      <span class="city-tag">Roseville</span>
+      <span class="city-tag">Rocklin</span>
+      <span class="city-tag">Lincoln</span>
+      <span class="city-tag">Folsom</span>
+      <span class="city-tag">Auburn</span>
+      <span class="city-tag">Grass Valley</span>
+      <span class="city-tag">Nevada City</span>
+      <span class="city-tag">Colfax</span>
+      <span class="city-tag">Alta Sierra</span>
+      <span class="city-tag">Meadow Vista</span>
+      <span class="city-tag">Foresthill</span>
+      <span class="city-tag">Lake of the Pines</span>
+      <span class="city-tag">Citrus Heights</span>
+      <span class="city-tag">Rancho Cordova</span>
+      <span class="city-tag">Fair Oaks</span>
+      <span class="city-tag">Carmichael</span>
+      <span class="city-tag">Orangevale</span>
+    </div>
+  </section>
+
+  <section class="photo-section short overlay-soft">
+    <img class="photo-bg" src="https://images.unsplash.com/photo-1645791498650-2509fad63992?auto=format&fit=crop&w=1920&q=85" alt="" loading="lazy" decoding="async">
+    <h2 class="panorama-title">Built right. Built to last.</h2>
+  </section>
+
+  <section class="dark-section" id="contact">
+    <div class="contact-grid">
+      <div class="contact-copy">
+        <h2>Get a free estimate</h2>
+        <p>Tell us about your project - we'll give you a straight answer and a real quote.</p>
+        <div class="contact-detail"><span>Phone</span> <a href="tel:+19169062254">(916) 906-2254</a></div>
+        <p class="small">Grass Valley, CA · Serving Sacramento region and Sierra foothills</p>
+      </div>
+      <form id="contact-form">
+        <input type="text" name="name" placeholder="Your name" required autocomplete="name">
+        <input type="tel" name="phone" placeholder="Phone number" required autocomplete="tel">
+        <input type="email" name="email" placeholder="Email (optional)" autocomplete="email">
+        <textarea name="message" rows="5" placeholder="Tell us about your fence project..."></textarea>
+        <button type="submit">Send message -></button>
+        <p class="fine-print">By submitting you agree to be contacted by Twin Rivers Fence.</p>
+        <p class="success-message" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div>Twin Rivers LLC · License #1089233 · Grass Valley, CA</div>
+  <div><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script>
 (function () {
   "use strict";
 
-  var canvas = document.getElementById("main-canvas");
-  var scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x020818);
-  scene.fog = new THREE.Fog(0x87ceeb, 18, 60);
-
-  var camera = new THREE.PerspectiveCamera(48, window.innerWidth / window.innerHeight, 0.1, 120);
-  camera.position.set(0, 20, 0.01);
-
-  function runNoWebGLFallback() {
-    canvas.style.background = "linear-gradient(180deg, #020818 0%, #87ceeb 44%, #ff8c42 100%)";
-    function fallbackLabels() {
-      var progress = getProgress();
-      document.querySelector(".build-label .fence-label").classList.toggle("is-visible", progress > 0.26 && progress < 0.55);
-      document.querySelector(".vinyl-label .fence-label").classList.toggle("is-visible", progress > 0.66 && progress < 0.74);
-      document.querySelector(".chain-label .fence-label").classList.toggle("is-visible", progress > 0.75 && progress < 0.84);
-      document.querySelector(".gate-label .fence-label").classList.toggle("is-visible", progress > 0.84 && progress < 0.91);
-      document.body.classList.toggle("contact-active", progress >= 0.9);
-    }
-    window.addEventListener("scroll", fallbackLabels, { passive: true });
-    fallbackLabels();
-  }
-
-  function browserCanUseWebGL() {
-    try {
-      var probe = document.createElement("canvas");
-      return !!(window.WebGLRenderingContext && (probe.getContext("webgl") || probe.getContext("experimental-webgl")));
-    } catch (error) {
-      return false;
-    }
-  }
-
-  if (!browserCanUseWebGL()) {
-    runNoWebGLFallback();
-    return;
-  }
-
-  var renderer;
-  try {
-    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: false });
-  } catch (error) {
-    runNoWebGLFallback();
-    return;
-  }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-  var ambientLight = new THREE.AmbientLight(0x334466, 0.6);
-  scene.add(ambientLight);
-
-  var sunLight = new THREE.DirectionalLight(0xaabbff, 0.4);
-  sunLight.position.set(5, 10, -5);
-  sunLight.castShadow = true;
-  sunLight.shadow.mapSize.width = 1024;
-  sunLight.shadow.mapSize.height = 1024;
-  sunLight.shadow.camera.left = -18;
-  sunLight.shadow.camera.right = 18;
-  sunLight.shadow.camera.top = 18;
-  sunLight.shadow.camera.bottom = -18;
-  scene.add(sunLight);
-
-  var glowLight = new THREE.PointLight(0xffaa44, 0, 18);
-  glowLight.position.set(0, 3, 6);
-  scene.add(glowLight);
-
-  var materials = {};
-  function mat(key, color, options) {
-    if (!materials[key]) {
-      options = options || {};
-      var params = Object.assign({ color: color }, options);
-      materials[key] = params.basic ? new THREE.MeshBasicMaterial(params) : new THREE.MeshLambertMaterial(params);
-    }
-    return materials[key];
-  }
-
-  var cedar = mat("cedar", 0x5c3a1e);
-  var railA = mat("railA", 0x7a4f2a);
-  var railB = mat("railB", 0x6b4020);
-  var picketMat = mat("picket", 0x8b5e3c);
-  var capMat = mat("cap", 0x9b6e4c);
-  var grassMat = mat("grass", 0x3d5c2a, { transparent: true, opacity: 0 });
-  var holeMat = mat("hole", 0x1a0f05, { transparent: true, opacity: 0 });
-  var vinylMat = mat("vinyl", 0xf0f0f0, { transparent: true, opacity: 0 });
-  var steelMat = mat("steel", 0xaaaaaa, { transparent: true, opacity: 0 });
-  var gateMat = mat("gate", 0x5c3a1e, { transparent: true, opacity: 0 });
-  var darkPostMat = mat("darkPost", 0x4a2e14, { transparent: true, opacity: 0 });
-  var metalMat = mat("metal", 0x888888, { transparent: true, opacity: 1 });
-  var goldMat = mat("gold", 0xd4a020);
-  var skinMat = mat("skin", 0xc68642, { transparent: true, opacity: 1 });
-  var hatMat = mat("hat", 0xffcc00, { transparent: true, opacity: 1 });
-  var blueMat = mat("blueShirt", 0x2244aa, { transparent: true, opacity: 1 });
-  var redMat = mat("redShirt", 0xaa4422, { transparent: true, opacity: 1 });
-  var toolboxMat = mat("toolbox", 0xcc8800);
-
   function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
-  }
-
-  function smooth(value) {
-    value = clamp(value, 0, 1);
-    return value * value * (3 - 2 * value);
-  }
-
-  function range(progress, start, end) {
-    return smooth((progress - start) / (end - start));
   }
 
   function lerp(a, b, t) {
     return a + (b - a) * clamp(t, 0, 1);
   }
 
-  function colorLerp(a, b, t) {
-    return new THREE.Color(a).lerp(new THREE.Color(b), clamp(t, 0, 1));
+  function easeOutBack(t) {
+    var c1 = 1.70158;
+    var c3 = c1 + 1;
+    return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
   }
 
-  function setOpacity(object, opacity) {
-    object.traverse(function (child) {
-      if (child.material) {
-        child.material.transparent = true;
-        child.material.opacity = opacity;
-        child.visible = opacity > 0.01;
-      }
-    });
-  }
+  function initHeroCanvas() {
+    var hero = document.getElementById("hero");
+    var canvas = document.getElementById("hero-canvas");
+    var ctx = canvas.getContext("2d");
+    var dpr = 1;
+    var width = 0;
+    var height = 0;
+    var scale = 1;
+    var groundY = 0;
+    var fenceY = 0;
+    var fencePieces = [];
+    var collapsePieces = [];
+    var birds = [];
+    var clouds = [];
+    var tears = [];
+    var highFiveParticles = [];
+    var dustClouds = [];
+    var rafId = null;
+    var lastFrame = 0;
+    var paused = document.hidden;
+    var stateStartTime = performance.now();
+    var currentState = "BUILDING";
+    var buildProgress = 0;
+    var highFiveTriggered = false;
+    var collapseStarted = false;
 
-  function shadowify(object, cast, receive) {
-    object.traverse(function (child) {
-      if (child.isMesh) {
-        child.castShadow = !!cast;
-        child.receiveShadow = !!receive;
-      }
-    });
-  }
+    var STATES = {
+      BUILDING: { duration: 45000 },
+      HIGHFIVE: { duration: 3000 },
+      COLLAPSE: { duration: 2000 },
+      SAD: { duration: 4000 },
+      RESET: { duration: 800 }
+    };
 
-  var skyGroup = new THREE.Group();
-  scene.add(skyGroup);
-
-  var starPositions = new Float32Array(300 * 3);
-  for (var i = 0; i < 300; i++) {
-    var theta = Math.random() * Math.PI * 2;
-    var phi = Math.acos((Math.random() * 2) - 1);
-    var radius = 18 + Math.random() * 22;
-    starPositions[i * 3] = Math.sin(phi) * Math.cos(theta) * radius;
-    starPositions[i * 3 + 1] = 4 + Math.abs(Math.cos(phi) * radius);
-    starPositions[i * 3 + 2] = Math.sin(phi) * Math.sin(theta) * radius - 8;
-  }
-  var starGeometry = new THREE.BufferGeometry();
-  starGeometry.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
-  var starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.08, transparent: true, opacity: 1 });
-  var stars = new THREE.Points(starGeometry, starMaterial);
-  skyGroup.add(stars);
-
-  var clouds = [];
-  for (var c = 0; c < 8; c++) {
-    var cloud = new THREE.Group();
-    var count = 4 + Math.floor(Math.random() * 3);
-    for (var s = 0; s < count; s++) {
-      var radiusCloud = 1.5 + Math.random() * 1.5;
-      var puff = new THREE.Mesh(
-        new THREE.SphereGeometry(radiusCloud, 10, 8),
-        mat("cloud" + c + "-" + s, 0xffffff, { transparent: true, opacity: 0.7 })
-      );
-      puff.position.set((Math.random() - 0.5) * 4, (Math.random() - 0.5) * 1.2, (Math.random() - 0.5) * 1.1);
-      puff.scale.y = 0.42;
-      cloud.add(puff);
-    }
-    cloud.position.set(-20 + Math.random() * 40, 8 + Math.random() * 7, -10 + Math.random() * 5);
-    cloud.userData.baseScale = 0.45 + Math.random() * 0.3;
-    cloud.scale.setScalar(cloud.userData.baseScale);
-    skyGroup.add(cloud);
-    clouds.push(cloud);
-  }
-
-  var ground = new THREE.Mesh(new THREE.PlaneGeometry(60, 60), grassMat);
-  ground.rotation.x = -Math.PI / 2;
-  ground.receiveShadow = true;
-  scene.add(ground);
-
-  var postHole = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.05, 32), holeMat);
-  postHole.position.y = 0.026;
-  postHole.receiveShadow = true;
-  scene.add(postHole);
-
-  var fenceGroup = new THREE.Group();
-  scene.add(fenceGroup);
-  var buildParts = [];
-  var postXs = [-3, -2, -1, 0, 1, 2, 3];
-
-  function addMesh(group, geometry, material, x, y, z) {
-    var mesh = new THREE.Mesh(geometry, material);
-    mesh.position.set(x || 0, y || 0, z || 0);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    group.add(mesh);
-    return mesh;
-  }
-
-  for (var bay = 0; bay < 7; bay++) {
-    var bayGroup = new THREE.Group();
-    fenceGroup.add(bayGroup);
-    var postX = postXs[bay];
-    var post = addMesh(bayGroup, new THREE.CylinderGeometry(0.1, 0.12, 2.8, 8), cedar, postX, -1, 0);
-    buildParts.push({ type: "post", bay: bay, mesh: post, finalY: 1.4 });
-
-    for (var r = 0; r < 3; r++) {
-      var rail = addMesh(bayGroup, new THREE.BoxGeometry(0.95, 0.12, 0.05), r % 2 ? railB : railA, postX - 2, [0.5, 1.2, 1.9][r], 0.01);
-      buildParts.push({ type: "rail", bay: bay, mesh: rail, finalX: postX + 0.5 });
+    function resizeCanvas() {
+      var rect = hero.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = Math.max(320, Math.round(rect.width));
+      height = Math.max(480, Math.round(rect.height));
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      scale = width / 1200;
+      groundY = height * 0.62;
+      fenceY = groundY - 10 * scale;
+      createFencePieces();
+      createAmbient();
     }
 
-    for (var p = 0; p < 4; p++) {
-      var finalX = postX + 0.18 + p * 0.22;
-      var picket = addMesh(bayGroup, new THREE.BoxGeometry(0.18, 1.6, 0.04), picketMat, finalX, 4, 0.05);
-      var cone = addMesh(bayGroup, new THREE.ConeGeometry(0.09, 0.25, 4), picketMat, finalX, 4.925, 0.05);
-      cone.rotation.y = Math.PI / 4;
-      buildParts.push({ type: "picket", bay: bay, index: p, mesh: picket, finalY: 0.92 });
-      buildParts.push({ type: "picketTop", bay: bay, index: p, mesh: cone, finalY: 1.845 });
+    function createAmbient() {
+      birds = [
+        { x: width * 0.18, y: height * 0.16, speed: 0.3, size: 11 },
+        { x: width * 0.46, y: height * 0.12, speed: 0.24, size: 8 },
+        { x: width * 0.72, y: height * 0.2, speed: 0.34, size: 10 }
+      ];
+      clouds = [
+        { x: width * 0.17, y: height * 0.16, s: 1.1 },
+        { x: width * 0.55, y: height * 0.13, s: 0.85 },
+        { x: width * 0.77, y: height * 0.22, s: 1 }
+      ];
     }
-  }
 
-  var capBoard = addMesh(fenceGroup, new THREE.BoxGeometry(6.2, 0.08, 0.18), capMat, 0.05, 2.44, 0.02);
-  capBoard.visible = false;
-  shadowify(fenceGroup, true, true);
+    function createFencePieces() {
+      fencePieces = [];
+      var postSpacing = 80 * scale;
+      var postW = 14 * scale;
+      var postH = 90 * scale;
+      var picketW = 10 * scale;
+      var picketH = 75 * scale;
+      var railH = 8 * scale;
+      var startX = -postSpacing * 0.5;
+      var postCount = Math.ceil((width + postSpacing) / postSpacing) + 1;
 
-  function makeWorker(bodyMaterial) {
-    var worker = new THREE.Group();
-    var body = addMesh(worker, new THREE.CylinderGeometry(0.15, 0.15, 0.7, 12), bodyMaterial, 0, 0.62, 0);
-    var head = addMesh(worker, new THREE.SphereGeometry(0.15, 12, 10), skinMat, 0, 1.08, 0);
-    var brim = addMesh(worker, new THREE.CylinderGeometry(0.18, 0.18, 0.08, 16), hatMat, 0, 1.22, 0);
-    var crown = addMesh(worker, new THREE.CylinderGeometry(0.12, 0.12, 0.1, 16), hatMat, 0, 1.31, 0);
-    var leftArm = addMesh(worker, new THREE.CylinderGeometry(0.05, 0.05, 0.4, 8), bodyMaterial, -0.2, 0.78, 0);
-    var rightArm = addMesh(worker, new THREE.CylinderGeometry(0.05, 0.05, 0.4, 8), bodyMaterial, 0.2, 0.78, 0);
-    leftArm.rotation.z = -0.7;
-    rightArm.rotation.z = 0.7;
-    worker.userData = { body: body, head: head, brim: brim, crown: crown, leftArm: leftArm, rightArm: rightArm };
-    return worker;
-  }
+      for (var i = 0; i < postCount; i++) {
+        var x = startX + i * postSpacing;
+        var postIndex = clamp((x + postSpacing * 0.5) / (width + postSpacing), 0, 1);
+        fencePieces.push({ kind: "post", x: x, y: fenceY - postH, w: postW, h: postH, color: "#8B5E3C", trigger: postIndex });
 
-  var workerOne = makeWorker(blueMat);
-  var workerTwo = makeWorker(redMat);
-  scene.add(workerOne, workerTwo);
-
-  var hammer = new THREE.Group();
-  var handle = addMesh(hammer, new THREE.CylinderGeometry(0.03, 0.03, 0.4, 8), cedar, 0, -0.18, 0);
-  handle.rotation.z = 0.15;
-  addMesh(hammer, new THREE.BoxGeometry(0.08, 0.06, 0.12), metalMat, 0, 0.06, 0);
-  hammer.position.set(0.03, -0.28, 0);
-  workerTwo.userData.rightArm.add(hammer);
-
-  var sawdustGeometry = new THREE.BufferGeometry();
-  var sawdustPositions = new Float32Array(40 * 3);
-  var sawdustSeeds = [];
-  for (var d = 0; d < 40; d++) {
-    sawdustPositions[d * 3] = (Math.random() - 0.5) * 0.35;
-    sawdustPositions[d * 3 + 1] = Math.random() * 0.35;
-    sawdustPositions[d * 3 + 2] = (Math.random() - 0.5) * 0.25;
-    sawdustSeeds.push(Math.random() * Math.PI * 2);
-  }
-  sawdustGeometry.setAttribute("position", new THREE.BufferAttribute(sawdustPositions, 3));
-  var sawdust = new THREE.Points(sawdustGeometry, new THREE.PointsMaterial({ color: 0xd4a020, size: 0.04, transparent: true, opacity: 0 }));
-  scene.add(sawdust);
-
-  var toolbox = new THREE.Group();
-  addMesh(toolbox, new THREE.BoxGeometry(0.4, 0.2, 0.2), toolboxMat, 0, 0.1, 0);
-  var lid = addMesh(toolbox, new THREE.BoxGeometry(0.42, 0.05, 0.22), toolboxMat, 0, 0.23, -0.05);
-  lid.rotation.x = -0.35;
-  toolbox.position.set(-4, 0, 0.8);
-  scene.add(toolbox);
-
-  var plankPile = new THREE.Group();
-  for (var plank = 0; plank < 5; plank++) {
-    var m = plank % 2 ? railA : picketMat;
-    var piece = addMesh(plankPile, new THREE.BoxGeometry(0.9, 0.05, 0.12), m, (Math.random() - 0.5) * 0.14, plank * 0.06, (Math.random() - 0.5) * 0.16);
-    piece.rotation.y = (Math.random() - 0.5) * 0.2;
-  }
-  plankPile.position.set(-4, 0.1, 1);
-  scene.add(plankPile);
-
-  function createPanelFence(root, offsetX, bays, material, options) {
-    options = options || {};
-    var postHeight = options.postHeight || 2.5;
-    var postRadius = options.postRadius || 0.12;
-    var picketHeight = options.picketHeight || 2;
-    var group = new THREE.Group();
-    root.add(group);
-    for (var b = 0; b <= bays; b++) {
-      addMesh(group, new THREE.CylinderGeometry(postRadius, postRadius, postHeight, 12), material, offsetX + b, postHeight / 2, 0);
-    }
-    for (var b2 = 0; b2 < bays; b2++) {
-      addMesh(group, new THREE.BoxGeometry(0.9, 0.12, 0.05), material, offsetX + b2 + 0.5, 0.55, 0);
-      addMesh(group, new THREE.BoxGeometry(0.9, 0.12, 0.05), material, offsetX + b2 + 0.5, 1.28, 0);
-      addMesh(group, new THREE.BoxGeometry(0.9, 0.12, 0.05), material, offsetX + b2 + 0.5, 2.0, 0);
-      for (var pp = 0; pp < 4; pp++) {
-        addMesh(group, new THREE.BoxGeometry(0.2, picketHeight, 0.05), material, offsetX + b2 + 0.18 + pp * 0.22, picketHeight / 2, 0.04);
+        if (i < postCount - 1) {
+          var nextX = x + postSpacing;
+          [0.3, 0.65].forEach(function (railRatio, railIndex) {
+            fencePieces.push({
+              kind: "rail",
+              x: x + postW * 0.5,
+              y: fenceY - postH * railRatio,
+              w: nextX - x,
+              h: railH,
+              color: "#7A4F32",
+              trigger: clamp((x + postSpacing * 0.65 + railIndex * 8 * scale) / (width + postSpacing), 0, 1)
+            });
+          });
+          for (var p = 1; p <= 4; p++) {
+            var px = x + p * (postSpacing / 5) - picketW * 0.5;
+            fencePieces.push({
+              kind: "picket",
+              x: px,
+              y: fenceY - picketH,
+              w: picketW,
+              h: picketH,
+              color: "#A67C52",
+              trigger: clamp((px + postSpacing * 0.5) / (width + postSpacing), 0, 1)
+            });
+          }
+        }
       }
     }
-    shadowify(group, true, true);
-    return group;
-  }
 
-  var showcaseGroup = new THREE.Group();
-  scene.add(showcaseGroup);
-  var vinylFence = createPanelFence(showcaseGroup, 0, 5, vinylMat, { postHeight: 2.5, postRadius: 0.12, picketHeight: 2 });
-
-  var chainGroup = new THREE.Group();
-  showcaseGroup.add(chainGroup);
-  for (var cp = 0; cp <= 4; cp++) {
-    addMesh(chainGroup, new THREE.CylinderGeometry(0.08, 0.08, 2.2, 8), steelMat, 8 + cp, 1.1, 0);
-  }
-  var topRail = addMesh(chainGroup, new THREE.CylinderGeometry(0.025, 0.025, 4.1, 8), steelMat, 10, 2.12, 0);
-  topRail.rotation.z = Math.PI / 2;
-  for (var col = 0; col < 15; col++) {
-    for (var row = 0; row < 10; row++) {
-      var linkA = addMesh(chainGroup, new THREE.CylinderGeometry(0.01, 0.01, 0.2, 6), steelMat, 8.25 + col * 0.25, 0.35 + row * 0.17, 0.03);
-      linkA.rotation.z = Math.PI / 4;
-      var linkB = addMesh(chainGroup, new THREE.CylinderGeometry(0.01, 0.01, 0.2, 6), steelMat, 8.25 + col * 0.25, 0.35 + row * 0.17, 0.03);
-      linkB.rotation.z = -Math.PI / 4;
-    }
-  }
-
-  var gateGroup = new THREE.Group();
-  showcaseGroup.add(gateGroup);
-  addMesh(gateGroup, new THREE.CylinderGeometry(0.15, 0.15, 2.5, 12), darkPostMat, 16, 1.25, 0);
-  addMesh(gateGroup, new THREE.CylinderGeometry(0.15, 0.15, 2.5, 12), darkPostMat, 19, 1.25, 0);
-  var leftGatePivot = new THREE.Group();
-  var rightGatePivot = new THREE.Group();
-  leftGatePivot.position.set(16.05, 1, 0.05);
-  rightGatePivot.position.set(18.95, 1, 0.05);
-  gateGroup.add(leftGatePivot, rightGatePivot);
-
-  function addGatePanel(pivot, side) {
-    var panel = addMesh(pivot, new THREE.BoxGeometry(1.2, 2, 0.05), gateMat, side * 0.6, 0, 0);
-    for (var gr = 0; gr < 3; gr++) {
-      addMesh(pivot, new THREE.BoxGeometry(1.15, 0.08, 0.07), gateMat, side * 0.6, -0.55 + gr * 0.55, 0.05);
-    }
-    return panel;
-  }
-  addGatePanel(leftGatePivot, 1);
-  addGatePanel(rightGatePivot, -1);
-  [[16, 0.45], [16, 2.05], [19, 0.45], [19, 2.05]].forEach(function (pos) {
-    addMesh(gateGroup, new THREE.SphereGeometry(0.06, 12, 8), metalMat, pos[0], pos[1], 0.08);
-  });
-  shadowify(showcaseGroup, true, true);
-
-  var flares = [];
-  for (var f = 0; f < 5; f++) {
-    var flare = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.6 + f * 0.25, 0.6 + f * 0.25),
-      mat("flare" + f, 0xffdd88, { basic: true, transparent: true, opacity: 0, depthWrite: false })
-    );
-    flare.position.set(-3 + f * 1.2, 2.2 - f * 0.24, 5.5 - f * 0.1);
-    scene.add(flare);
-    flares.push(flare);
-  }
-
-  function updateBuild(progress) {
-    var buildStart = 0.2;
-    var buildEnd = 0.55;
-    var segment = (buildEnd - buildStart) / 7;
-    buildParts.forEach(function (part) {
-      var bayStart = buildStart + part.bay * segment;
-      if (part.type === "post") {
-        var tPost = range(progress, bayStart, bayStart + 0.03);
-        part.mesh.position.y = lerp(-1, part.finalY, tPost);
-        part.mesh.visible = tPost > 0.01;
-      } else if (part.type === "rail") {
-        var tRail = range(progress, bayStart + 0.03, bayStart + 0.05);
-        part.mesh.position.x = lerp(postXs[part.bay] - 2, part.finalX, tRail);
-        part.mesh.visible = tRail > 0.01;
+    function roundedRect(x, y, w, h, r) {
+      if (ctx.roundRect) {
+        ctx.roundRect(x, y, w, h, r);
       } else {
-        var tPick = range(progress, bayStart + 0.05 + part.index * 0.005, bayStart + 0.075 + part.index * 0.005);
-        part.mesh.position.y = lerp(4, part.finalY, tPick);
-        part.mesh.visible = tPick > 0.01;
-      }
-    });
-    capBoard.visible = progress > 0.55;
-  }
-
-  function updateWorkers(progress, elapsed) {
-    var active = clamp(Math.floor(((progress - 0.2) / 0.35) * 7), 0, 6);
-    var activeX = postXs[active];
-    workerOne.position.set(activeX - 0.3, 0.02 + Math.sin(elapsed * Math.PI * 4) * 0.05, 0.5);
-    workerTwo.position.set(postXs[Math.max(0, active - 1)] + 0.35, 0.02, 0.65);
-    workerTwo.userData.rightArm.rotation.z = 0.7 + Math.sin(elapsed * Math.PI * 6) * 0.44;
-    toolbox.position.x = activeX - 1;
-
-    var workerOpacity = 1 - range(progress, 0.55, 0.6);
-    if (progress < 0.2) workerOpacity = range(progress, 0.16, 0.22);
-    setOpacity(workerOne, workerOpacity);
-    setOpacity(workerTwo, workerOpacity);
-    toolbox.visible = workerOpacity > 0.01;
-    plankPile.visible = workerOpacity > 0.01 || progress < 0.62;
-  }
-
-  function updateSawdust(progress, elapsed) {
-    var active = progress >= 0.3 && progress <= 0.55;
-    sawdust.material.opacity = active ? 1 : 0;
-    sawdust.visible = active;
-    if (!active) return;
-    sawdust.position.copy(workerTwo.position).add(new THREE.Vector3(0.15, 0.8, -0.05));
-    var attr = sawdust.geometry.attributes.position;
-    for (var i = 0; i < 40; i++) {
-      var yIndex = i * 3 + 1;
-      attr.array[yIndex] += 0.02;
-      attr.array[i * 3] += Math.sin(elapsed * 4 + sawdustSeeds[i]) * 0.005;
-      if (attr.array[yIndex] > 0.5) {
-        attr.array[i * 3] = (Math.random() - 0.5) * 0.35;
-        attr.array[yIndex] = 0;
-        attr.array[i * 3 + 2] = (Math.random() - 0.5) * 0.25;
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+        ctx.lineTo(x + r, y + h);
+        ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+        ctx.lineTo(x, y + r);
+        ctx.quadraticCurveTo(x, y, x + r, y);
       }
     }
-    attr.needsUpdate = true;
-  }
 
-  function updateShowcase(progress) {
-    var vinylOpacity = range(progress, 0.65, 0.7) * (1 - range(progress, 0.8, 0.88));
-    var chainOpacity = range(progress, 0.72, 0.78) * (1 - range(progress, 0.88, 0.94));
-    var gateOpacity = range(progress, 0.8, 0.86);
-    vinylMat.opacity = vinylOpacity;
-    steelMat.opacity = chainOpacity;
-    gateMat.opacity = gateOpacity;
-    darkPostMat.opacity = gateOpacity;
-    vinylFence.visible = vinylOpacity > 0.01;
-    chainGroup.visible = chainOpacity > 0.01;
-    gateGroup.visible = gateOpacity > 0.01;
-
-    var gateOpen = range(progress, 0.84, 0.88) * THREE.Math.degToRad(75);
-    leftGatePivot.rotation.y = -gateOpen;
-    rightGatePivot.rotation.y = gateOpen;
-  }
-
-  function updateCamera(progress) {
-    var target = new THREE.Vector3(0, 1, 0);
-    if (progress < 0.1) {
-      camera.position.set(0, 20, 0.01);
-      target.set(0, 0, -2);
-    } else if (progress < 0.22) {
-      var descent = range(progress, 0.1, 0.22);
-      camera.position.set(0, lerp(20, 3, descent), lerp(0.01, 8, descent));
-    } else if (progress < 0.55) {
-      camera.position.set(lerp(-2, 2, range(progress, 0.2, 0.55)), 3, 8);
-    } else if (progress < 0.65) {
-      camera.position.set(lerp(0, -6, range(progress, 0.55, 0.65)), lerp(3, 4, range(progress, 0.55, 0.65)), lerp(8, 14, range(progress, 0.55, 0.65)));
-      target.set(0, 1.2, 0);
-    } else if (progress < 0.9) {
-      camera.position.set(lerp(-6, 18, range(progress, 0.65, 0.9)), 3.4, 12);
-      target.set(camera.position.x + 4, 1.2, 0);
-    } else {
-      var landing = range(progress, 0.9, 1);
-      camera.position.set(lerp(18, 0, landing), lerp(3.4, 1.5, landing), lerp(12, 10, landing));
-      target.set(0, 1.2, 0);
+    function fillRoundRect(x, y, w, h, r, color) {
+      ctx.beginPath();
+      roundedRect(x, y, w, h, r);
+      ctx.fillStyle = color;
+      ctx.fill();
     }
-    camera.lookAt(target);
-  }
 
-  function updateLighting(progress) {
-    var afternoon = range(progress, 0.1, 0.22);
-    var golden = range(progress, 0.9, 1);
-    var ambientColor = colorLerp(0x334466, 0xffe4b0, afternoon).lerp(new THREE.Color(0xff9944), golden);
-    var sunColor = colorLerp(0xaabbff, 0xfff5cc, afternoon).lerp(new THREE.Color(0xffcc44), golden);
-    ambientLight.color.copy(ambientColor);
-    ambientLight.intensity = lerp(lerp(0.6, 0.8, afternoon), 0.9, golden);
-    sunLight.color.copy(sunColor);
-    sunLight.intensity = lerp(lerp(0.4, 1.2, afternoon), 2.0, golden);
-    sunLight.position.set(lerp(5, 8, afternoon), lerp(10, 12, afternoon), lerp(-5, 5, afternoon));
-    if (golden > 0) {
-      sunLight.position.set(lerp(8, 10, golden), lerp(12, 8, golden), lerp(5, 8, golden));
-    }
-    glowLight.intensity = range(progress, 0.55, 0.65) * 1.5;
-  }
+    function drawBackground() {
+      var gradient = ctx.createLinearGradient(0, 0, 0, groundY);
+      gradient.addColorStop(0, "#87CEEB");
+      gradient.addColorStop(0.52, "#c8e6f0");
+      gradient.addColorStop(1, "#e8d5a0");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
 
-  function updateSky(progress) {
-    var day = range(progress, 0, 0.12);
-    var gold = range(progress, 0.9, 1);
-    var color = colorLerp(0x020818, 0x87ceeb, day).lerp(new THREE.Color(0xff8c42), gold * 0.75);
-    scene.background.copy(color);
-    scene.fog.color.copy(color);
-    starMaterial.opacity = 1 - range(progress, 0, 0.08);
-
-    clouds.forEach(function (cloud) {
-      cloud.position.x += 0.003;
-      if (cloud.position.x > 25) cloud.position.x = -25;
-      var cloudFade = 1 - range(progress, 0.08, 0.15);
-      cloud.scale.setScalar(cloud.userData.baseScale * cloudFade);
-      cloud.traverse(function (child) {
-        if (child.material) child.material.opacity = 0.7 * cloudFade;
+      var sunX = width * 0.85;
+      var sunY = 80 * scale;
+      [65, 85, 105].forEach(function (r) {
+        ctx.beginPath();
+        ctx.arc(sunX, sunY, r * scale, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,220,80,0.08)";
+        ctx.fill();
       });
-      cloud.visible = cloudFade > 0.01;
+      ctx.beginPath();
+      ctx.arc(sunX, sunY, 45 * scale, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffe16a";
+      ctx.fill();
+
+      clouds.forEach(drawCloud);
+      drawBirds();
+
+      ctx.fillStyle = "#4a8c3f";
+      ctx.fillRect(0, groundY, width, height - groundY);
+      ctx.strokeStyle = "rgba(0,0,0,0.04)";
+      ctx.lineWidth = 1;
+      for (var y = groundY; y < height; y += 8 * scale) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
+        ctx.stroke();
+      }
+    }
+
+    function drawCloud(cloud) {
+      ctx.save();
+      ctx.translate(cloud.x, cloud.y);
+      ctx.scale(cloud.s * scale, cloud.s * scale);
+      ctx.fillStyle = "rgba(255,255,255,0.9)";
+      [[0, 4, 48, 24], [34, -5, 64, 32], [78, 6, 52, 25]].forEach(function (e) {
+        ctx.beginPath();
+        ctx.ellipse(e[0], e[1], e[2], e[3], 0, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.restore();
+    }
+
+    function drawBirds() {
+      ctx.strokeStyle = "rgba(40,60,80,0.45)";
+      ctx.lineWidth = Math.max(1.4, 2 * scale);
+      birds.forEach(function (bird) {
+        bird.x += bird.speed;
+        if (bird.x > width + 30) bird.x = -30;
+        var s = bird.size * scale;
+        ctx.beginPath();
+        ctx.moveTo(bird.x - s, bird.y);
+        ctx.quadraticCurveTo(bird.x - s * 0.5, bird.y - s * 0.55, bird.x, bird.y);
+        ctx.quadraticCurveTo(bird.x + s * 0.5, bird.y - s * 0.55, bird.x + s, bird.y);
+        ctx.stroke();
+      });
+    }
+
+    function drawHouse() {
+      var houseW = width * 0.35;
+      var houseH = height * 0.28;
+      var x = width / 2 - houseW / 2;
+      var y = groundY - houseH;
+      var garageW = houseW * 0.4;
+      var garageH = houseH * 0.65;
+
+      drawTrees(x, y, houseW);
+
+      ctx.fillStyle = "#8B6355";
+      ctx.fillRect(x + houseW * 0.68, y - 54 * scale, 26 * scale, 58 * scale);
+
+      ctx.beginPath();
+      ctx.moveTo(x - 20 * scale, y + 8 * scale);
+      ctx.lineTo(x + houseW / 2, y - 60 * scale);
+      ctx.lineTo(x + houseW + 20 * scale, y + 8 * scale);
+      ctx.closePath();
+      ctx.fillStyle = "#8B4513";
+      ctx.fill();
+      ctx.fillStyle = "#6d3511";
+      ctx.fillRect(x - 11 * scale, y + 2 * scale, houseW + 22 * scale, 10 * scale);
+
+      ctx.fillStyle = "#e8d4b8";
+      ctx.fillRect(x, y, houseW, houseH);
+      ctx.fillStyle = "#d4c4a8";
+      ctx.fillRect(x + houseW * 0.73, groundY - garageH, garageW, garageH);
+      ctx.fillStyle = "#b6a588";
+      ctx.fillRect(x + houseW * 0.77, groundY - garageH * 0.82, garageW * 0.84, garageH * 0.72);
+      ctx.strokeStyle = "rgba(80,60,40,0.32)";
+      ctx.lineWidth = 2 * scale;
+      for (var gy = groundY - garageH * 0.7; gy < groundY - 12 * scale; gy += 14 * scale) {
+        ctx.beginPath();
+        ctx.moveTo(x + houseW * 0.78, gy);
+        ctx.lineTo(x + houseW * 0.73 + garageW * 0.92, gy);
+        ctx.stroke();
+      }
+
+      var doorW = houseW * 0.15;
+      var doorH = houseH * 0.4;
+      ctx.fillStyle = "#6B3A2A";
+      ctx.fillRect(width / 2 - doorW / 2, groundY - doorH, doorW, doorH);
+      ctx.beginPath();
+      ctx.arc(width / 2 + doorW * 0.28, groundY - doorH * 0.5, 4 * scale, 0, Math.PI * 2);
+      ctx.fillStyle = "#d4a853";
+      ctx.fill();
+
+      drawWindow(x + houseW * 0.16, y + houseH * 0.32, houseW * 0.18, houseH * 0.22);
+      drawWindow(x + houseW * 0.54, y + houseH * 0.32, houseW * 0.18, houseH * 0.22);
+    }
+
+    function drawWindow(x, y, w, h) {
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(x - 4 * scale, y - 4 * scale, w + 8 * scale, h + 8 * scale);
+      ctx.fillStyle = "#a8d4f0";
+      ctx.fillRect(x, y, w, h);
+      ctx.strokeStyle = "#fff";
+      ctx.lineWidth = 2 * scale;
+      ctx.beginPath();
+      ctx.moveTo(x + w / 2, y);
+      ctx.lineTo(x + w / 2, y + h);
+      ctx.moveTo(x, y + h / 2);
+      ctx.lineTo(x + w, y + h / 2);
+      ctx.stroke();
+    }
+
+    function drawTrees(houseX, houseY, houseW) {
+      [
+        { x: houseX - 90 * scale, y: houseY + 20 * scale, s: 1.1 },
+        { x: houseX + houseW + 74 * scale, y: houseY + 32 * scale, s: 0.95 }
+      ].forEach(function (tree) {
+        ctx.fillStyle = "#6d431c";
+        ctx.fillRect(tree.x - 8 * scale, tree.y + 54 * scale, 16 * scale, 95 * scale);
+        ctx.fillStyle = "rgba(45,106,45,0.82)";
+        [[0, 0, 45], [-28, 18, 34], [30, 20, 36]].forEach(function (c) {
+          ctx.beginPath();
+          ctx.arc(tree.x + c[0] * scale, tree.y + c[1] * scale, c[2] * tree.s * scale, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      });
+    }
+
+    function drawFencePiece(piece, popScale, alpha, rotation) {
+      ctx.save();
+      ctx.globalAlpha = alpha == null ? 1 : alpha;
+      ctx.translate(piece.x + piece.w / 2, piece.y + piece.h / 2);
+      ctx.rotate(rotation || 0);
+      ctx.scale(popScale, popScale);
+      ctx.translate(-piece.w / 2, -piece.h / 2);
+      ctx.fillStyle = piece.color;
+      if (piece.kind === "post") {
+        fillRoundRect(0, 0, piece.w, piece.h, 5 * scale, piece.color);
+        ctx.fillStyle = "#7d5134";
+        ctx.fillRect(-2 * scale, 8 * scale, piece.w + 4 * scale, 8 * scale);
+      } else if (piece.kind === "picket") {
+        ctx.beginPath();
+        ctx.moveTo(piece.w / 2, -12 * scale);
+        ctx.lineTo(piece.w, 0);
+        ctx.lineTo(piece.w, piece.h);
+        ctx.lineTo(0, piece.h);
+        ctx.lineTo(0, 0);
+        ctx.closePath();
+        ctx.fill();
+      } else {
+        fillRoundRect(0, 0, piece.w, piece.h, 2 * scale, piece.color);
+      }
+      ctx.restore();
+    }
+
+    function drawFence(state, stateProgress) {
+      if (state === "COLLAPSE" || state === "SAD") {
+        collapsePieces.forEach(function (piece) {
+          drawFencePiece(piece, 1, piece.alpha, piece.rotation);
+        });
+        return;
+      }
+
+      var progress = state === "BUILDING" ? buildProgress : 1;
+      fencePieces.forEach(function (piece) {
+        var local = (progress - piece.trigger) / 0.035;
+        if (local <= 0) return;
+        drawFencePiece(piece, Math.min(1.12, easeOutBack(clamp(local, 0, 1))), 1, 0);
+      });
+    }
+
+    function drawBushes() {
+      var spots = [width * 0.18, width * 0.48, width * 0.78];
+      spots.forEach(function (x, index) {
+        ctx.fillStyle = "#3a7a3a";
+        [0, 1, 2].forEach(function (part) {
+          ctx.beginPath();
+          ctx.arc(x + (part - 1) * 20 * scale, fenceY - (8 + part * 2) * scale, (18 + index * 3 + part * 2) * scale, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      });
+    }
+
+    function drawToolboxAndPlanks() {
+      var x = 70 * scale;
+      var y = groundY + 22 * scale;
+      fillRoundRect(x, y, 50 * scale, 30 * scale, 5 * scale, "#CC8800");
+      ctx.save();
+      ctx.translate(x + 8 * scale, y - 2 * scale);
+      ctx.rotate(-0.17);
+      fillRoundRect(0, 0, 48 * scale, 9 * scale, 3 * scale, "#a96f00");
+      ctx.restore();
+      ctx.fillStyle = "#666";
+      ctx.fillRect(x + 12 * scale, y - 10 * scale, 5 * scale, 14 * scale);
+      ctx.fillStyle = "#5c3a1e";
+      ctx.fillRect(x + 31 * scale, y - 8 * scale, 17 * scale, 4 * scale);
+
+      var pileX = 140 * scale;
+      var planks = Math.max(0, 5 - Math.floor(buildProgress * 5.5));
+      for (var i = 0; i < planks; i++) {
+        ctx.save();
+        ctx.translate(pileX + (i % 2) * 8 * scale, y + 34 * scale - i * 8 * scale);
+        ctx.rotate((i - 2) * 0.04);
+        fillRoundRect(0, 0, 70 * scale, 8 * scale, 2 * scale, i % 2 ? "#7A4F32" : "#8B5E3C");
+        ctx.restore();
+      }
+    }
+
+    function drawWorker(opts) {
+      var x = opts.x;
+      var y = opts.y;
+      var shirt = opts.shirt;
+      var hat = opts.hat;
+      var state = opts.state;
+      var t = opts.t;
+      var facing = opts.facing || 1;
+      var happy = state === "HIGHFIVE";
+      var sad = state === "SAD";
+      var working = state === "BUILDING";
+      var stumble = state === "COLLAPSE";
+      var jump = happy ? Math.sin(t * Math.PI * 4) * 8 * scale : 0;
+      var headTilt = sad ? 0.35 : stumble ? -0.25 : 0;
+      var walk = working || state === "RESET";
+      var legSwing = walk ? Math.sin(t * Math.PI * 3) * 0.35 : 0;
+      var hammerSwing = working ? Math.sin(t * Math.PI * 6) * 0.65 : 0;
+      var armFlail = stumble ? Math.sin(t * Math.PI * 10) * 0.8 : 0;
+
+      ctx.save();
+      ctx.translate(x, y + jump);
+      ctx.scale(facing, 1);
+      ctx.shadowBlur = 8 * scale;
+      ctx.shadowColor = "rgba(0,0,0,0.15)";
+
+      function limb(px, py, w, h, angle, color) {
+        ctx.save();
+        ctx.translate(px, py);
+        ctx.rotate(angle);
+        fillRoundRect(-w / 2, 0, w, h, w / 2, color);
+        ctx.restore();
+      }
+
+      limb(-8 * scale, 38 * scale, 11 * scale, 32 * scale, legSwing, "#1a1a6e");
+      limb(10 * scale, 38 * scale, 11 * scale, 32 * scale, -legSwing, "#1a1a6e");
+      fillRoundRect(-20 * scale, 67 * scale, 22 * scale, 8 * scale, 4 * scale, "#2c1a0a");
+      fillRoundRect(2 * scale, 67 * scale, 22 * scale, 8 * scale, 4 * scale, "#2c1a0a");
+
+      fillRoundRect(-14 * scale, -2 * scale, 28 * scale, 38 * scale, 8 * scale, shirt);
+      ctx.fillStyle = "#8B6914";
+      ctx.fillRect(-16 * scale, 25 * scale, 32 * scale, 5 * scale);
+      ctx.fillRect(-12 * scale, 29 * scale, 7 * scale, 8 * scale);
+      ctx.fillRect(6 * scale, 29 * scale, 7 * scale, 8 * scale);
+
+      var leftArmAngle = opts.assistant && working ? -1.05 + Math.sin(t * Math.PI * 2) * 0.18 : 0.2;
+      var rightArmAngle = working && !opts.assistant ? -0.5 + hammerSwing : 0.35;
+      if (happy) {
+        leftArmAngle = opts.assistant ? -1.35 : 0.25;
+        rightArmAngle = opts.assistant ? 0.25 : -1.35;
+      }
+      if (stumble) {
+        leftArmAngle = -1.2 + armFlail;
+        rightArmAngle = 1.1 - armFlail;
+      }
+      if (sad) {
+        leftArmAngle = 0.25;
+        rightArmAngle = -0.25;
+      }
+      limb(-18 * scale, 5 * scale, 10 * scale, 30 * scale, leftArmAngle, shirt);
+      limb(18 * scale, 5 * scale, 10 * scale, 30 * scale, rightArmAngle, shirt);
+
+      if (working && !opts.assistant) {
+        ctx.save();
+        ctx.translate(30 * scale, 3 * scale);
+        ctx.rotate(-0.6 + hammerSwing);
+        ctx.fillStyle = "#5c3a1e";
+        ctx.fillRect(0, 0, 14 * scale, 3 * scale);
+        ctx.fillStyle = "#666";
+        ctx.fillRect(11 * scale, -3 * scale, 8 * scale, 6 * scale);
+        ctx.restore();
+      }
+      if (opts.assistant && working) {
+        ctx.save();
+        ctx.translate(-38 * scale, 3 * scale);
+        ctx.rotate(-0.25 + Math.sin(t * Math.PI * 2) * 0.12);
+        fillRoundRect(0, 0, 10 * scale, 62 * scale, 2 * scale, "#A67C52");
+        ctx.restore();
+      }
+
+      ctx.save();
+      ctx.translate(0, -25 * scale);
+      ctx.rotate(headTilt);
+      ctx.fillStyle = "#FFCC99";
+      ctx.beginPath();
+      ctx.arc(0, 0, 18 * scale, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = hat;
+      ctx.beginPath();
+      ctx.ellipse(0, -17 * scale, 17 * scale, 8 * scale, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(0, -11 * scale, 22 * scale, 5 * scale, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "rgba(70,45,0,0.45)";
+      ctx.lineWidth = 2 * scale;
+      ctx.beginPath();
+      ctx.moveTo(-13 * scale, -13 * scale);
+      ctx.lineTo(13 * scale, -13 * scale);
+      ctx.stroke();
+      drawFace(happy, sad);
+      ctx.restore();
+
+      ctx.restore();
+    }
+
+    function drawFace(happy, sad) {
+      ctx.strokeStyle = "#333";
+      ctx.fillStyle = "#333";
+      ctx.lineWidth = 1.8 * scale;
+      if (happy || sad) {
+        [-7, 7].forEach(function (ex) {
+          ctx.beginPath();
+          ctx.arc(ex * scale, -1 * scale, 4 * scale, happy ? Math.PI : 0, happy ? Math.PI * 2 : Math.PI);
+          ctx.stroke();
+        });
+      } else {
+        [-7, 7].forEach(function (ex) {
+          ctx.beginPath();
+          ctx.arc(ex * scale, -1 * scale, 2 * scale, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      }
+      ctx.beginPath();
+      if (sad) {
+        ctx.arc(0, 12 * scale, 7 * scale, Math.PI * 1.15, Math.PI * 1.85);
+      } else {
+        ctx.arc(0, 6 * scale, happy ? 9 * scale : 5 * scale, 0.15 * Math.PI, 0.85 * Math.PI);
+      }
+      ctx.stroke();
+    }
+
+    function workerPositions(state, stateProgress, time) {
+      var start = 95 * scale;
+      var fenceWidth = width - 170 * scale;
+      var x1 = start + buildProgress * fenceWidth - 60 * scale;
+      var x2 = x1 + 70 * scale;
+      if (state === "HIGHFIVE") {
+        x1 = lerp(width * 0.42, width * 0.49, stateProgress);
+        x2 = lerp(width * 0.58, width * 0.51, stateProgress);
+      } else if (state === "COLLAPSE") {
+        x1 = width * 0.46 - 20 * scale * stateProgress;
+        x2 = width * 0.54 + 20 * scale * stateProgress;
+      } else if (state === "SAD") {
+        x1 = width * 0.45;
+        x2 = width * 0.55;
+      } else if (state === "RESET") {
+        x1 = lerp(width * 0.45, start - 60 * scale, stateProgress);
+        x2 = lerp(width * 0.55, start + 10 * scale, stateProgress);
+      }
+      return { x1: x1, x2: x2, y: groundY - 85 * scale };
+    }
+
+    function triggerHighFive(point) {
+      highFiveParticles = [];
+      for (var i = 0; i < 6; i++) {
+        var angle = (Math.PI * 2 / 6) * i + Math.random() * 0.3;
+        highFiveParticles.push({
+          x: point.x,
+          y: point.y,
+          vx: Math.cos(angle) * 2 * scale,
+          vy: Math.sin(angle) * 2 * scale,
+          life: 30
+        });
+      }
+    }
+
+    function drawHighFiveEffects(point, stateProgress) {
+      var frame = stateProgress * 180;
+      if (frame > 45 && frame < 75) {
+        var alpha = 1 - (frame - 45) / 30;
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.strokeStyle = "#FFD700";
+        ctx.lineWidth = 3 * scale;
+        for (var i = 0; i < 8; i++) {
+          var angle = i * Math.PI / 4;
+          ctx.beginPath();
+          ctx.moveTo(point.x, point.y);
+          ctx.lineTo(point.x + Math.cos(angle) * 20 * scale, point.y + Math.sin(angle) * 20 * scale);
+          ctx.stroke();
+        }
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, 20 * scale * alpha, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.75)";
+        ctx.fill();
+        ctx.restore();
+      }
+      highFiveParticles.forEach(function (particle) {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.life -= 1;
+        ctx.globalAlpha = clamp(particle.life / 30, 0, 1);
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, 4 * scale, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,215,0,0.9)";
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      });
+    }
+
+    function startCollapse() {
+      collapsePieces = fencePieces.map(function (piece) {
+        return Object.assign({}, piece, {
+          vx: (Math.random() * 8 - 4) * scale,
+          vy: (-8 + Math.random() * 6) * scale,
+          rotSpeed: Math.random() * 0.3 - 0.15,
+          rotation: 0,
+          alpha: 1
+        });
+      });
+      dustClouds = [0, 1, 2, 3, 4].map(function (i) {
+        return { x: width * (0.25 + i * 0.13), y: fenceY + 8 * scale, r: 5 * scale, alpha: 0.6 };
+      });
+    }
+
+    function updateCollapse() {
+      collapsePieces.forEach(function (piece) {
+        piece.vy += 0.35 * scale;
+        piece.x += piece.vx;
+        piece.y += piece.vy;
+        piece.rotation += piece.rotSpeed;
+        piece.alpha = Math.max(0, piece.alpha - 0.02);
+      });
+      dustClouds.forEach(function (dust) {
+        dust.r += 1.35 * scale;
+        dust.alpha = Math.max(0, dust.alpha - 0.02);
+        ctx.beginPath();
+        ctx.arc(dust.x, dust.y, dust.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(180,140,100," + dust.alpha + ")";
+        ctx.fill();
+      });
+    }
+
+    function drawTears(x, y) {
+      if (Math.random() < 0.04) {
+        tears.push({ x: x - 8 * scale, y: y - 101 * scale, vy: 0.5 * scale, alpha: 1 });
+      }
+      tears.forEach(function (tear) {
+        tear.vy += 0.3 * scale;
+        tear.y += tear.vy;
+        tear.alpha -= 0.015;
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, tear.alpha);
+        ctx.fillStyle = "#6db7ff";
+        ctx.beginPath();
+        ctx.ellipse(tear.x, tear.y, 3 * scale, 6 * scale, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      });
+      tears = tears.filter(function (tear) {
+        return tear.alpha > 0 && tear.y < height;
+      });
+    }
+
+    function drawScene(state, stateProgress, time) {
+      drawBackground();
+      drawHouse();
+      drawToolboxAndPlanks();
+      drawBushes();
+      if (state === "COLLAPSE") updateCollapse();
+      drawFence(state, stateProgress);
+
+      var positions = workerPositions(state, stateProgress, time);
+      var facingOne = state === "HIGHFIVE" ? 1 : 1;
+      var facingTwo = state === "HIGHFIVE" ? -1 : 1;
+      drawWorker({ x: positions.x1, y: positions.y, shirt: "#2244AA", hat: "#FFD700", state: state, t: time, facing: facingOne, assistant: false });
+      drawWorker({ x: positions.x2, y: positions.y + 4 * scale, shirt: "#AA2222", hat: "#FF6600", state: state, t: time, facing: facingTwo, assistant: true });
+
+      if (state === "HIGHFIVE") {
+        var impact = { x: width * 0.5, y: positions.y - 54 * scale };
+        if (!highFiveTriggered && stateProgress > 0.25) {
+          highFiveTriggered = true;
+          triggerHighFive(impact);
+        }
+        drawHighFiveEffects(impact, stateProgress);
+      }
+      if (state === "SAD") {
+        drawTears(positions.x1, positions.y);
+        drawTears(positions.x2, positions.y);
+      }
+
+      ctx.fillStyle = "rgba(0,0,0,0.25)";
+      ctx.fillRect(0, 0, width, height);
+    }
+
+    function advanceState() {
+      if (currentState === "BUILDING") {
+        buildProgress = 1;
+        currentState = "HIGHFIVE";
+        highFiveTriggered = false;
+      } else if (currentState === "HIGHFIVE") {
+        currentState = "COLLAPSE";
+        collapseStarted = false;
+      } else if (currentState === "COLLAPSE") {
+        currentState = "SAD";
+      } else if (currentState === "SAD") {
+        currentState = "RESET";
+      } else {
+        currentState = "BUILDING";
+        buildProgress = 0;
+        collapsePieces = [];
+        highFiveParticles = [];
+        tears = [];
+      }
+      stateStartTime = performance.now();
+    }
+
+    function loop(now) {
+      if (paused) return;
+      rafId = requestAnimationFrame(loop);
+      if (now - lastFrame < 1000 / 60) return;
+      lastFrame = now;
+
+      var elapsed = now - stateStartTime;
+      var stateDuration = STATES[currentState].duration;
+      var stateProgress = Math.min(elapsed / stateDuration, 1);
+      if (stateProgress >= 1) {
+        advanceState();
+        stateProgress = 0;
+      }
+      if (currentState === "BUILDING") {
+        buildProgress = stateProgress;
+      } else if (currentState === "COLLAPSE" && !collapseStarted) {
+        collapseStarted = true;
+        startCollapse();
+      }
+      drawScene(currentState, stateProgress, now / 1000);
+    }
+
+    function start() {
+      if (rafId || paused) return;
+      rafId = requestAnimationFrame(loop);
+    }
+
+    function stop() {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+    document.addEventListener("visibilitychange", function () {
+      paused = document.hidden;
+      if (paused) {
+        stop();
+      } else {
+        lastFrame = performance.now();
+        stateStartTime = performance.now() - Math.min(STATES[currentState].duration - 1, STATES[currentState].duration * buildProgress);
+        start();
+      }
+    });
+    start();
+  }
+
+  function initGsap() {
+    if (!window.gsap || !window.ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.fromTo(".hero-inner > *", { opacity: 0, y: 30 }, { opacity: 1, y: 0, stagger: 0.15, duration: 1.2, ease: "power2.out" });
+    gsap.to(".scroll-line", { height: 50, duration: 1.1, ease: "power2.out", delay: 0.35 });
+    gsap.to(".scroll-cue", { opacity: 0.4, repeat: -1, yoyo: true, duration: 0.9, ease: "sine.inOut" });
+    gsap.to(".hero-inner", {
+      opacity: 0,
+      y: -40,
+      ease: "none",
+      scrollTrigger: { trigger: "#hero", start: "top top", end: "400px top", scrub: true }
     });
 
-    var groundIn = range(progress, 0.15, 0.22);
-    grassMat.opacity = groundIn;
-    ground.visible = groundIn > 0.01;
-    holeMat.opacity = range(progress, 0.2, 0.24);
-    postHole.visible = holeMat.opacity > 0.01;
-  }
+    gsap.utils.toArray(".photo-bg").forEach(function (image) {
+      gsap.to(image, {
+        y: "7%",
+        ease: "none",
+        scrollTrigger: { trigger: image.closest(".photo-section"), start: "top bottom", end: "bottom top", scrub: true }
+      });
+    });
 
-  function updateFlares(progress) {
-    var flareAmount = range(progress, 0.9, 1);
-    flares.forEach(function (flare, index) {
-      flare.material.opacity = flareAmount * (0.16 - index * 0.018);
-      flare.quaternion.copy(camera.quaternion);
-      flare.visible = flare.material.opacity > 0.01;
+    gsap.utils.toArray("main > section:not(#hero)").forEach(function (section) {
+      gsap.fromTo(section, {
+        autoAlpha: 0.18,
+        y: 96,
+        scale: 0.985,
+        filter: "blur(14px)"
+      }, {
+        autoAlpha: 1,
+        y: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 94%",
+          end: "top 42%",
+          scrub: 0.85
+        }
+      });
+    });
+
+    var revealSelectors = [
+      ".photo-content",
+      ".who-copy",
+      ".stats",
+      ".section-heading",
+      ".services-grid",
+      ".testimonials h2",
+      ".testimonial-row",
+      ".areas h2",
+      ".areas .sub-text",
+      ".tag-cloud",
+      ".panorama-title",
+      ".contact-copy",
+      "#contact-form"
+    ].join(", ");
+
+    gsap.utils.toArray(revealSelectors).forEach(function (content) {
+      var trigger = content.closest("section") || content;
+      gsap.fromTo(content, {
+        autoAlpha: 0,
+        x: -86,
+        filter: "blur(8px)"
+      }, {
+        autoAlpha: 1,
+        x: 0,
+        filter: "blur(0px)",
+        duration: 1.05,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: trigger,
+          start: "top 76%",
+          toggleActions: "play none none reverse"
+        }
+      });
+    });
+
+    gsap.fromTo(".service-card", { autoAlpha: 0, x: -36 }, {
+      autoAlpha: 1,
+      x: 0,
+      duration: 0.75,
+      stagger: 0.1,
+      ease: "power2.out",
+      scrollTrigger: { trigger: ".services-grid", start: "top 75%", toggleActions: "play none none reverse" }
+    });
+    gsap.fromTo(".quote-card", { autoAlpha: 0, x: -34 }, {
+      autoAlpha: 1,
+      x: 0,
+      duration: 0.75,
+      stagger: 0.15,
+      ease: "power2.out",
+      scrollTrigger: { trigger: ".testimonial-row", start: "top 78%", toggleActions: "play none none reverse" }
+    });
+    gsap.fromTo(".city-tag", { autoAlpha: 0, x: -22 }, {
+      autoAlpha: 1,
+      x: 0,
+      duration: 0.45,
+      stagger: 0.025,
+      ease: "power2.out",
+      scrollTrigger: { trigger: ".tag-cloud", start: "top 82%", toggleActions: "play none none reverse" }
+    });
+
+    gsap.to(".photo-content.right", {
+      textAlign: "right",
+      duration: 0.01
     });
   }
 
-  function updateLabels(progress) {
-    document.querySelector(".build-label .fence-label").classList.toggle("is-visible", progress > 0.26 && progress < 0.55);
-    document.querySelector(".vinyl-label .fence-label").classList.toggle("is-visible", progress > 0.66 && progress < 0.74);
-    document.querySelector(".chain-label .fence-label").classList.toggle("is-visible", progress > 0.75 && progress < 0.84);
-    document.querySelector(".gate-label .fence-label").classList.toggle("is-visible", progress > 0.84 && progress < 0.91);
-    document.body.classList.toggle("contact-active", progress >= 0.9);
+  function initCounters() {
+    var counters = document.querySelectorAll(".stat-number");
+    var seen = false;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting || seen) return;
+        seen = true;
+        counters.forEach(function (counter) {
+          var target = parseInt(counter.dataset.count, 10);
+          var suffix = counter.dataset.suffix || "";
+          var start = performance.now();
+          var duration = 1400;
+          function tick(now) {
+            var progress = clamp((now - start) / duration, 0, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            counter.textContent = Math.round(target * eased).toLocaleString() + suffix;
+            if (progress < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        });
+        observer.disconnect();
+      });
+    }, { threshold: 0.35 });
+    var stats = document.querySelector(".stats");
+    if (stats) observer.observe(stats);
   }
 
-  function getProgress() {
-    return clamp(window.scrollY / 8000, 0, 1);
+  function initContactForm() {
+    var form = document.getElementById("contact-form");
+    var success = form.querySelector(".success-message");
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      success.textContent = "Thanks - we'll be in touch within 1 business day.";
+      form.reset();
+    });
   }
 
-  var clock = new THREE.Clock();
-  function animate() {
-    var elapsed = clock.getElapsedTime();
-    var progress = getProgress();
-    updateSky(progress);
-    updateLighting(progress);
-    updateCamera(progress);
-    updateBuild(progress);
-    updateWorkers(progress, elapsed);
-    updateSawdust(progress, elapsed);
-    updateShowcase(progress);
-    updateFlares(progress);
-    updateLabels(progress);
-    renderer.render(scene, camera);
-    requestAnimationFrame(animate);
-  }
-
-  window.addEventListener("resize", function () {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
-
-  document.getElementById("contact-form").addEventListener("submit", function (event) {
-    event.preventDefault();
-    var button = event.currentTarget.querySelector("button");
-    button.textContent = "Message ready";
-    setTimeout(function () {
-      button.textContent = "Send message";
-    }, 1800);
-  });
-
-  animate();
+  initHeroCanvas();
+  initGsap();
+  initCounters();
+  initContactForm();
 }());
 </script>
 </body>
