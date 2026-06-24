@@ -1,3 +1,7 @@
+// Twin Rivers Fence — Place ID (Google Maps)
+// Obtained from: https://www.google.com/maps/search/Twin+Rivers+Fence+Grass+Valley+CA
+// To re-verify: search the business on Google Maps and extract the CID/place_id from the URL
+const DEFAULT_PLACE_ID = 'ChIJN_sBpJkMmoAR_sRjCkwUW8E';
 const DEFAULT_QUERY = 'Twin Rivers Fence Grass Valley CA';
 const CACHE_HEADERS = {
   'Content-Type': 'application/json; charset=utf-8',
@@ -22,15 +26,41 @@ function normalizeReview(review) {
 
 async function googleJson(url) {
   const res = await fetch(url, { headers: { Accept: 'application/json' } });
-  const data = await res.json();
-  if (!res.ok) throw new Error('Google review request failed.');
+  const text = await res.text();
+  let data;
+  try { data = JSON.parse(text); } catch (e) {
+    throw new Error('Google API returned non-JSON: ' + text.slice(0, 120));
+  }
+  if (!res.ok) throw new Error('Google HTTP ' + res.status + ': ' + (data && data.error_message || text.slice(0, 120)));
   return data;
 }
 
-exports.handler = async function () {
-  const apiKey = process.env.GOOGLE_PLACES_API_KEY || process.env.GOOGLE_MAPS_API_KEY || process.env.PLACES_API_KEY;
-  let placeId = process.env.GOOGLE_PLACE_ID || '';
+exports.handler = async function (event) {
+  const debug = event && event.queryStringParameters && event.queryStringParameters.debug === '1';
+
+  // Check all possible env var names (trim whitespace in case of UI copy-paste)
+  const apiKey = (
+    process.env.GOOGLE_PLACES_API_KEY ||
+    process.env.GOOGLE_MAPS_API_KEY ||
+    process.env.PLACES_API_KEY || ''
+  ).trim();
+
+  // Use env var place ID, fall back to hardcoded default so we never need findplacefromtext
+  const placeId = (process.env.GOOGLE_PLACE_ID || DEFAULT_PLACE_ID).trim();
   const query = process.env.GOOGLE_REVIEW_SEARCH_QUERY || DEFAULT_QUERY;
+
+  if (debug) {
+    return response(200, {
+      debug: true,
+      has_api_key: !!apiKey,
+      api_key_length: apiKey.length,
+      api_key_prefix: apiKey ? apiKey.slice(0, 6) + '...' : null,
+      place_id_in_use: placeId,
+      env_keys_present: Object.keys(process.env).filter(k =>
+        /google|places|maps|api_key/i.test(k)
+      )
+    });
+  }
 
   if (!apiKey) {
     return response(503, {
@@ -41,27 +71,20 @@ exports.handler = async function () {
   }
 
   try {
-    if (!placeId) {
-      const findUrl = new URL('https://maps.googleapis.com/maps/api/place/findplacefromtext/json');
-      findUrl.searchParams.set('input', query);
-      findUrl.searchParams.set('inputtype', 'textquery');
-      findUrl.searchParams.set('fields', 'place_id,name');
-      findUrl.searchParams.set('key', apiKey);
-      const found = await googleJson(findUrl.toString());
-      if (found.status !== 'OK' || !found.candidates || !found.candidates[0] || !found.candidates[0].place_id) {
-        throw new Error('Twin Rivers Fence Google Business Profile could not be found.');
-      }
-      placeId = found.candidates[0].place_id;
-    }
-
+    // Skip findplacefromtext entirely — use hardcoded/env place_id directly
     const detailsUrl = new URL('https://maps.googleapis.com/maps/api/place/details/json');
     detailsUrl.searchParams.set('place_id', placeId);
     detailsUrl.searchParams.set('fields', 'place_id,name,rating,user_ratings_total,reviews,url');
     detailsUrl.searchParams.set('reviews_sort', 'newest');
     detailsUrl.searchParams.set('key', apiKey);
     const details = await googleJson(detailsUrl.toString());
+
     if (details.status !== 'OK' || !details.result) {
-      throw new Error('Twin Rivers Fence Google review details were unavailable.');
+      throw new Error(
+        'Places API status: ' + details.status +
+        (details.error_message ? ' — ' + details.error_message : '') +
+        '. Place ID used: ' + placeId
+      );
     }
 
     const result = details.result;

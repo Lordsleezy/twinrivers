@@ -30,10 +30,13 @@
         awaitingInput: false,
         completed: false,
         project_type: "",
+        material: "",
+        approximate_length: "",
         city: "",
-        size: "",
         name: "",
         phone: "",
+        email: "",
+        notes: "",
         history: []
       };
     };
@@ -52,10 +55,13 @@
         state.completed = !!p.completed;
         var d = p.data || {};
         state.project_type = p.project_type != null && p.project_type !== "" ? p.project_type : d.project_type || "";
+        state.material = p.material != null && p.material !== "" ? p.material : d.material || "";
+        state.approximate_length = p.approximate_length != null && p.approximate_length !== "" ? p.approximate_length : d.approximate_length || "";
         state.city = p.city != null && p.city !== "" ? p.city : d.city || "";
-        state.size = p.size != null && p.size !== "" ? p.size : d.size || "";
         state.name = p.name != null && p.name !== "" ? p.name : d.name || "";
         state.phone = p.phone != null && p.phone !== "" ? p.phone : d.phone || "";
+        state.email = p.email != null && p.email !== "" ? p.email : d.email || "";
+        state.notes = p.notes != null && p.notes !== "" ? p.notes : d.notes || "";
         state.history = Array.isArray(p.history) ? p.history : [];
         if (p.v === 1 && state.lastPromptedStep === 0 && state.history.length > 0) {
           if (state.completed) state.lastPromptedStep = 7;
@@ -76,10 +82,13 @@
             awaitingInput: state.awaitingInput,
             completed: state.completed,
             project_type: state.project_type,
+            material: state.material,
+            approximate_length: state.approximate_length,
             city: state.city,
-            size: state.size,
             name: state.name,
             phone: state.phone,
+            email: state.email,
+            notes: state.notes,
             history: state.history
           })
         );
@@ -118,8 +127,8 @@
     }
 
     function validateLeadFields() {
-      var keys = ["project_type", "city", "size", "name", "phone"];
-      var missing = keys.filter(function (k) {
+      var required = ["project_type", "city", "name", "phone"];
+      var missing = required.filter(function (k) {
         var v = state[k];
         return v == null || String(v).trim() === "";
       });
@@ -223,15 +232,49 @@
       runFlow();
     }
 
+    function buildMaterialOptions() {
+      els.options.innerHTML = "";
+      var opts = [
+        { value: "Wood / Cedar", label: "Wood / Cedar" },
+        { value: "Vinyl", label: "Vinyl" },
+        { value: "Chain link", label: "Chain link" },
+        { value: "Wrought iron", label: "Wrought iron" },
+        { value: "Not sure yet", label: "Not sure yet" }
+      ];
+      opts.forEach(function (o) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "lead-chat-opt";
+        b.textContent = o.label;
+        b.setAttribute("data-value", o.value);
+        b.addEventListener("click", onMaterialPick);
+        els.options.appendChild(b);
+      });
+    }
+
+    function onMaterialPick(ev) {
+      var val = ev.currentTarget.getAttribute("data-value");
+      if (!val || state.step !== 3 || state.completed) return;
+      appendMessage("user", val);
+      state.material = val;
+      state.step = 4;
+      saveState();
+      setOptionsVisible(false);
+      runFlow();
+    }
+
     const submitLead = async () => {
       try {
         const payload = {
           "form-name": "lead-chat",
           project_type: String(state.project_type || ""),
+          material: String(state.material || ""),
+          approximate_length: String(state.approximate_length || ""),
           city: String(state.city || ""),
-          size: String(state.size || ""),
           name: String(state.name || ""),
-          phone: String(state.phone || "")
+          phone: String(state.phone || ""),
+          email: String(state.email || ""),
+          notes: String(state.notes || "")
         };
 
         /* Netlify: POST to the same URL as <form name="lead-chat" action="..."> (usually site root "/") */
@@ -256,13 +299,13 @@
         if (res.ok) {
           addBotMessage("Perfect. We’ll reach out shortly to go over your project.");
           state.completed = true;
-          state.lastPromptedStep = 7;
+          state.lastPromptedStep = 10;
           state.awaitingInput = false;
           saveState();
           setStatus("Thanks! Your request was sent.", "ok");
         } else {
           addBotMessage("Couldn't send just now — please call us or try again.");
-          state.step = 6;
+          state.step = 7;
           state.awaitingInput = "phone";
           saveState();
           setInputEnabled(true);
@@ -272,7 +315,7 @@
       } catch (err) {
         console.error("Submit error:", err);
         addBotMessage("Couldn't send just now — please call us or try again.");
-        state.step = 6;
+        state.step = 7;
         state.awaitingInput = "phone";
         saveState();
         setInputEnabled(true);
@@ -294,7 +337,7 @@
 
       if (state.step === 0) {
         if (state.lastPromptedStep < 1) {
-          await botSay("Hey — looking for a fence quote? I can get you a quick estimate in under a minute.");
+          await botSay("Hey — looking for a fence quote? I can get you set up in about a minute.");
           state.lastPromptedStep = 1;
           saveState();
         }
@@ -323,8 +366,36 @@
       if (state.step === 3) {
         renderHistory();
         if (state.lastPromptedStep < 3) {
-          await botSay("What city is the project in?");
+          await botSay("What material are you thinking?");
           state.lastPromptedStep = 3;
+          saveState();
+        }
+        buildMaterialOptions();
+        setOptionsVisible(true);
+        setInputEnabled(false);
+        return;
+      }
+
+      if (state.step === 4) {
+        renderHistory();
+        if (state.lastPromptedStep < 4) {
+          await botSay("Roughly how many linear feet? (Estimate is fine — even just backyard or full perimeter works.)");
+          state.lastPromptedStep = 4;
+          saveState();
+        }
+        state.awaitingInput = "approximate_length";
+        saveState();
+        setInputEnabled(true);
+        els.input.placeholder = "e.g. 80 ft, half acre perimeter, 2 gates…";
+        els.input.focus();
+        return;
+      }
+
+      if (state.step === 5) {
+        renderHistory();
+        if (state.lastPromptedStep < 5) {
+          await botSay("What city is the project in?");
+          state.lastPromptedStep = 5;
           saveState();
         }
         state.awaitingInput = "city";
@@ -335,26 +406,11 @@
         return;
       }
 
-      if (state.step === 4) {
+      if (state.step === 6) {
         renderHistory();
-        if (state.lastPromptedStep < 4) {
-          await botSay("About how big is the project? (rough estimate is fine)");
-          state.lastPromptedStep = 4;
-          saveState();
-        }
-        state.awaitingInput = "size";
-        saveState();
-        setInputEnabled(true);
-        els.input.placeholder = "e.g. 60 ft backyard, 2 gates…";
-        els.input.focus();
-        return;
-      }
-
-      if (state.step === 5) {
-        renderHistory();
-        if (state.lastPromptedStep < 5) {
-          await botSay("What’s your name?");
-          state.lastPromptedStep = 5;
+        if (state.lastPromptedStep < 6) {
+          await botSay("What's your name?");
+          state.lastPromptedStep = 6;
           saveState();
         }
         state.awaitingInput = "name";
@@ -365,28 +421,58 @@
         return;
       }
 
-      if (state.step === 6) {
+      if (state.step === 7) {
         renderHistory();
-        if (state.lastPromptedStep < 6) {
-          await botSay("What’s the best phone number to reach you?");
-          state.lastPromptedStep = 6;
+        if (state.lastPromptedStep < 7) {
+          await botSay("What's the best number to reach you? (Required so we can follow up.)");
+          state.lastPromptedStep = 7;
           saveState();
         }
         state.awaitingInput = "phone";
         saveState();
         setInputEnabled(true);
-        els.input.placeholder = "(555) 123-4567";
+        els.input.placeholder = "(916) 555-1234";
         els.input.focus();
         return;
       }
 
-      if (state.step === 7) {
+      if (state.step === 8) {
+        renderHistory();
+        if (state.lastPromptedStep < 8) {
+          await botSay("Email? Totally optional — skip if you prefer.");
+          state.lastPromptedStep = 8;
+          saveState();
+        }
+        state.awaitingInput = "email";
+        saveState();
+        setInputEnabled(true);
+        els.input.placeholder = "email@example.com or skip";
+        els.input.focus();
+        return;
+      }
+
+      if (state.step === 9) {
+        renderHistory();
+        if (state.lastPromptedStep < 9) {
+          await botSay("Anything else we should know? (HOA rules, timing, gates — or just press Send.)");
+          state.lastPromptedStep = 9;
+          saveState();
+        }
+        state.awaitingInput = "notes";
+        saveState();
+        setInputEnabled(true);
+        els.input.placeholder = "Optional notes, or just press Send";
+        els.input.focus();
+        return;
+      }
+
+      if (state.step === 10) {
         renderHistory();
         setInputEnabled(false);
         console.log("STATE BEFORE SUBMIT:", state);
         if (!validateLeadFields()) {
           setStatus("Couldn't send just now — please call us or try again.", "err");
-          state.step = 6;
+          state.step = 7;
           state.awaitingInput = "phone";
           saveState();
           setInputEnabled(true);
@@ -416,18 +502,24 @@
       appendMessage("user", raw);
       els.input.value = "";
 
-      if (state.awaitingInput === "city") {
-        state.city = raw;
-        state.step = 4;
-      } else if (state.awaitingInput === "size") {
-        state.size = raw;
+      if (state.awaitingInput === "approximate_length") {
+        state.approximate_length = raw;
         state.step = 5;
+      } else if (state.awaitingInput === "city") {
+        state.city = raw;
+        state.step = 6;
       } else if (state.awaitingInput === "name") {
         state.name = raw;
-        state.step = 6;
+        state.step = 7;
       } else if (state.awaitingInput === "phone") {
         state.phone = normalizePhoneDigits(raw);
-        state.step = 7;
+        state.step = 8;
+      } else if (state.awaitingInput === "email") {
+        state.email = /^skip$/i.test(raw.trim()) ? "" : raw;
+        state.step = 9;
+      } else if (state.awaitingInput === "notes") {
+        state.notes = /^skip$/i.test(raw.trim()) ? "" : raw;
+        state.step = 10;
       }
       state.awaitingInput = false;
       saveState();
