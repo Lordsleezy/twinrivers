@@ -2086,9 +2086,170 @@ footer a:hover {
   text-align: center;
 }
 
+.quote-calculator-section {
+  position: relative;
+  border-top: 1px solid rgba(212,168,83,0.18);
+  border-bottom: 1px solid rgba(212,168,83,0.18);
+  background: radial-gradient(circle at 18% 0%, rgba(212,168,83,0.16), transparent 36%), #0f0f0f;
+}
+
+.quote-calculator-shell {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.quote-calculator-header {
+  max-width: 760px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+.quote-calculator-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 1.3rem;
+  align-items: start;
+}
+
+.quote-form-card,
+.quote-result-card {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  background: rgba(18,18,18,0.92);
+  box-shadow: 0 28px 80px rgba(0,0,0,0.28);
+  padding: 1.4rem;
+}
+
+.quote-field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.quote-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.quote-field.full {
+  grid-column: 1 / -1;
+}
+
+.quote-field label {
+  color: rgba(255,255,255,0.76);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.quote-field input,
+.quote-field select,
+.quote-field textarea {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+  background: #0c0c0c;
+  color: #fff;
+  padding: 0.8rem 0.9rem;
+  font: inherit;
+}
+
+.quote-field textarea {
+  min-height: 92px;
+  resize: vertical;
+}
+
+.quote-result-card {
+  position: sticky;
+  top: 96px;
+}
+
+.estimate-range-label {
+  color: rgba(255,255,255,0.58);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.estimate-range {
+  margin: 0.7rem 0 0.55rem;
+  color: var(--gold);
+  font-family: var(--display);
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  line-height: 1;
+}
+
+.estimate-note {
+  color: rgba(255,255,255,0.68);
+}
+
+.offer-card-grid {
+  display: grid;
+  gap: 0.8rem;
+  margin: 1.4rem 0;
+}
+
+.offer-card {
+  border: 1px solid rgba(212,168,83,0.28);
+  border-radius: 4px;
+  padding: 1rem;
+  background: rgba(212,168,83,0.06);
+}
+
+.offer-card strong {
+  display: block;
+  color: #fff;
+  margin-bottom: 0.35rem;
+}
+
+.offer-card span {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.92rem;
+}
+
+.quote-lead-form {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.quote-status {
+  min-height: 1.2rem;
+  color: rgba(255,255,255,0.62);
+  font-size: 0.9rem;
+}
+
+.commercial-trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  max-width: 1120px;
+  margin: 0 auto 2.4rem;
+}
+
+.commercial-trust-strip span {
+  border: 1px solid rgba(212,168,83,0.28);
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+  background: rgba(255,255,255,0.03);
+  color: rgba(255,255,255,0.82);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 @media (max-width: 900px) {
-  .google-review-cards {
+  .google-review-cards,
+  .quote-calculator-grid,
+  .quote-field-grid {
     grid-template-columns: 1fr;
+  }
+
+  .quote-result-card {
+    position: relative;
+    top: auto;
   }
 }
 
@@ -2209,10 +2370,22 @@ footer a:hover {
         <h3>Property Improvements</h3>
         <p>Decks, yard tweaks, and exterior fixes for homes and rentals - work that pairs with a solid fence.</p>
       </article>
+      <article class="service-card">
+        <svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 7 38 13v10c0 9-6 15-14 18-8-3-14-9-14-18V13l14-6Zm-8 18h16M18 31h12M20 19h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Security Fencing</h3>
+        <p>Commercial chain link, secure gates, perimeter control, and practical protection for larger properties.</p>
+      </article>
     </div>
   </section>
 
   <section class="dark-section commercial-section">
+    <div class="commercial-trust-strip" aria-label="Twin Rivers commercial trust credentials">
+      <span>Licensed</span>
+      <span>Bonded</span>
+      <span>Insured</span>
+      <span>Commercial References Available</span>
+      <span>40+ Years Experience</span>
+    </div>
     <div class="commercial-intro">
       <span class="section-tag">Commercial</span>
       <h2>Commercial Fencing Solutions</h2>
@@ -2379,6 +2552,110 @@ footer a:hover {
     </div>
   </section>
 
+  <section class="dark-section quote-calculator-section" id="instant-estimate">
+    <div class="quote-calculator-shell">
+      <div class="quote-calculator-header">
+        <span class="section-tag">Instant Fence Estimate</span>
+        <h2>Get a rough project estimate in under 30 seconds.</h2>
+        <p class="sub-text">Use the calculator below for a planning range, then send your details to get an exact quote from Twin Rivers Fence.</p>
+      </div>
+      <div class="quote-calculator-grid" data-quote-calculator>
+        <form class="quote-form-card" data-quote-inputs>
+          <div class="quote-field-grid">
+            <div class="quote-field">
+              <label for="quote-fence-type">Fence Type</label>
+              <select id="quote-fence-type" name="fence_type">
+                <option value="wood">Wood Privacy Fence</option>
+                <option value="cedar">Cedar Fence</option>
+                <option value="vinyl">Vinyl Fence</option>
+                <option value="chainlink">Chain Link Fence</option>
+                <option value="ornamental">Ornamental Iron Fence</option>
+                <option value="ranch">Ranch Fence</option>
+                <option value="custom">Custom Fence</option>
+              </select>
+            </div>
+            <div class="quote-field">
+              <label for="quote-height">Fence Height</label>
+              <select id="quote-height" name="height">
+                <option value="4">4 Foot</option>
+                <option value="6" selected>6 Foot</option>
+                <option value="8">8 Foot</option>
+              </select>
+            </div>
+            <div class="quote-field">
+              <label for="quote-footage">Linear Footage</label>
+              <input id="quote-footage" name="footage" type="number" min="10" step="1" value="100" inputmode="numeric">
+            </div>
+            <div class="quote-field">
+              <label for="quote-gates">Number of Gates</label>
+              <select id="quote-gates" name="gates">
+                <option value="0">0</option>
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3+</option>
+              </select>
+            </div>
+            <div class="quote-field">
+              <label for="quote-removal">Existing Fence Removal</label>
+              <select id="quote-removal" name="removal">
+                <option value="no" selected>No</option>
+                <option value="yes">Yes</option>
+              </select>
+            </div>
+            <div class="quote-field">
+              <label for="quote-project-type">Project Type</label>
+              <select id="quote-project-type" name="project_type">
+                <option value="residential" selected>Residential</option>
+                <option value="commercial">Commercial</option>
+              </select>
+            </div>
+            <div class="quote-field full">
+              <label for="quote-city">City</label>
+              <select id="quote-city" name="city">
+                <option value="sacramento">Sacramento</option>
+                <option value="elk-grove">Elk Grove</option>
+                <option value="folsom">Folsom</option>
+                <option value="rocklin">Rocklin</option>
+                <option value="roseville">Roseville</option>
+                <option value="grass-valley">Grass Valley</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+        </form>
+        <aside class="quote-result-card">
+          <span class="estimate-range-label">Estimated Project Range</span>
+          <div class="estimate-range" data-estimate-range>$0 - $0</div>
+          <p class="estimate-note">Most projects similar to yours fall within this range. Final pricing depends on access, grade, material availability, gates, removals, and site conditions.</p>
+          <div class="offer-card-grid" aria-label="Twin Rivers Fence estimate offers">
+            <div class="offer-card"><strong>🎉 Schedule Today</strong><span>Receive up to 15% off qualifying projects.</span></div>
+            <div class="offer-card"><strong>🤝 Refer A Friend</strong><span>Receive up to 25% off for both you and your referred friend.</span></div>
+          </div>
+          <p class="estimate-note">Want to research costs, permits, and materials first? Visit the <a href="/fence-learning-center/">Fence Learning Center</a>.</p>
+          <form name="instant-quote" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" class="quote-lead-form" data-quote-lead-form>
+            <input type="hidden" name="form-name" value="instant-quote">
+            <input type="text" name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <input type="hidden" name="source" value="Twin Rivers Fence instant estimate calculator">
+            <input type="hidden" name="estimated_range">
+            <input type="hidden" name="fence_type">
+            <input type="hidden" name="height">
+            <input type="hidden" name="footage">
+            <input type="hidden" name="gates">
+            <input type="hidden" name="removal">
+            <input type="hidden" name="project_type">
+            <input type="hidden" name="city">
+            <div class="quote-field"><label for="quote-name">Name</label><input id="quote-name" name="name" type="text" autocomplete="name"></div>
+            <div class="quote-field"><label for="quote-phone">Phone Number (Required)</label><input id="quote-phone" name="phone" type="tel" autocomplete="tel" required></div>
+            <div class="quote-field"><label for="quote-email">Email (Optional)</label><input id="quote-email" name="email" type="email" autocomplete="email"></div>
+            <div class="quote-field"><label for="quote-notes">Project Notes</label><textarea id="quote-notes" name="notes"></textarea></div>
+            <button class="btn-gold" type="submit">Get My Exact Quote</button>
+            <p class="quote-status" data-quote-status aria-live="polite"></p>
+          </form>
+        </aside>
+      </div>
+    </div>
+  </section>
+
   <section class="dark-section" id="contact">
     <div class="ai-contact-header">
       <span class="section-tag">Free Estimate</span>
@@ -2464,7 +2741,7 @@ footer a:hover {
 
 <footer>
   <div>Twin Rivers LLC · License #1089233 · Grass Valley, CA</div>
-  <div><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></div>
+  <div><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="/fence-learning-center/">Fence Learning Center</a></div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -3685,6 +3962,8 @@ footer a:hover {
   initRiverAssistant();
 }());
 </script>
+<script src="/assets/js/fence-pricing.js" defer></script>
+<script src="/assets/js/quote-calculator.js" defer></script>
 <script src="/assets/js/google-reviews.js" defer></script>
 </body>
 </html>

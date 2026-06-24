@@ -25,14 +25,27 @@ function normalizeReview(review) {
 }
 
 async function googleJson(url) {
+  const redactedUrl = url.replace(/key=([^&]+)/, 'key=REDACTED');
   const res = await fetch(url, { headers: { Accept: 'application/json' } });
   const text = await res.text();
   let data;
   try { data = JSON.parse(text); } catch (e) {
-    throw new Error('Google API returned non-JSON: ' + text.slice(0, 120));
+    const error = new Error('Google API returned non-JSON.');
+    error.google_http_status = res.status;
+    error.google_response_body = text.slice(0, 1000);
+    error.google_request_url = redactedUrl;
+    throw error;
   }
-  if (!res.ok) throw new Error('Google HTTP ' + res.status + ': ' + (data && data.error_message || text.slice(0, 120)));
-  return data;
+  if (!res.ok) {
+    const error = new Error('Google HTTP ' + res.status + ': ' + (data && data.error_message || text.slice(0, 120)));
+    error.google_http_status = res.status;
+    error.google_status = data && data.status;
+    error.google_error_message = data && data.error_message;
+    error.google_response_body = data;
+    error.google_request_url = redactedUrl;
+    throw error;
+  }
+  return { data, google_http_status: res.status, google_request_url: redactedUrl };
 }
 
 exports.handler = async function (event) {
@@ -77,14 +90,21 @@ exports.handler = async function (event) {
     detailsUrl.searchParams.set('fields', 'place_id,name,rating,user_ratings_total,reviews,url');
     detailsUrl.searchParams.set('reviews_sort', 'newest');
     detailsUrl.searchParams.set('key', apiKey);
-    const details = await googleJson(detailsUrl.toString());
+    const googleResult = await googleJson(detailsUrl.toString());
+    const details = googleResult.data;
 
     if (details.status !== 'OK' || !details.result) {
-      throw new Error(
+      const error = new Error(
         'Places API status: ' + details.status +
         (details.error_message ? ' — ' + details.error_message : '') +
         '. Place ID used: ' + placeId
       );
+      error.google_http_status = googleResult.google_http_status;
+      error.google_status = details.status;
+      error.google_error_message = details.error_message || '';
+      error.google_response_body = details;
+      error.google_request_url = googleResult.google_request_url;
+      throw error;
     }
 
     const result = details.result;
@@ -100,6 +120,18 @@ exports.handler = async function (event) {
       reviews: Array.isArray(result.reviews) ? result.reviews.map(normalizeReview) : []
     });
   } catch (error) {
-    return response(502, { ok: false, message: error.message });
+    const diagnostics = {
+      ok: false,
+      source: 'google',
+      message: error.message,
+      google_http_status: error.google_http_status || null,
+      google_status: error.google_status || null,
+      google_error_message: error.google_error_message || null,
+      google_response_body: error.google_response_body || null,
+      google_request_url: error.google_request_url || null,
+      place_id: placeId
+    };
+    console.error('google-reviews-error', JSON.stringify(diagnostics));
+    return response(200, diagnostics);
   }
 };
