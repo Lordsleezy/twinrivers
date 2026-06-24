@@ -177,7 +177,24 @@ async function verifyGoogleProfile(apiKey, query, currentPlaceId) {
     try {
       const searched = await googlePlacesV1Search(apiKey, payload);
       const places = searched.data.places || [];
-      attempts.push({ method: 'places-v1-searchText', query: payload.textQuery, status: 'OK', result_count: places.length });
+      attempts.push({
+        method: 'places-v1-searchText',
+        query: payload.textQuery,
+        status: 'OK',
+        result_count: places.length,
+        places: places.slice(0, 10).map(place => ({
+          id: place.id || null,
+          name: place.name || null,
+          display_name: place.displayName && place.displayName.text || null,
+          formatted_address: place.formattedAddress || null,
+          phone: place.nationalPhoneNumber || null,
+          website: place.websiteUri || null,
+          rating: place.rating || null,
+          review_count: place.userRatingCount || null,
+          google_maps_uri: place.googleMapsUri || null,
+          location: place.location || null
+        }))
+      });
       for (const place of places.slice(0, 10)) {
         const placeId = place.id || (place.name && place.name.replace(/^places\//, ''));
         if (placeId && !byPlaceId.has(placeId)) {
