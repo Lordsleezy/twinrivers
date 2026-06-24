@@ -221,8 +221,8 @@ async function verifyGoogleProfile(apiKey, query, currentPlaceId) {
   }
   const v1Searches = [
     { textQuery: 'Twin Rivers Fence', locationBias: { circle: { center: { latitude: 38.255235, longitude: -121.0614744 }, radius: 5000 } } },
-    { textQuery: 'Twin Rivers Fence', locationRestriction: { circle: { center: { latitude: 38.255235, longitude: -121.0614744 }, radius: 10000 } } },
-    { textQuery: 'fence contractor', locationRestriction: { circle: { center: { latitude: 38.255235, longitude: -121.0614744 }, radius: 10000 } } },
+    { textQuery: 'Twin Rivers Fence', locationRestriction: { rectangle: { low: { latitude: 38.205235, longitude: -121.1114744 }, high: { latitude: 38.305235, longitude: -121.0114744 } } } },
+    { textQuery: 'fence contractor', locationRestriction: { rectangle: { low: { latitude: 38.205235, longitude: -121.1114744 }, high: { latitude: 38.305235, longitude: -121.0114744 } } } },
     { textQuery: 'Twin Rivers Fence Grass Valley CA', locationBias: { circle: { center: { latitude: 38.255235, longitude: -121.0614744 }, radius: 50000 } } },
     { textQuery: 'Twin Rivers Fence 916-906-2254' },
     { textQuery: 'Twin Rivers Fence twinriversfence.com' }
