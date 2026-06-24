@@ -106,12 +106,23 @@ exports.handler = async function (event) {
         const findUrl = new URL('https://maps.googleapis.com/maps/api/place/findplacefromtext/json');
         findUrl.searchParams.set('input', item.input);
         findUrl.searchParams.set('inputtype', item.inputtype);
-        findUrl.searchParams.set('fields', 'place_id,name,formatted_address');
+        findUrl.searchParams.set('fields', 'place_id,name,formatted_address,rating,user_ratings_total');
         findUrl.searchParams.set('key', apiKey);
         const found = await googleJson(findUrl.toString());
         attempts.push({ input: item.input, inputtype: item.inputtype, status: found.data.status, candidates: found.data.candidates || [] });
-        if (found.data.status === 'OK' && found.data.candidates && found.data.candidates[0] && found.data.candidates[0].place_id) {
-          return found.data.candidates[0].place_id;
+        if (found.data.status === 'OK' && found.data.candidates) {
+          for (const candidate of found.data.candidates) {
+            if (!candidate.place_id) continue;
+            const candidateDetails = await fetchDetails(candidate.place_id);
+            const result = candidateDetails.data && candidateDetails.data.result;
+            const name = (result && result.name || candidate.name || '').toLowerCase();
+            const hasReviews = result && (typeof result.rating === 'number' || typeof result.user_ratings_total === 'number' || (Array.isArray(result.reviews) && result.reviews.length));
+            const looksLikeBusiness = /twin\s*rivers|fence/.test(name);
+            attempts.push({ input: item.input, inputtype: item.inputtype, details_status: candidateDetails.data.status, details_name: result && result.name, details_rating: result && result.rating, details_review_count: result && result.user_ratings_total });
+            if (candidateDetails.data.status === 'OK' && hasReviews && looksLikeBusiness) {
+              return candidate.place_id;
+            }
+          }
         }
       }
       const error = new Error('Find Place failed for all Twin Rivers search inputs.');
