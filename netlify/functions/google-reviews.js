@@ -80,11 +80,34 @@ async function verifyGoogleProfile(apiKey, query, currentPlaceId) {
     findUrl.searchParams.set('fields', 'place_id,name,formatted_address,rating,user_ratings_total,business_status,types');
     findUrl.searchParams.set('key', apiKey);
     const found = await googleJson(findUrl.toString());
-    attempts.push({ input: item.input, inputtype: item.inputtype, status: found.data.status, candidate_count: found.data.candidates ? found.data.candidates.length : 0 });
+    attempts.push({ method: 'findplacefromtext', input: item.input, inputtype: item.inputtype, status: found.data.status, candidate_count: found.data.candidates ? found.data.candidates.length : 0 });
     if (found.data.candidates) {
       for (const candidate of found.data.candidates) {
         if (candidate.place_id && !byPlaceId.has(candidate.place_id)) {
           byPlaceId.set(candidate.place_id, await detailsForPlace(candidate.place_id));
+        }
+      }
+    }
+  }
+  const textQueries = [
+    'Twin Rivers Fence Google Reviews',
+    'Twin Rivers Fence 916-906-2254',
+    'Twin Rivers Fence twinriversfence.com',
+    'Twin Rivers Fence Grass Valley Sacramento region',
+    'Twin Rivers Fence Nevada County CA',
+    'Twin Rivers Fence 1089233',
+    'Twin Rivers Fence C13 Grass Valley'
+  ];
+  for (const textQuery of textQueries) {
+    const searchUrl = new URL('https://maps.googleapis.com/maps/api/place/textsearch/json');
+    searchUrl.searchParams.set('query', textQuery);
+    searchUrl.searchParams.set('key', apiKey);
+    const searched = await googleJson(searchUrl.toString());
+    attempts.push({ method: 'textsearch', query: textQuery, status: searched.data.status, result_count: searched.data.results ? searched.data.results.length : 0 });
+    if (searched.data.results) {
+      for (const result of searched.data.results.slice(0, 8)) {
+        if (result.place_id && !byPlaceId.has(result.place_id)) {
+          byPlaceId.set(result.place_id, await detailsForPlace(result.place_id));
         }
       }
     }
