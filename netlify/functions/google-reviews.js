@@ -48,8 +48,72 @@ async function googleJson(url) {
   return { data, google_http_status: res.status, google_request_url: redactedUrl };
 }
 
+async function verifyGoogleProfile(apiKey, query, currentPlaceId) {
+  const inputs = [
+    { input: query, inputtype: 'textquery' },
+    { input: 'Twin Rivers Fence Google Reviews', inputtype: 'textquery' },
+    { input: 'Twin Rivers Fence Grass Valley CA', inputtype: 'textquery' },
+    { input: 'Twin Rivers Fence Sacramento CA', inputtype: 'textquery' },
+    { input: 'Twin Rivers Fence 21030 Home Camp Rd Grass Valley CA', inputtype: 'textquery' },
+    { input: 'Twin Rivers LLC Grass Valley CA fence', inputtype: 'textquery' },
+    { input: 'Twin Rivers Fencing Yuba City CA', inputtype: 'textquery' },
+    { input: '+19169062254', inputtype: 'phonenumber' }
+  ];
+  const byPlaceId = new Map();
+  const attempts = [];
+  async function detailsForPlace(id) {
+    const detailsUrl = new URL('https://maps.googleapis.com/maps/api/place/details/json');
+    detailsUrl.searchParams.set('place_id', id);
+    detailsUrl.searchParams.set('fields', 'place_id,name,formatted_address,formatted_phone_number,international_phone_number,website,rating,user_ratings_total,url,business_status,types,reviews');
+    detailsUrl.searchParams.set('reviews_sort', 'newest');
+    detailsUrl.searchParams.set('key', apiKey);
+    const details = await googleJson(detailsUrl.toString());
+    return details.data.result ? details.data.result : { place_id: id, status: details.data.status, error_message: details.data.error_message || '' };
+  }
+  if (currentPlaceId) {
+    byPlaceId.set(currentPlaceId, await detailsForPlace(currentPlaceId));
+  }
+  for (const item of inputs) {
+    const findUrl = new URL('https://maps.googleapis.com/maps/api/place/findplacefromtext/json');
+    findUrl.searchParams.set('input', item.input);
+    findUrl.searchParams.set('inputtype', item.inputtype);
+    findUrl.searchParams.set('fields', 'place_id,name,formatted_address,rating,user_ratings_total,business_status,types');
+    findUrl.searchParams.set('key', apiKey);
+    const found = await googleJson(findUrl.toString());
+    attempts.push({ input: item.input, inputtype: item.inputtype, status: found.data.status, candidate_count: found.data.candidates ? found.data.candidates.length : 0 });
+    if (found.data.candidates) {
+      for (const candidate of found.data.candidates) {
+        if (candidate.place_id && !byPlaceId.has(candidate.place_id)) {
+          byPlaceId.set(candidate.place_id, await detailsForPlace(candidate.place_id));
+        }
+      }
+    }
+  }
+  return response(200, {
+    ok: true,
+    current_place_id: currentPlaceId,
+    search_query: query,
+    attempts,
+    candidates: Array.from(byPlaceId.values()).map(item => ({
+      place_id: item.place_id || null,
+      name: item.name || null,
+      formatted_address: item.formatted_address || null,
+      formatted_phone_number: item.formatted_phone_number || null,
+      international_phone_number: item.international_phone_number || null,
+      website: item.website || null,
+      rating: typeof item.rating === 'number' ? item.rating : null,
+      user_ratings_total: typeof item.user_ratings_total === 'number' ? item.user_ratings_total : null,
+      url: item.url || null,
+      business_status: item.business_status || null,
+      types: item.types || [],
+      recent_review_authors: Array.isArray(item.reviews) ? item.reviews.slice(0, 5).map(review => review.author_name) : []
+    }))
+  });
+}
+
 exports.handler = async function (event) {
   const debug = event && event.queryStringParameters && event.queryStringParameters.debug === '1';
+  const verifyProfile = event && event.queryStringParameters && event.queryStringParameters.verify_profile === '1';
 
   // Check all possible env var names (trim whitespace in case of UI copy-paste)
   const apiKey = (
@@ -72,6 +136,17 @@ exports.handler = async function (event) {
         /google|places|maps|api_key/i.test(k)
       )
     });
+  }
+
+  if (verifyProfile) {
+    if (!apiKey) {
+      return response(503, {
+        ok: false,
+        needs_configuration: true,
+        message: 'Set GOOGLE_PLACES_API_KEY in Netlify environment variables to verify Google profiles.'
+      });
+    }
+    return verifyGoogleProfile(apiKey, query, placeId);
   }
 
   if (!apiKey) {
