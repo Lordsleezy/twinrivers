@@ -1,1173 +1,914 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Twin Rivers | Fence Installation, Repair & Gates | Sacramento to the Foothills</title>
-
-<meta name="description" content="Fence installation, fence repair, wood and vinyl privacy fences, chain link, and gates for homes and rentals. We work in Sacramento, Elk Grove, Roseville, Folsom, Auburn, Grass Valley, Nevada City, and nearby—call for a straight answer and a real quote.">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+<title>Twin Rivers Fence | Cinematic Fence Installation</title>
+<meta name="description" content="Twin Rivers Fence builds wood, vinyl, chain link, and custom gate projects across Sacramento Valley and the Sierra Foothills.">
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-html{
-scroll-behavior:smooth;
-}
-
-body{
-font-family:'Inter',sans-serif;
-background:#0f1117;
-color:#eee;
-min-height:100vh;
-overflow-x:hidden;
-}
-
-/* NAVBAR */
-
-header.site-header{
-position:fixed;
-width:100%;
-background:rgba(10,10,10,.88);
-backdrop-filter:blur(12px);
-z-index:1000;
-border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-nav{
-max-width:1200px;
-margin:auto;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 20px;
-}
-
-nav h2{
-color:white;
-}
-
-nav ul {
-display:flex;
-list-style:none;
-}
-
-nav li {
-position:relative;
-margin-left:25px;
-}
-
-nav a {
-display:block;
-padding:12px 15px;
-color:white;
-text-decoration:none;
-transition:color .2s ease;
-}
-
-nav a:hover {
-color:#ff7b00;
-}
-
-nav li ul {
-position:absolute;
-top:100%;
-left:0;
-background:#1c1f2a;
-border-radius:6px;
-min-width:220px;
-opacity:0;
-visibility:hidden;
-transform:translateY(10px);
-transition:all .25s ease;
-pointer-events:none;
-z-index:1001;
-display:grid;
-grid-template-columns:repeat(3, auto);
-gap:10px 40px;
-padding:15px 20px;
-}
-
-nav li:hover > ul,
-nav li ul:hover {
-opacity:1;
-visibility:visible;
-transform:translateY(0);
-pointer-events:auto;
-}
-
-nav li ul li {
-margin:0;
-}
-
-nav li ul li a {
-padding:8px 12px;
-white-space:nowrap;
-}
-
-nav li ul li a:hover {
-background:#ff7b00;
-border-radius:4px;
-}
-
-.nav-phone {
-color:#ff7b00;
-font-weight:bold;
-text-decoration:none;
-margin-left:30px;
-}
-
-.nav-phone:hover {
-text-decoration:underline;
-}
-
-/* HERO */
-
-.hero{
-min-height:100vh;
-min-height:100dvh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-position:relative;
-width:100%;
-padding:5.5rem 1rem 2rem;
-box-sizing:border-box;
-background:url("https://images.unsplash.com/photo-1503387762-592deb58ef4e");
-background-size:cover;
-background-position:center;
-background-repeat:no-repeat;
-}
-
-.hero::before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.55);
-z-index:0;
-}
-
-.hero > *{
-position:relative;
-z-index:1;
-}
-
-.hero h1{
-font-size:60px;
-margin-top:15px;
-}
-
-.hero p{
-font-size:22px;
-opacity:.9;
-}
-
-.cta{
-margin-top:25px;
-background:#22c55e;
-padding:14px 28px;
-border-radius:10px;
-color:#0a0c10;
-text-decoration:none;
-font-weight:700;
-transition:all .3s ease;
-cursor:pointer;
-display:inline-block;
-}
-
-.hero-cta-row{
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-justify-content:center;
-margin-top:25px;
-}
-
-.cta:hover{
-background:#16a34a;
-color:#fff;
-transform:translateY(-2px);
-box-shadow:0 8px 24px rgba(34,197,94,.35);
-}
-
-/* LOGO */
-
-.logo svg{
-width:120px;
-margin-bottom:15px;
-}
-
-/* SECTIONS */
-
-.section{
-width:100%;
-padding:100px 20px;
-position:relative;
-background-size:cover;
-background-position:center;
-background-repeat:no-repeat;
-}
-
-.section::before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.55);
-z-index:0;
-}
-
-.section > *{
-position:relative;
-z-index:1;
-max-width:1200px;
-margin:auto;
-}
-
-.section h2{
-text-align:center;
-margin-bottom:50px;
-font-size:36px;
-}
-
-.section:nth-of-type(2){
-background-image:url("https://images.unsplash.com/photo-1581093458791-9f3c3f9c2c3d");
-}
-
-.section:nth-of-type(4){
-background-image:url("https://images.unsplash.com/photo-1504307651254-35680f356dfd");
-}
-
-.section:nth-of-type(5){
-background-image:url("https://images.unsplash.com/photo-1581093458791-9f3c3f9c2c3d");
-}
-
-.section:nth-of-type(6){
-background-image:url("https://images.unsplash.com/photo-1504307651254-35680f356dfd");
-}
-
-.section:nth-of-type(7){
-background-image:url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c");
+:root {
+  --gold: #d4a853;
+  --ink: #1a1008;
+  --muted: rgba(255,255,255,0.7);
 }
 
-/* GRID */
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:30px;
-}
-
-.card{
-background:rgba(255,255,255,.05);
-border-radius:12px;
-padding:30px;
-border:1px solid rgba(255,255,255,.08);
-transition:.3s;
-}
-
-.card:hover{
-transform:translateY(-8px);
-border:1px solid #ff7b00;
-}
-
-/* PARALLAX */
-
-.parallax{
-background:rgba(0,0,0,.3);
-padding:120px 20px;
-text-align:center;
-position:relative;
-}
-
-/* REVIEWS */
-
-.reviews{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
-}
-
-.review{
-background:#171922;
-padding:25px;
-border-radius:10px;
-}
-
-/* AREAS */
-
-.area-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-gap:12px;
-}
-
-.area-grid div{
-background:#1c1f2a;
-padding:10px;
-border-radius:6px;
-text-align:center;
-}
-
-/* MAP */
-
-.map iframe{
-width:100%;
-height:400px;
-border:0;
-border-radius:10px;
-}
-
-.service-area-blocks{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:12px;
-max-width:900px;
-margin-top:30px;
-}
-
-.service-area-block{
-background:rgba(0,0,0,0.65);
-padding:10px 16px;
-border-radius:6px;
-font-size:14px;
-color:#ffffff;
-text-decoration:none;
-border:1px solid rgba(255,255,255,0.25);
-transition:all .2s ease;
-}
-
-.service-area-block:hover{
-background:rgba(0,0,0,0.9);
-transform:translateY(-2px);
-border-color:#ffffff;
-}
-
-.service-areas{
-min-height:420px;
-padding:80px 20px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-}
-
-.about-section{
-background:
-linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.85)),
-url("https://images.unsplash.com/photo-1585128792020-803d29415281?w=1600");
-background-size:cover;
-background-position:center;
-padding:100px 20px;
-width:100%;
-}
-
-.about-container{
-max-width:900px;
-margin:auto;
-text-align:center;
-}
-
-.about-section h2{
-margin-bottom:30px;
-font-size:32px;
-}
-
-.about-section h2::after{
-content:"";
-display:block;
-width:60px;
-height:2px;
-background:#ff7a00;
-margin:15px auto 0 auto;
+* {
+  box-sizing: border-box;
 }
 
-.about-section p{
-line-height:1.7;
-margin:14px auto;
-color:#d2d2d2;
+html {
+  scroll-behavior: smooth;
+  background: #0a0a0a;
 }
 
-.services-section{
-background:#0a0c10;
-padding:100px 20px;
-border-top:1px solid rgba(255,255,255,.05);
-border-bottom:1px solid rgba(255,255,255,.05);
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #0a0a0a;
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.services-section .card{
-background:#141414;
-box-shadow:0 8px 30px rgba(0,0,0,0.6);
+#main-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  display: block;
 }
 
-.project-stats{
-background:#101010;
-padding:60px 20px;
-text-align:center;
+#scroll-container {
+  position: relative;
+  z-index: 10;
+  height: calc(8000px + 100vh);
+  pointer-events: none;
 }
 
-.stats-grid{
-display:flex;
-justify-content:center;
-gap:80px;
-flex-wrap:wrap;
+.screen {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 6rem 1.25rem;
+  pointer-events: none;
 }
 
-.stat h3{
-font-size:36px;
-color:#ff7a00;
-margin-bottom:5px;
+.hero-section {
+  top: 0;
 }
 
-.stat p{
-color:#bbb;
+.build-label {
+  top: 2450px;
 }
 
-.testimonials-section{
-background:
-linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.85)),
-url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600");
-background-size:cover;
-background-position:center;
-padding:100px 20px;
-text-align:center;
-border-top:1px solid rgba(255,255,255,0.05);
+.vinyl-label {
+  top: 5550px;
 }
 
-.testimonial-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:25px;
-max-width:1100px;
-margin:auto;
-margin-top:40px;
+.chain-label {
+  top: 6350px;
 }
 
-.testimonial{
-background:rgba(20,20,20,0.85);
-backdrop-filter:blur(4px);
-padding:28px;
-border-radius:8px;
-border:1px solid rgba(255,255,255,0.06);
-text-align:left;
+.gate-label {
+  top: 7150px;
 }
 
-.testimonial p{
-font-size:15px;
-line-height:1.6;
-color:#e0e0e0;
+.contact-section {
+  top: 7200px;
+  min-height: 800px;
+  align-content: center;
+  background: rgba(0,0,0,0.67);
+  pointer-events: auto;
 }
 
-.reviewer{
-display:block;
-margin-top:16px;
-font-weight:600;
-color:#a0a0a0;
+.hero {
+  max-width: 980px;
+  text-align: center;
+  padding: 0 1rem;
+  pointer-events: auto;
 }
 
-/* FOOTER */
-
-footer{
-background:#090b10;
-text-align:center;
-padding:50px;
-margin-top:80px;
-}
-
-/* SCROLL ANIMATION */
-
-.fade-in-section{
-opacity:0;
-transform:translateX(-60px);
-transition:opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.fade-in-section.visible{
-opacity:1;
-transform:translateX(0);
-}
-
-.slide-left{
-opacity:0;
-transform:translateX(-60px);
-transition:opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.slide-right{
-opacity:0;
-transform:translateX(-60px);
-transition:opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.visible{
-opacity:1;
-transform:translateX(0);
-}
-
-.header-contact{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.contact-btn{
-background:#ff7b00;
-color:white;
-border:none;
-padding:8px 16px;
-border-radius:4px;
-cursor:pointer;
-font-weight:600;
-font-size:14px;
-transition:all .3s ease;
-}
-
-.contact-btn:hover{
-background:#e66f00;
-transform:translateY(-1px);
+.hero-tag {
+  margin: 0 0 1rem;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
 }
 
-.contact-modal{
-display:none;
-position:fixed;
-z-index:9999;
-left:0;
-top:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.85);
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: 0;
 }
 
-.contact-modal-content{
-background:#111;
-margin:8% auto;
-padding:35px;
-width:90%;
-max-width:500px;
-border-radius:8px;
-border:1px solid rgba(255,255,255,0.1);
+.hero h1 em {
+  color: var(--gold);
+  font-style: normal;
+}
+
+.hero-sub {
+  margin: 1.4rem auto 2rem;
+  max-width: 620px;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.65;
+}
+
+.btn-gold {
+  display: inline-block;
+  padding: 16px 36px;
+  border-radius: 3px;
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: 0 20px 60px rgba(212,168,83,0.22);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.btn-gold:hover,
+.btn-gold:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 70px rgba(212,168,83,0.32);
+}
+
+.fence-label {
+  max-width: min(960px, 92vw);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.fence-label.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fence-label h2 {
+  margin: 0 0 0.65rem;
+  color: white;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 200;
+  letter-spacing: 0.05em;
+  line-height: 1.08;
+  text-shadow: 0 2px 30px rgba(0,0,0,0.8);
+}
+
+.fence-label p {
+  margin: 0 auto;
+  max-width: 610px;
+  color: rgba(255,255,255,0.74);
+  font-size: clamp(0.95rem, 2vw, 1.12rem);
+  line-height: 1.65;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.8);
+}
+
+#contact-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%);
+  transform: translate(-50%, -50%);
+  width: min(480px, calc(100vw - 2rem));
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  background: rgba(0,0,0,0.7);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 30px 100px rgba(0,0,0,0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+}
+
+body.contact-active #contact-form {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#contact-form h2 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 300;
+  letter-spacing: 0;
+}
+
+#contact-form p {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+#contact-form input,
+#contact-form textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.05);
+  color: white;
+  font: inherit;
+  font-size: 15px;
+  resize: vertical;
+}
+
+#contact-form input::placeholder,
+#contact-form textarea::placeholder {
+  color: rgba(255,255,255,0.45);
+}
+
+#contact-form button {
+  width: 100%;
+  padding: 16px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--gold);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+#contact-form .fine {
+  margin: 1rem 0 0;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.48);
+}
+
+.site-footer {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  width: min(760px, calc(100vw - 2rem));
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.56);
+  text-align: center;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  pointer-events: auto;
+}
+
+.site-footer a {
+  color: rgba(255,255,255,0.76);
+  text-decoration: none;
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: var(--gold);
+}
+
+@media (max-width: 640px) {
+  .screen {
+    padding: 4.5rem 1rem;
+  }
+
+  .hero-sub br {
+    display: none;
+  }
+
+  .btn-gold {
+    width: min(100%, 330px);
+    padding-inline: 18px;
+  }
+
+  #contact-form {
+    padding: 2rem 1.25rem;
+  }
 }
-
-.close-contact{
-float:right;
-font-size:28px;
-cursor:pointer;
-color:#999;
-line-height:20px;
-}
-
-.close-contact:hover{
-color:#ff7b00;
-}
-
-.contact-modal-content h2{
-margin-bottom:25px;
-color:#fff;
-}
-
-.contact-modal-content form{
-display:flex;
-flex-direction:column;
-gap:18px;
-}
-
-.contact-modal-content label{
-font-weight:600;
-margin-bottom:5px;
-color:#ddd;
-}
-
-.contact-modal-content input,
-.contact-modal-content textarea{
-padding:12px;
-border-radius:6px;
-border:1px solid rgba(255,255,255,0.2);
-background:rgba(255,255,255,0.05);
-color:#eee;
-font-family:'Inter',sans-serif;
-font-size:15px;
-}
-
-.contact-modal-content input:focus,
-.contact-modal-content textarea:focus{
-outline:none;
-border-color:#ff7b00;
-background:rgba(255,255,255,0.08);
-}
-
-.contact-modal-content button[type="submit"]{
-background:#ff7b00;
-color:white;
-border:none;
-padding:14px;
-border-radius:6px;
-cursor:pointer;
-font-weight:600;
-font-size:16px;
-transition:all .3s ease;
-margin-top:10px;
-}
-
-.contact-modal-content button[type="submit"]:hover{
-background:#ff8c1a;
-transform:translateY(-2px);
-}
-
 </style>
-
-<!-- twinrivers-lead-chat:head-start -->
-<link rel="stylesheet" href="assets/lead-chat.css">
-<link rel="stylesheet" href="assets/twinrivers-mobile.css">
-<!-- twinrivers-lead-chat:head-end -->
-
-<link rel="stylesheet" href="assets/global-ui.css">
 </head>
-
 <body>
-<!-- twinrivers-lead-chat:form-start -->
-<form name="lead-chat" method="POST" action="/success.html" data-netlify="true">
-  <input type="hidden" name="form-name" value="lead-chat">
-  <input type="hidden" name="project_type">
-  <input type="hidden" name="city">
-  <input type="hidden" name="size">
-  <input type="hidden" name="name">
-  <input type="hidden" name="phone">
-  <input type="hidden" name="site_source" value="twinrivers-repo">
-</form>
-<!-- twinrivers-lead-chat:form-end -->
-
-<header class="site-header">
-
-<div class="header-bar">
-<button type="button" id="menuToggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
-<span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
-</button>
-<a href="/" class="header-brand">Twin Rivers</a>
-<a href="contact/index.html" class="header-phone-cta" aria-label="Call ">Get Free Estimate</a>
-</div>
-
-<div id="navBackdrop" class="nav-backdrop" aria-hidden="true"></div>
-
-<nav id="mainNav" class="site-nav" aria-label="Main">
-
-<h2><a href="/" style="color:inherit;text-decoration:none;">Twin Rivers</a></h2>
-
-<div class="header-contact">
-<a href="contact/index.html" class="nav-phone">Get Free Estimate</a>
-<button class="contact-btn" id="openContactForm" type="button">Contact</button>
-</div>
-
-<ul>
-
-<li><a href="#">Fencing</a>
-<ul>
-<li><a href="/fencing/elk-grove">Elk Grove</a></li>
-<li><a href="/fencing/sacramento">Sacramento</a></li>
-<li><a href="/fencing/roseville">Roseville</a></li>
-<li><a href="/fencing/rocklin">Rocklin</a></li>
-<li><a href="/fencing/lincoln">Lincoln</a></li>
-<li><a href="/fencing/folsom">Folsom</a></li>
-<li><a href="/fencing/auburn">Auburn</a></li>
-<li><a href="/fencing/grass-valley">Grass Valley</a></li>
-<li><a href="/fencing/nevada-city">Nevada City</a></li>
-<li><a href="/fencing/penn-valley">Penn Valley</a></li>
-<li><a href="/fencing/alta-sierra">Alta Sierra</a></li>
-<li><a href="/fencing/north-san-juan">North San Juan</a></li>
-<li><a href="/fencing/chicago-park">Chicago Park</a></li>
-<li><a href="/fencing/rough-and-ready">Rough and Ready</a></li>
-<li><a href="/fencing/lake-wildwood">Lake Wildwood</a></li>
-</ul>
-</li>
-
-<li><a href="#">Services</a>
-<ul>
-<li><a href="/services/wood-fence-installation/">Wood Fence Installation</a></li>
-<li><a href="/services/chain-link-fence-installation/">Chain Link Fence Installation</a></li>
-<li><a href="/services/vinyl-fence-installation/">Vinyl Fence Installation</a></li>
-<li><a href="/services/privacy-fence-installation/">Privacy Fence Installation</a></li>
-<li><a href="/services/fence-repair/">Fence Repair</a></li>
-<li><a href="/services/gate-installation/">Gate Installation</a></li>
-</ul>
-</li>
-
-<li><a href="#">Property Improvement</a>
-<ul>
-<li><a href="/property-improvement/deck-installation">Deck Installation</a></li>
-<li><a href="/property-improvement/gate-installation">Gate Installation</a></li>
-<li><a href="/property-improvement/fence-repair">Fence Repair</a></li>
-<li><a href="/property-improvement/property-upgrades">Property Upgrades</a></li>
-<li><a href="/property-improvement/yard-improvements">Yard Improvements</a></li>
-</ul>
-</li>
-
-<li><a href="/service-areas/">Service Areas</a></li>
-<li><a href="/testimonials/">Testimonials</a></li>
-<li><a href="/gallery/">Gallery</a></li>
-<li><a href="#about">About Us</a></li>
-<li><a href="/contact/">Contact</a></li>
-<li><a href="/faq/">FAQ</a></li>
-
-</ul>
-
-</nav>
-
-</header>
-
-<section class="hero">
-
-<div class="logo">
-
-<svg viewBox="0 0 200 80">
-
-<path d="M0 40 Q40 10 80 40 T160 40 T240 40"
-stroke="#ff7b00" stroke-width="4" fill="none"/>
-
-<path d="M0 50 Q40 20 80 50 T160 50 T240 50"
-stroke="#4db8ff" stroke-width="4" fill="none"/>
-
-</svg>
-
-</div>
-
-<h1>Fencing that still looks right years from now</h1>
-
-<p>We install and repair wood, vinyl, and chain link fences, hang gates that track straight, and fix posts that lean after wet winters. From valley neighborhoods to sloped foothill lots—tell us what you need and we’ll walk you through it.</p>
-
-<div class="hero-cta-row">
-<a class="cta" href="/services/">Get a quote</a>
-<a class="cta" href="/gallery/">View Gallery</a>
-</div>
-
-</section>
-
-<section id="about" class="about-section">
-<div class="about-container">
-
-<h2>Who we are</h2>
-
-<p>
-Twin Rivers LLC is a local crew that spends most days on fences—new installs, storm-beaten repairs, and gates that stopped latching. We’re used to rocky soil, tight side yards, HOAs asking for specifics, and that one post that heaves every time the ground saturates.
-</p>
-
-<p>
-We pick materials and hardware for how your yard actually behaves: sun exposure, slope, pets, kids, and how much privacy you want from the street or the neighbor’s deck. You get a clear plan before we dig, and a fence you’re not babysitting every season.
-</p>
-
-<p>
-You’ll see us from Sacramento and Elk Grove up through Roseville, Rocklin, and Folsom, and into the foothills around Auburn, Grass Valley, and Nevada City. If you’re nearby and need a straight answer on what’s worth fixing versus replacing, we’re easy to reach.
-</p>
-
-<p>
-Call or send a note when you’re ready—we’ll look at photos or swing by, give you an honest scope, and get you scheduled.
-</p>
-
-</div>
-</section>
-
-<section class="section slide-left services-section">
-
-<h2>What we do</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>Fence installation</h3>
-<p>New perimeter and backyard fences—wood privacy, picket, vinyl, chain link for pets or pools, and layouts that follow your property line without guesswork.</p>
-</div>
-
-<div class="card">
-<h3>Fence repair</h3>
-<p>Leaning sections, rotted posts, blown panels after wind, and hardware that’s given up. We fix what’s salvageable and tell you when a full replace is the smarter spend.</p>
-</div>
-
-<div class="card">
-<h3>Gate installation</h3>
-<p>Single and double gates, latches that line up, and openings wide enough for your trailer or trash bins—manual setups and automation when it fits the job.</p>
-</div>
-
-<div class="card">
-<h3>Property improvements</h3>
-<p>Decks, yard tweaks, and exterior fixes for homes and rentals—work that pairs with a solid fence so the whole place feels finished.</p>
-</div>
-
-</div>
-
-</section>
-
-<section class="project-stats">
-
-<div class="stats-grid">
-
-<div class="stat">
-<h3>5000+</h3>
-<p>Fence installs and repairs under our belt</p>
-</div>
-
-<div class="stat">
-<h3>15+</h3>
-<p>Towns we run jobs in regularly</p>
-</div>
-
-<div class="stat">
-<h3>35+</h3>
-<p>Years of combined field experience</p>
-</div>
-
-</div>
-
-</section>
-
-<section id="testimonials" class="testimonials-section">
-
-<h2>Neighbors who called us back</h2>
-
-<div class="testimonial-grid">
-
-<div class="testimonial">
-<p>
-“Roughly 120 feet of tired cedar came out after last winter. They flagged the gate swing on our sloped driveway before we ordered lumber, then knocked it out in two days. It doesn’t flex when the wind hits like the old one did.”
-</p>
-<span class="reviewer">— Mark J., Roseville</span>
-</div>
-
-<div class="testimonial">
-<p>
-“Back line was leaning and one panel was on the ground. They swapped bad posts, reused what was sound, and didn’t push a full tear-out. Bill matched what they quoted.”
-</p>
-<span class="reviewer">— Amanda R., Citrus Heights</span>
-</div>
-
-<div class="testimonial">
-<p>
-“Wanted a real privacy fence off the back patio—not a wobbly screen. Crew showed up, stayed on the line, and left the yard cleaner than they found it.”
-</p>
-<span class="reviewer">— Daniel K., Folsom</span>
-</div>
-
-<div class="testimonial">
-<p>
-“Pre-listing punch list: new gate, few panels, hardware that actually closed. Showing feedback mentioned the yard feeling ‘tight.’ Worth it.”
-</p>
-<span class="reviewer">— Laura S., Elk Grove</span>
-</div>
-
-</div>
-
-</section>
-
-<section id="areas" class="section slide-right">
-
-<h2>Where we work</h2>
-
-<div class="area-grid">
-
-<div>Sacramento</div>
-<div>Elk Grove</div>
-<div>Roseville</div>
-<div>Rocklin</div>
-<div>Folsom</div>
-
-<div>Auburn</div>
-<div>Grass Valley</div>
-<div>Nevada City</div>
-<div>Colfax</div>
-<div>Alta Sierra</div>
-<div>Meadow Vista</div>
-<div>Foresthill</div>
-<div>Lake of the Pines</div>
-
-</div>
-
-</section>
-
-<section class="section slide-left">
-
-<h2>Materials we build with</h2>
-
-<div class="grid">
-
-<div class="card">Cedar — warm look, takes stain well for foothill sun</div>
-<div class="card">Redwood — naturally rot-resistant for wet seasons</div>
-<div class="card">Vinyl — low-maintenance privacy and picket options</div>
-<div class="card">Ornamental iron — security and curb appeal at entries</div>
-<div class="card">Chain link — budget-friendly, great for dogs and back lots</div>
-<div class="card">Composite — modern alternative when you want minimal upkeep</div>
-
-</div>
-
-</section>
-
-<section id="faq" class="section slide-right">
-
-<h2>Questions we get a lot</h2>
-
-<div class="reviews">
-
-<div class="review">
-<strong>Is your install work covered if something shifts?</strong>
-<p>Yes—we warranty our workmanship so you’re not on your own if something wasn’t done right. Material coverage follows the manufacturer; we’ll spell out what that means on your job.</p>
-</div>
-
-<div class="review">
-<strong>Can you do a wider driveway gate or automation?</strong>
-<p>We hang manual and automated gates, set posts deep enough for the weight, and make sure clearance and swing work with your slope and apron.</p>
-</div>
-
-<div class="review">
-<strong>How soon can you fix a fence that’s about to fall?</strong>
-<p>Most repairs slot in within a few days once we know the footage and post count. If we need a specific panel or style, lead time depends on what’s in stock locally.</p>
-</div>
-
-</div>
-
-</section>
-
-<section class="section map slide-left service-areas">
-
-<h2>Local fencing hubs</h2>
-
-<div class="service-area-blocks">
-
-<a href="/fencing/sacramento/" class="service-area-block">Sacramento</a>
-<a href="/fencing/elk-grove/" class="service-area-block">Elk Grove</a>
-<a href="/fencing/roseville/" class="service-area-block">Roseville</a>
-<a href="/fencing/folsom/" class="service-area-block">Folsom</a>
-<a href="/fencing/citrus-heights/" class="service-area-block">Citrus Heights</a>
-<a href="/fencing/rancho-cordova/" class="service-area-block">Rancho Cordova</a>
-<a href="/fencing/fair-oaks/" class="service-area-block">Fair Oaks</a>
-<a href="/fencing/antelope/" class="service-area-block">Antelope</a>
-<a href="/fencing/north-highlands/" class="service-area-block">North Highlands</a>
-<a href="/fencing/carmichael/" class="service-area-block">Carmichael</a>
-<a href="/fencing/orangevale/" class="service-area-block">Orangevale</a>
-<a href="/fencing/gold-river/" class="service-area-block">Gold River</a>
-
-</div>
-
-</section>
-
-<!-- Contact Modal -->
-<div id="contactModal" class="contact-modal">
-<div class="contact-modal-content">
-
-<span class="close-contact">&times;</span>
-
-<h2>Tell us about your fence</h2>
-
-<form id="contactForm">
-
-<label>Name</label>
-<input type="text" name="name" required>
-
-<label>Phone</label>
-<input type="tel" name="phone" required>
-
-<label>Email (optional)</label>
-<input type="email" name="email">
-
-<label>What’s going on?</label>
-<textarea name="message" rows="4"></textarea>
-
-<p class="contact-consent">By submitting your information, you agree to be contacted by Twin Rivers Fence regarding your project.</p>
-
-<button type="submit">Request a callback</button>
-
-</form>
-
-</div>
-</div>
-
-<footer>
-
-<p>Twin Rivers — fence install, repair &amp; gates</p>
-
-<p>
-Grass Valley · Auburn · Nevada City · Colfax · Sacramento &amp; valley cities
-</p>
-
-<p>Licensed Contractor #1089233</p>
-
-<p class="footer-legal"><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a></p>
-
-</footer>
-
-
-
-<script>
-
-// Contact Modal
-const modal = document.getElementById("contactModal");
-const btn = document.getElementById("openContactForm");
-const closeBtn = document.querySelector(".close-contact");
-
-if(btn){
-btn.onclick = function(event) {
-if (event) event.preventDefault();
-const chatNudgeBtn = document.getElementById("leadChatNudgeBtn");
-if (chatNudgeBtn) {
-chatNudgeBtn.click();
-return;
-}
-const chatToggleBtn = document.getElementById("leadChatToggle");
-if (chatToggleBtn && chatToggleBtn.getAttribute("aria-expanded") !== "true") {
-chatToggleBtn.click();
-}
-}
-}
-
-if(closeBtn){
-closeBtn.onclick = function() {
-modal.style.display = "none";
-}
-}
-
-window.onclick = function(event) {
-if (event.target == modal) {
-modal.style.display = "none";
-}
-}
-
-// Contact Form Submission
-document.getElementById('contactForm').addEventListener('submit', async (e) => {
-e.preventDefault();
-
-const form = e.target;
-
-const data = {
-name: form.name.value,
-email: form.email.value,
-phone: form.phone.value,
-message: form.message.value,
-client_id: "twinrivers"
-};
-
-try {
-const res = await fetch("https://crm-backend-production-8eb9.up.railway.app/api/leads", {
-method: "POST",
-headers: {
-"Content-Type": "application/json"
-},
-body: JSON.stringify(data)
-});
-
-if (res.ok) {
-alert("Request sent successfully!");
-form.reset();
-modal.style.display = "none";
-} else {
-alert("Error submitting form");
-}
-} catch (err) {
-alert("Network error");
-}
-});
-
-// Mobile menu
-document.addEventListener("DOMContentLoaded", function () {
-  const toggle = document.getElementById("menuToggle");
-  const nav = document.getElementById("mainNav");
-  const backdrop = document.getElementById("navBackdrop");
-
-  function closeNav() {
-    if (!nav) return;
-    nav.classList.remove("is-open");
-    if (backdrop) backdrop.classList.remove("is-open");
-    document.body.classList.remove("tr-nav-open");
-    if (toggle) toggle.setAttribute("aria-expanded", "false");
-  }
-
-  function openNav() {
-    if (!nav) return;
-    nav.classList.add("is-open");
-    if (backdrop) backdrop.classList.add("is-open");
-    document.body.classList.add("tr-nav-open");
-    if (toggle) toggle.setAttribute("aria-expanded", "true");
-  }
-
-  if (toggle && nav) {
-    toggle.addEventListener("click", function () {
-      if (nav.classList.contains("is-open")) closeNav();
-      else openNav();
-    });
-  }
-
-  if (backdrop) {
-    backdrop.addEventListener("click", closeNav);
-  }
-
-  document.querySelectorAll("#mainNav a").forEach(function (link) {
-    link.addEventListener("click", function () {
-      var h = link.getAttribute("href");
-      if (h && h !== "#") closeNav();
-    });
-  });
-
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") closeNav();
-  });
-});
-
-</script>
-
-<!-- twinrivers-lead-chat:body-start -->
-<div class="lead-chat-nudge" id="leadChatNudge" role="status" aria-live="polite">
-  Need a fence quote?
-  <button type="button" id="leadChatNudgeBtn">Open chat</button>
-</div>
-<button type="button" class="lead-chat-toggle" id="leadChatToggle" aria-label="Open chat" aria-expanded="false" aria-controls="leadChatPanel">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-  </svg>
-</button>
-<div class="lead-chat-backdrop" id="leadChatBackdrop" hidden></div>
-<section class="lead-chat-panel" id="leadChatPanel" role="dialog" aria-labelledby="leadChatTitle" aria-modal="true" hidden>
-  <header class="lead-chat-header">
-    <div>
-      <h2 id="leadChatTitle">Twin Rivers</h2>
-      <span>We usually reply right away.</span>
+<canvas id="main-canvas" aria-hidden="true"></canvas>
+
+<div id="scroll-container">
+  <section class="screen hero-section">
+    <div class="hero">
+      <p class="hero-tag">Sacramento Valley · Licensed #1089233</p>
+      <h1>Fencing built to last<br><em>decades</em>, not seasons.</h1>
+      <p class="hero-sub">Wood · Vinyl · Chain Link · Gates<br>Sacramento to the Sierra Foothills</p>
+      <a href="#contact" class="btn-gold">Get a Free Estimate</a>
     </div>
-    <button type="button" class="lead-chat-close" id="leadChatClose" aria-label="Close chat">×</button>
-  </header>
-  <div class="lead-chat-messages" id="leadChatMessages" role="log" aria-live="polite" aria-relevant="additions"></div>
-  <div class="lead-chat-typing" id="leadChatTyping" aria-hidden="true">
-    <span></span><span></span><span></span>
-  </div>
-  <div class="lead-chat-options" id="leadChatOptions" hidden></div>
-  <p class="lead-chat-status" id="leadChatStatus"></p>
-  <p class="lead-chat-consent" id="leadChatConsent">By submitting your information, you agree to be contacted by Twin Rivers Fence regarding your project.</p>
-  <div class="lead-chat-input-row">
-    <input type="text" id="leadChatInput" placeholder="Type your message…" autocomplete="section-chat" enterkeyhint="send">
-    <button type="button" class="lead-chat-send" id="leadChatSend">Send</button>
-  </div>
-</section>
+  </section>
+
+  <section class="screen build-label">
+    <div class="fence-label">
+      <h2>Cedar &amp; Wood Fencing</h2>
+      <p>Posts set true, rails pulled tight, and pickets built into a warm cedar line that feels settled from day one.</p>
+    </div>
+  </section>
+
+  <section class="screen vinyl-label">
+    <div class="fence-label">
+      <h2>Vinyl Fencing</h2>
+      <p>Clean privacy runs with crisp white panels, low upkeep, and a finished look that stays bright through the seasons.</p>
+    </div>
+  </section>
+
+  <section class="screen chain-label">
+    <div class="fence-label">
+      <h2>Chain Link Fencing</h2>
+      <p>Durable galvanized fence lines for yards, rentals, utility spaces, and practical boundaries that need to work hard.</p>
+    </div>
+  </section>
+
+  <section class="screen gate-label">
+    <div class="fence-label">
+      <h2>Custom Gates</h2>
+      <p>Double gates, access points, and hardware details built to swing cleanly and hold up to everyday use.</p>
+    </div>
+  </section>
+
+  <section class="screen contact-section" id="contact">
+    <form id="contact-form">
+      <h2>Get a free estimate</h2>
+      <p>Tell us about your project - we'll give you a straight answer.</p>
+      <input type="text" placeholder="Your name" name="name" autocomplete="name">
+      <input type="tel" placeholder="Phone number" name="phone" autocomplete="tel">
+      <textarea placeholder="Describe your project..." name="message" rows="4"></textarea>
+      <button type="submit">Send message</button>
+      <p class="fine">By submitting you agree to be contacted by Twin Rivers Fence.</p>
+    </form>
+  </section>
+
+  <footer class="site-footer">
+    Twin Rivers LLC · License #1089233 · Grass Valley, CA<br>
+    twinriversfence.com<br>
+    <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function () {
-  var h = window.location.hostname;
-  if (h === "localhost" || h === "127.0.0.1") {
-    window.SENTINEL_CORE_LEADS_URL = "http://localhost:3001/api/leads";
-    window.SENTINEL_CORE_API_KEY = "twinrivers-key-123";
-  }
-})();
-</script>
-<script src="assets/lead-chat.js" defer></script>
-<!-- twinrivers-lead-chat:body-end -->
+  "use strict";
 
-<script src="assets/global-ui.js" defer></script>
+  var canvas = document.getElementById("main-canvas");
+  var scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x020818);
+  scene.fog = new THREE.Fog(0x87ceeb, 18, 60);
+
+  var camera = new THREE.PerspectiveCamera(48, window.innerWidth / window.innerHeight, 0.1, 120);
+  camera.position.set(0, 20, 0.01);
+
+  function runNoWebGLFallback() {
+    canvas.style.background = "linear-gradient(180deg, #020818 0%, #87ceeb 44%, #ff8c42 100%)";
+    function fallbackLabels() {
+      var progress = getProgress();
+      document.querySelector(".build-label .fence-label").classList.toggle("is-visible", progress > 0.26 && progress < 0.55);
+      document.querySelector(".vinyl-label .fence-label").classList.toggle("is-visible", progress > 0.66 && progress < 0.74);
+      document.querySelector(".chain-label .fence-label").classList.toggle("is-visible", progress > 0.75 && progress < 0.84);
+      document.querySelector(".gate-label .fence-label").classList.toggle("is-visible", progress > 0.84 && progress < 0.91);
+      document.body.classList.toggle("contact-active", progress >= 0.9);
+    }
+    window.addEventListener("scroll", fallbackLabels, { passive: true });
+    fallbackLabels();
+  }
+
+  function browserCanUseWebGL() {
+    try {
+      var probe = document.createElement("canvas");
+      return !!(window.WebGLRenderingContext && (probe.getContext("webgl") || probe.getContext("experimental-webgl")));
+    } catch (error) {
+      return false;
+    }
+  }
+
+  if (!browserCanUseWebGL()) {
+    runNoWebGLFallback();
+    return;
+  }
+
+  var renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: false });
+  } catch (error) {
+    runNoWebGLFallback();
+    return;
+  }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+  var ambientLight = new THREE.AmbientLight(0x334466, 0.6);
+  scene.add(ambientLight);
+
+  var sunLight = new THREE.DirectionalLight(0xaabbff, 0.4);
+  sunLight.position.set(5, 10, -5);
+  sunLight.castShadow = true;
+  sunLight.shadow.mapSize.width = 1024;
+  sunLight.shadow.mapSize.height = 1024;
+  sunLight.shadow.camera.left = -18;
+  sunLight.shadow.camera.right = 18;
+  sunLight.shadow.camera.top = 18;
+  sunLight.shadow.camera.bottom = -18;
+  scene.add(sunLight);
+
+  var glowLight = new THREE.PointLight(0xffaa44, 0, 18);
+  glowLight.position.set(0, 3, 6);
+  scene.add(glowLight);
+
+  var materials = {};
+  function mat(key, color, options) {
+    if (!materials[key]) {
+      options = options || {};
+      var params = Object.assign({ color: color }, options);
+      materials[key] = params.basic ? new THREE.MeshBasicMaterial(params) : new THREE.MeshLambertMaterial(params);
+    }
+    return materials[key];
+  }
+
+  var cedar = mat("cedar", 0x5c3a1e);
+  var railA = mat("railA", 0x7a4f2a);
+  var railB = mat("railB", 0x6b4020);
+  var picketMat = mat("picket", 0x8b5e3c);
+  var capMat = mat("cap", 0x9b6e4c);
+  var grassMat = mat("grass", 0x3d5c2a, { transparent: true, opacity: 0 });
+  var holeMat = mat("hole", 0x1a0f05, { transparent: true, opacity: 0 });
+  var vinylMat = mat("vinyl", 0xf0f0f0, { transparent: true, opacity: 0 });
+  var steelMat = mat("steel", 0xaaaaaa, { transparent: true, opacity: 0 });
+  var gateMat = mat("gate", 0x5c3a1e, { transparent: true, opacity: 0 });
+  var darkPostMat = mat("darkPost", 0x4a2e14, { transparent: true, opacity: 0 });
+  var metalMat = mat("metal", 0x888888, { transparent: true, opacity: 1 });
+  var goldMat = mat("gold", 0xd4a020);
+  var skinMat = mat("skin", 0xc68642, { transparent: true, opacity: 1 });
+  var hatMat = mat("hat", 0xffcc00, { transparent: true, opacity: 1 });
+  var blueMat = mat("blueShirt", 0x2244aa, { transparent: true, opacity: 1 });
+  var redMat = mat("redShirt", 0xaa4422, { transparent: true, opacity: 1 });
+  var toolboxMat = mat("toolbox", 0xcc8800);
+
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  function smooth(value) {
+    value = clamp(value, 0, 1);
+    return value * value * (3 - 2 * value);
+  }
+
+  function range(progress, start, end) {
+    return smooth((progress - start) / (end - start));
+  }
+
+  function lerp(a, b, t) {
+    return a + (b - a) * clamp(t, 0, 1);
+  }
+
+  function colorLerp(a, b, t) {
+    return new THREE.Color(a).lerp(new THREE.Color(b), clamp(t, 0, 1));
+  }
+
+  function setOpacity(object, opacity) {
+    object.traverse(function (child) {
+      if (child.material) {
+        child.material.transparent = true;
+        child.material.opacity = opacity;
+        child.visible = opacity > 0.01;
+      }
+    });
+  }
+
+  function shadowify(object, cast, receive) {
+    object.traverse(function (child) {
+      if (child.isMesh) {
+        child.castShadow = !!cast;
+        child.receiveShadow = !!receive;
+      }
+    });
+  }
+
+  var skyGroup = new THREE.Group();
+  scene.add(skyGroup);
+
+  var starPositions = new Float32Array(300 * 3);
+  for (var i = 0; i < 300; i++) {
+    var theta = Math.random() * Math.PI * 2;
+    var phi = Math.acos((Math.random() * 2) - 1);
+    var radius = 18 + Math.random() * 22;
+    starPositions[i * 3] = Math.sin(phi) * Math.cos(theta) * radius;
+    starPositions[i * 3 + 1] = 4 + Math.abs(Math.cos(phi) * radius);
+    starPositions[i * 3 + 2] = Math.sin(phi) * Math.sin(theta) * radius - 8;
+  }
+  var starGeometry = new THREE.BufferGeometry();
+  starGeometry.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
+  var starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.08, transparent: true, opacity: 1 });
+  var stars = new THREE.Points(starGeometry, starMaterial);
+  skyGroup.add(stars);
+
+  var clouds = [];
+  for (var c = 0; c < 8; c++) {
+    var cloud = new THREE.Group();
+    var count = 4 + Math.floor(Math.random() * 3);
+    for (var s = 0; s < count; s++) {
+      var radiusCloud = 1.5 + Math.random() * 1.5;
+      var puff = new THREE.Mesh(
+        new THREE.SphereGeometry(radiusCloud, 10, 8),
+        mat("cloud" + c + "-" + s, 0xffffff, { transparent: true, opacity: 0.7 })
+      );
+      puff.position.set((Math.random() - 0.5) * 4, (Math.random() - 0.5) * 1.2, (Math.random() - 0.5) * 1.1);
+      puff.scale.y = 0.42;
+      cloud.add(puff);
+    }
+    cloud.position.set(-20 + Math.random() * 40, 8 + Math.random() * 7, -10 + Math.random() * 5);
+    cloud.userData.baseScale = 0.45 + Math.random() * 0.3;
+    cloud.scale.setScalar(cloud.userData.baseScale);
+    skyGroup.add(cloud);
+    clouds.push(cloud);
+  }
+
+  var ground = new THREE.Mesh(new THREE.PlaneGeometry(60, 60), grassMat);
+  ground.rotation.x = -Math.PI / 2;
+  ground.receiveShadow = true;
+  scene.add(ground);
+
+  var postHole = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.05, 32), holeMat);
+  postHole.position.y = 0.026;
+  postHole.receiveShadow = true;
+  scene.add(postHole);
+
+  var fenceGroup = new THREE.Group();
+  scene.add(fenceGroup);
+  var buildParts = [];
+  var postXs = [-3, -2, -1, 0, 1, 2, 3];
+
+  function addMesh(group, geometry, material, x, y, z) {
+    var mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(x || 0, y || 0, z || 0);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    group.add(mesh);
+    return mesh;
+  }
+
+  for (var bay = 0; bay < 7; bay++) {
+    var bayGroup = new THREE.Group();
+    fenceGroup.add(bayGroup);
+    var postX = postXs[bay];
+    var post = addMesh(bayGroup, new THREE.CylinderGeometry(0.1, 0.12, 2.8, 8), cedar, postX, -1, 0);
+    buildParts.push({ type: "post", bay: bay, mesh: post, finalY: 1.4 });
+
+    for (var r = 0; r < 3; r++) {
+      var rail = addMesh(bayGroup, new THREE.BoxGeometry(0.95, 0.12, 0.05), r % 2 ? railB : railA, postX - 2, [0.5, 1.2, 1.9][r], 0.01);
+      buildParts.push({ type: "rail", bay: bay, mesh: rail, finalX: postX + 0.5 });
+    }
+
+    for (var p = 0; p < 4; p++) {
+      var finalX = postX + 0.18 + p * 0.22;
+      var picket = addMesh(bayGroup, new THREE.BoxGeometry(0.18, 1.6, 0.04), picketMat, finalX, 4, 0.05);
+      var cone = addMesh(bayGroup, new THREE.ConeGeometry(0.09, 0.25, 4), picketMat, finalX, 4.925, 0.05);
+      cone.rotation.y = Math.PI / 4;
+      buildParts.push({ type: "picket", bay: bay, index: p, mesh: picket, finalY: 0.92 });
+      buildParts.push({ type: "picketTop", bay: bay, index: p, mesh: cone, finalY: 1.845 });
+    }
+  }
+
+  var capBoard = addMesh(fenceGroup, new THREE.BoxGeometry(6.2, 0.08, 0.18), capMat, 0.05, 2.44, 0.02);
+  capBoard.visible = false;
+  shadowify(fenceGroup, true, true);
+
+  function makeWorker(bodyMaterial) {
+    var worker = new THREE.Group();
+    var body = addMesh(worker, new THREE.CylinderGeometry(0.15, 0.15, 0.7, 12), bodyMaterial, 0, 0.62, 0);
+    var head = addMesh(worker, new THREE.SphereGeometry(0.15, 12, 10), skinMat, 0, 1.08, 0);
+    var brim = addMesh(worker, new THREE.CylinderGeometry(0.18, 0.18, 0.08, 16), hatMat, 0, 1.22, 0);
+    var crown = addMesh(worker, new THREE.CylinderGeometry(0.12, 0.12, 0.1, 16), hatMat, 0, 1.31, 0);
+    var leftArm = addMesh(worker, new THREE.CylinderGeometry(0.05, 0.05, 0.4, 8), bodyMaterial, -0.2, 0.78, 0);
+    var rightArm = addMesh(worker, new THREE.CylinderGeometry(0.05, 0.05, 0.4, 8), bodyMaterial, 0.2, 0.78, 0);
+    leftArm.rotation.z = -0.7;
+    rightArm.rotation.z = 0.7;
+    worker.userData = { body: body, head: head, brim: brim, crown: crown, leftArm: leftArm, rightArm: rightArm };
+    return worker;
+  }
+
+  var workerOne = makeWorker(blueMat);
+  var workerTwo = makeWorker(redMat);
+  scene.add(workerOne, workerTwo);
+
+  var hammer = new THREE.Group();
+  var handle = addMesh(hammer, new THREE.CylinderGeometry(0.03, 0.03, 0.4, 8), cedar, 0, -0.18, 0);
+  handle.rotation.z = 0.15;
+  addMesh(hammer, new THREE.BoxGeometry(0.08, 0.06, 0.12), metalMat, 0, 0.06, 0);
+  hammer.position.set(0.03, -0.28, 0);
+  workerTwo.userData.rightArm.add(hammer);
+
+  var sawdustGeometry = new THREE.BufferGeometry();
+  var sawdustPositions = new Float32Array(40 * 3);
+  var sawdustSeeds = [];
+  for (var d = 0; d < 40; d++) {
+    sawdustPositions[d * 3] = (Math.random() - 0.5) * 0.35;
+    sawdustPositions[d * 3 + 1] = Math.random() * 0.35;
+    sawdustPositions[d * 3 + 2] = (Math.random() - 0.5) * 0.25;
+    sawdustSeeds.push(Math.random() * Math.PI * 2);
+  }
+  sawdustGeometry.setAttribute("position", new THREE.BufferAttribute(sawdustPositions, 3));
+  var sawdust = new THREE.Points(sawdustGeometry, new THREE.PointsMaterial({ color: 0xd4a020, size: 0.04, transparent: true, opacity: 0 }));
+  scene.add(sawdust);
+
+  var toolbox = new THREE.Group();
+  addMesh(toolbox, new THREE.BoxGeometry(0.4, 0.2, 0.2), toolboxMat, 0, 0.1, 0);
+  var lid = addMesh(toolbox, new THREE.BoxGeometry(0.42, 0.05, 0.22), toolboxMat, 0, 0.23, -0.05);
+  lid.rotation.x = -0.35;
+  toolbox.position.set(-4, 0, 0.8);
+  scene.add(toolbox);
+
+  var plankPile = new THREE.Group();
+  for (var plank = 0; plank < 5; plank++) {
+    var m = plank % 2 ? railA : picketMat;
+    var piece = addMesh(plankPile, new THREE.BoxGeometry(0.9, 0.05, 0.12), m, (Math.random() - 0.5) * 0.14, plank * 0.06, (Math.random() - 0.5) * 0.16);
+    piece.rotation.y = (Math.random() - 0.5) * 0.2;
+  }
+  plankPile.position.set(-4, 0.1, 1);
+  scene.add(plankPile);
+
+  function createPanelFence(root, offsetX, bays, material, options) {
+    options = options || {};
+    var postHeight = options.postHeight || 2.5;
+    var postRadius = options.postRadius || 0.12;
+    var picketHeight = options.picketHeight || 2;
+    var group = new THREE.Group();
+    root.add(group);
+    for (var b = 0; b <= bays; b++) {
+      addMesh(group, new THREE.CylinderGeometry(postRadius, postRadius, postHeight, 12), material, offsetX + b, postHeight / 2, 0);
+    }
+    for (var b2 = 0; b2 < bays; b2++) {
+      addMesh(group, new THREE.BoxGeometry(0.9, 0.12, 0.05), material, offsetX + b2 + 0.5, 0.55, 0);
+      addMesh(group, new THREE.BoxGeometry(0.9, 0.12, 0.05), material, offsetX + b2 + 0.5, 1.28, 0);
+      addMesh(group, new THREE.BoxGeometry(0.9, 0.12, 0.05), material, offsetX + b2 + 0.5, 2.0, 0);
+      for (var pp = 0; pp < 4; pp++) {
+        addMesh(group, new THREE.BoxGeometry(0.2, picketHeight, 0.05), material, offsetX + b2 + 0.18 + pp * 0.22, picketHeight / 2, 0.04);
+      }
+    }
+    shadowify(group, true, true);
+    return group;
+  }
+
+  var showcaseGroup = new THREE.Group();
+  scene.add(showcaseGroup);
+  var vinylFence = createPanelFence(showcaseGroup, 0, 5, vinylMat, { postHeight: 2.5, postRadius: 0.12, picketHeight: 2 });
+
+  var chainGroup = new THREE.Group();
+  showcaseGroup.add(chainGroup);
+  for (var cp = 0; cp <= 4; cp++) {
+    addMesh(chainGroup, new THREE.CylinderGeometry(0.08, 0.08, 2.2, 8), steelMat, 8 + cp, 1.1, 0);
+  }
+  var topRail = addMesh(chainGroup, new THREE.CylinderGeometry(0.025, 0.025, 4.1, 8), steelMat, 10, 2.12, 0);
+  topRail.rotation.z = Math.PI / 2;
+  for (var col = 0; col < 15; col++) {
+    for (var row = 0; row < 10; row++) {
+      var linkA = addMesh(chainGroup, new THREE.CylinderGeometry(0.01, 0.01, 0.2, 6), steelMat, 8.25 + col * 0.25, 0.35 + row * 0.17, 0.03);
+      linkA.rotation.z = Math.PI / 4;
+      var linkB = addMesh(chainGroup, new THREE.CylinderGeometry(0.01, 0.01, 0.2, 6), steelMat, 8.25 + col * 0.25, 0.35 + row * 0.17, 0.03);
+      linkB.rotation.z = -Math.PI / 4;
+    }
+  }
+
+  var gateGroup = new THREE.Group();
+  showcaseGroup.add(gateGroup);
+  addMesh(gateGroup, new THREE.CylinderGeometry(0.15, 0.15, 2.5, 12), darkPostMat, 16, 1.25, 0);
+  addMesh(gateGroup, new THREE.CylinderGeometry(0.15, 0.15, 2.5, 12), darkPostMat, 19, 1.25, 0);
+  var leftGatePivot = new THREE.Group();
+  var rightGatePivot = new THREE.Group();
+  leftGatePivot.position.set(16.05, 1, 0.05);
+  rightGatePivot.position.set(18.95, 1, 0.05);
+  gateGroup.add(leftGatePivot, rightGatePivot);
+
+  function addGatePanel(pivot, side) {
+    var panel = addMesh(pivot, new THREE.BoxGeometry(1.2, 2, 0.05), gateMat, side * 0.6, 0, 0);
+    for (var gr = 0; gr < 3; gr++) {
+      addMesh(pivot, new THREE.BoxGeometry(1.15, 0.08, 0.07), gateMat, side * 0.6, -0.55 + gr * 0.55, 0.05);
+    }
+    return panel;
+  }
+  addGatePanel(leftGatePivot, 1);
+  addGatePanel(rightGatePivot, -1);
+  [[16, 0.45], [16, 2.05], [19, 0.45], [19, 2.05]].forEach(function (pos) {
+    addMesh(gateGroup, new THREE.SphereGeometry(0.06, 12, 8), metalMat, pos[0], pos[1], 0.08);
+  });
+  shadowify(showcaseGroup, true, true);
+
+  var flares = [];
+  for (var f = 0; f < 5; f++) {
+    var flare = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.6 + f * 0.25, 0.6 + f * 0.25),
+      mat("flare" + f, 0xffdd88, { basic: true, transparent: true, opacity: 0, depthWrite: false })
+    );
+    flare.position.set(-3 + f * 1.2, 2.2 - f * 0.24, 5.5 - f * 0.1);
+    scene.add(flare);
+    flares.push(flare);
+  }
+
+  function updateBuild(progress) {
+    var buildStart = 0.2;
+    var buildEnd = 0.55;
+    var segment = (buildEnd - buildStart) / 7;
+    buildParts.forEach(function (part) {
+      var bayStart = buildStart + part.bay * segment;
+      if (part.type === "post") {
+        var tPost = range(progress, bayStart, bayStart + 0.03);
+        part.mesh.position.y = lerp(-1, part.finalY, tPost);
+        part.mesh.visible = tPost > 0.01;
+      } else if (part.type === "rail") {
+        var tRail = range(progress, bayStart + 0.03, bayStart + 0.05);
+        part.mesh.position.x = lerp(postXs[part.bay] - 2, part.finalX, tRail);
+        part.mesh.visible = tRail > 0.01;
+      } else {
+        var tPick = range(progress, bayStart + 0.05 + part.index * 0.005, bayStart + 0.075 + part.index * 0.005);
+        part.mesh.position.y = lerp(4, part.finalY, tPick);
+        part.mesh.visible = tPick > 0.01;
+      }
+    });
+    capBoard.visible = progress > 0.55;
+  }
+
+  function updateWorkers(progress, elapsed) {
+    var active = clamp(Math.floor(((progress - 0.2) / 0.35) * 7), 0, 6);
+    var activeX = postXs[active];
+    workerOne.position.set(activeX - 0.3, 0.02 + Math.sin(elapsed * Math.PI * 4) * 0.05, 0.5);
+    workerTwo.position.set(postXs[Math.max(0, active - 1)] + 0.35, 0.02, 0.65);
+    workerTwo.userData.rightArm.rotation.z = 0.7 + Math.sin(elapsed * Math.PI * 6) * 0.44;
+    toolbox.position.x = activeX - 1;
+
+    var workerOpacity = 1 - range(progress, 0.55, 0.6);
+    if (progress < 0.2) workerOpacity = range(progress, 0.16, 0.22);
+    setOpacity(workerOne, workerOpacity);
+    setOpacity(workerTwo, workerOpacity);
+    toolbox.visible = workerOpacity > 0.01;
+    plankPile.visible = workerOpacity > 0.01 || progress < 0.62;
+  }
+
+  function updateSawdust(progress, elapsed) {
+    var active = progress >= 0.3 && progress <= 0.55;
+    sawdust.material.opacity = active ? 1 : 0;
+    sawdust.visible = active;
+    if (!active) return;
+    sawdust.position.copy(workerTwo.position).add(new THREE.Vector3(0.15, 0.8, -0.05));
+    var attr = sawdust.geometry.attributes.position;
+    for (var i = 0; i < 40; i++) {
+      var yIndex = i * 3 + 1;
+      attr.array[yIndex] += 0.02;
+      attr.array[i * 3] += Math.sin(elapsed * 4 + sawdustSeeds[i]) * 0.005;
+      if (attr.array[yIndex] > 0.5) {
+        attr.array[i * 3] = (Math.random() - 0.5) * 0.35;
+        attr.array[yIndex] = 0;
+        attr.array[i * 3 + 2] = (Math.random() - 0.5) * 0.25;
+      }
+    }
+    attr.needsUpdate = true;
+  }
+
+  function updateShowcase(progress) {
+    var vinylOpacity = range(progress, 0.65, 0.7) * (1 - range(progress, 0.8, 0.88));
+    var chainOpacity = range(progress, 0.72, 0.78) * (1 - range(progress, 0.88, 0.94));
+    var gateOpacity = range(progress, 0.8, 0.86);
+    vinylMat.opacity = vinylOpacity;
+    steelMat.opacity = chainOpacity;
+    gateMat.opacity = gateOpacity;
+    darkPostMat.opacity = gateOpacity;
+    vinylFence.visible = vinylOpacity > 0.01;
+    chainGroup.visible = chainOpacity > 0.01;
+    gateGroup.visible = gateOpacity > 0.01;
+
+    var gateOpen = range(progress, 0.84, 0.88) * THREE.Math.degToRad(75);
+    leftGatePivot.rotation.y = -gateOpen;
+    rightGatePivot.rotation.y = gateOpen;
+  }
+
+  function updateCamera(progress) {
+    var target = new THREE.Vector3(0, 1, 0);
+    if (progress < 0.1) {
+      camera.position.set(0, 20, 0.01);
+      target.set(0, 0, -2);
+    } else if (progress < 0.22) {
+      var descent = range(progress, 0.1, 0.22);
+      camera.position.set(0, lerp(20, 3, descent), lerp(0.01, 8, descent));
+    } else if (progress < 0.55) {
+      camera.position.set(lerp(-2, 2, range(progress, 0.2, 0.55)), 3, 8);
+    } else if (progress < 0.65) {
+      camera.position.set(lerp(0, -6, range(progress, 0.55, 0.65)), lerp(3, 4, range(progress, 0.55, 0.65)), lerp(8, 14, range(progress, 0.55, 0.65)));
+      target.set(0, 1.2, 0);
+    } else if (progress < 0.9) {
+      camera.position.set(lerp(-6, 18, range(progress, 0.65, 0.9)), 3.4, 12);
+      target.set(camera.position.x + 4, 1.2, 0);
+    } else {
+      var landing = range(progress, 0.9, 1);
+      camera.position.set(lerp(18, 0, landing), lerp(3.4, 1.5, landing), lerp(12, 10, landing));
+      target.set(0, 1.2, 0);
+    }
+    camera.lookAt(target);
+  }
+
+  function updateLighting(progress) {
+    var afternoon = range(progress, 0.1, 0.22);
+    var golden = range(progress, 0.9, 1);
+    var ambientColor = colorLerp(0x334466, 0xffe4b0, afternoon).lerp(new THREE.Color(0xff9944), golden);
+    var sunColor = colorLerp(0xaabbff, 0xfff5cc, afternoon).lerp(new THREE.Color(0xffcc44), golden);
+    ambientLight.color.copy(ambientColor);
+    ambientLight.intensity = lerp(lerp(0.6, 0.8, afternoon), 0.9, golden);
+    sunLight.color.copy(sunColor);
+    sunLight.intensity = lerp(lerp(0.4, 1.2, afternoon), 2.0, golden);
+    sunLight.position.set(lerp(5, 8, afternoon), lerp(10, 12, afternoon), lerp(-5, 5, afternoon));
+    if (golden > 0) {
+      sunLight.position.set(lerp(8, 10, golden), lerp(12, 8, golden), lerp(5, 8, golden));
+    }
+    glowLight.intensity = range(progress, 0.55, 0.65) * 1.5;
+  }
+
+  function updateSky(progress) {
+    var day = range(progress, 0, 0.12);
+    var gold = range(progress, 0.9, 1);
+    var color = colorLerp(0x020818, 0x87ceeb, day).lerp(new THREE.Color(0xff8c42), gold * 0.75);
+    scene.background.copy(color);
+    scene.fog.color.copy(color);
+    starMaterial.opacity = 1 - range(progress, 0, 0.08);
+
+    clouds.forEach(function (cloud) {
+      cloud.position.x += 0.003;
+      if (cloud.position.x > 25) cloud.position.x = -25;
+      var cloudFade = 1 - range(progress, 0.08, 0.15);
+      cloud.scale.setScalar(cloud.userData.baseScale * cloudFade);
+      cloud.traverse(function (child) {
+        if (child.material) child.material.opacity = 0.7 * cloudFade;
+      });
+      cloud.visible = cloudFade > 0.01;
+    });
+
+    var groundIn = range(progress, 0.15, 0.22);
+    grassMat.opacity = groundIn;
+    ground.visible = groundIn > 0.01;
+    holeMat.opacity = range(progress, 0.2, 0.24);
+    postHole.visible = holeMat.opacity > 0.01;
+  }
+
+  function updateFlares(progress) {
+    var flareAmount = range(progress, 0.9, 1);
+    flares.forEach(function (flare, index) {
+      flare.material.opacity = flareAmount * (0.16 - index * 0.018);
+      flare.quaternion.copy(camera.quaternion);
+      flare.visible = flare.material.opacity > 0.01;
+    });
+  }
+
+  function updateLabels(progress) {
+    document.querySelector(".build-label .fence-label").classList.toggle("is-visible", progress > 0.26 && progress < 0.55);
+    document.querySelector(".vinyl-label .fence-label").classList.toggle("is-visible", progress > 0.66 && progress < 0.74);
+    document.querySelector(".chain-label .fence-label").classList.toggle("is-visible", progress > 0.75 && progress < 0.84);
+    document.querySelector(".gate-label .fence-label").classList.toggle("is-visible", progress > 0.84 && progress < 0.91);
+    document.body.classList.toggle("contact-active", progress >= 0.9);
+  }
+
+  function getProgress() {
+    return clamp(window.scrollY / 8000, 0, 1);
+  }
+
+  var clock = new THREE.Clock();
+  function animate() {
+    var elapsed = clock.getElapsedTime();
+    var progress = getProgress();
+    updateSky(progress);
+    updateLighting(progress);
+    updateCamera(progress);
+    updateBuild(progress);
+    updateWorkers(progress, elapsed);
+    updateSawdust(progress, elapsed);
+    updateShowcase(progress);
+    updateFlares(progress);
+    updateLabels(progress);
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener("resize", function () {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  document.getElementById("contact-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    var button = event.currentTarget.querySelector("button");
+    button.textContent = "Message ready";
+    setTimeout(function () {
+      button.textContent = "Send message";
+    }, 1800);
+  });
+
+  animate();
+}());
+</script>
 </body>
 </html>
