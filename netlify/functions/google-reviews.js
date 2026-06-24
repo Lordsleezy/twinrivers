@@ -174,27 +174,31 @@ async function verifyGoogleProfile(apiKey, query, currentPlaceId) {
     { textQuery: 'Twin Rivers Fence twinriversfence.com' }
   ];
   for (const payload of v1Searches) {
-    const searched = await googlePlacesV1Search(apiKey, payload);
-    const places = searched.data.places || [];
-    attempts.push({ method: 'places-v1-searchText', query: payload.textQuery, status: 'OK', result_count: places.length });
-    for (const place of places.slice(0, 10)) {
-      const placeId = place.id || (place.name && place.name.replace(/^places\//, ''));
-      if (placeId && !byPlaceId.has(placeId)) {
-        byPlaceId.set(placeId, {
-          place_id: placeId,
-          name: place.displayName && place.displayName.text || null,
-          formatted_address: place.formattedAddress || null,
-          formatted_phone_number: place.nationalPhoneNumber || null,
-          international_phone_number: place.internationalPhoneNumber || null,
-          website: place.websiteUri || null,
-          rating: place.rating || null,
-          user_ratings_total: place.userRatingCount || null,
-          url: place.googleMapsUri || null,
-          business_status: place.businessStatus || null,
-          types: place.types || [],
-          location: place.location || null
-        });
+    try {
+      const searched = await googlePlacesV1Search(apiKey, payload);
+      const places = searched.data.places || [];
+      attempts.push({ method: 'places-v1-searchText', query: payload.textQuery, status: 'OK', result_count: places.length });
+      for (const place of places.slice(0, 10)) {
+        const placeId = place.id || (place.name && place.name.replace(/^places\//, ''));
+        if (placeId && !byPlaceId.has(placeId)) {
+          byPlaceId.set(placeId, {
+            place_id: placeId,
+            name: place.displayName && place.displayName.text || null,
+            formatted_address: place.formattedAddress || null,
+            formatted_phone_number: place.nationalPhoneNumber || null,
+            international_phone_number: place.internationalPhoneNumber || null,
+            website: place.websiteUri || null,
+            rating: place.rating || null,
+            user_ratings_total: place.userRatingCount || null,
+            url: place.googleMapsUri || null,
+            business_status: place.businessStatus || null,
+            types: place.types || [],
+            location: place.location || null
+          });
+        }
       }
+    } catch (error) {
+      attempts.push({ method: 'places-v1-searchText', query: payload.textQuery, status: 'ERROR', error: error.message, google_http_status: error.google_http_status || null, google_response_body: error.google_response_body || null });
     }
   }
   const nearbySearches = [
