@@ -58,8 +58,7 @@ exports.handler = async function (event) {
     process.env.PLACES_API_KEY || ''
   ).trim();
 
-  // Use env var place ID, fall back to hardcoded default so we never need findplacefromtext
-  const placeId = (process.env.GOOGLE_PLACE_ID || DEFAULT_PLACE_ID).trim();
+  let placeId = (process.env.GOOGLE_PLACE_ID || DEFAULT_PLACE_ID).trim();
   const query = process.env.GOOGLE_REVIEW_SEARCH_QUERY || DEFAULT_QUERY;
 
   if (debug) {
@@ -84,14 +83,46 @@ exports.handler = async function (event) {
   }
 
   try {
-    // Skip findplacefromtext entirely — use hardcoded/env place_id directly
-    const detailsUrl = new URL('https://maps.googleapis.com/maps/api/place/details/json');
-    detailsUrl.searchParams.set('place_id', placeId);
-    detailsUrl.searchParams.set('fields', 'place_id,name,rating,user_ratings_total,reviews,url');
-    detailsUrl.searchParams.set('reviews_sort', 'newest');
-    detailsUrl.searchParams.set('key', apiKey);
-    const googleResult = await googleJson(detailsUrl.toString());
-    const details = googleResult.data;
+    async function fetchDetails(id) {
+      const detailsUrl = new URL('https://maps.googleapis.com/maps/api/place/details/json');
+      detailsUrl.searchParams.set('place_id', id);
+      detailsUrl.searchParams.set('fields', 'place_id,name,rating,user_ratings_total,reviews,url');
+      detailsUrl.searchParams.set('reviews_sort', 'newest');
+      detailsUrl.searchParams.set('key', apiKey);
+      return googleJson(detailsUrl.toString());
+    }
+
+    async function findFreshPlaceId() {
+      const findUrl = new URL('https://maps.googleapis.com/maps/api/place/findplacefromtext/json');
+      findUrl.searchParams.set('input', query);
+      findUrl.searchParams.set('inputtype', 'textquery');
+      findUrl.searchParams.set('fields', 'place_id,name,formatted_address');
+      findUrl.searchParams.set('key', apiKey);
+      const found = await googleJson(findUrl.toString());
+      if (found.data.status !== 'OK' || !found.data.candidates || !found.data.candidates[0] || !found.data.candidates[0].place_id) {
+        const error = new Error(
+          'Find Place status: ' + found.data.status +
+          (found.data.error_message ? ' — ' + found.data.error_message : '') +
+          '. Query used: ' + query
+        );
+        error.google_http_status = found.google_http_status;
+        error.google_status = found.data.status;
+        error.google_error_message = found.data.error_message || '';
+        error.google_response_body = found.data;
+        error.google_request_url = found.google_request_url;
+        throw error;
+      }
+      return found.data.candidates[0].place_id;
+    }
+
+    let googleResult = await fetchDetails(placeId);
+    let details = googleResult.data;
+
+    if (details.status === 'NOT_FOUND') {
+      placeId = await findFreshPlaceId();
+      googleResult = await fetchDetails(placeId);
+      details = googleResult.data;
+    }
 
     if (details.status !== 'OK' || !details.result) {
       const error = new Error(
