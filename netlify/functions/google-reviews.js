@@ -107,6 +107,7 @@ async function verifyGoogleProfile(apiKey, query, currentPlaceId) {
     }
   }
   const textQueries = [
+    'Twin Rivers Fence',
     'Twin Rivers Fence Google Reviews',
     'Twin Rivers Fence 916-906-2254',
     'Twin Rivers Fence twinriversfence.com',
@@ -115,14 +116,47 @@ async function verifyGoogleProfile(apiKey, query, currentPlaceId) {
     'Twin Rivers Fence 1089233',
     'Twin Rivers Fence C13 Grass Valley'
   ];
+  const searchBiases = [
+    null,
+    { label: 'grass-valley', location: '39.2191,-121.0611', radius: '50000' },
+    { label: 'sacramento', location: '38.5816,-121.4944', radius: '80000' },
+    { label: 'roseville-rocklin', location: '38.7521,-121.2880', radius: '60000' }
+  ];
   for (const textQuery of textQueries) {
-    const searchUrl = new URL('https://maps.googleapis.com/maps/api/place/textsearch/json');
-    searchUrl.searchParams.set('query', textQuery);
-    searchUrl.searchParams.set('key', apiKey);
-    const searched = await googleJson(searchUrl.toString());
-    attempts.push({ method: 'textsearch', query: textQuery, status: searched.data.status, result_count: searched.data.results ? searched.data.results.length : 0 });
+    for (const bias of searchBiases) {
+      const searchUrl = new URL('https://maps.googleapis.com/maps/api/place/textsearch/json');
+      searchUrl.searchParams.set('query', textQuery);
+      if (bias) {
+        searchUrl.searchParams.set('location', bias.location);
+        searchUrl.searchParams.set('radius', bias.radius);
+      }
+      searchUrl.searchParams.set('key', apiKey);
+      const searched = await googleJson(searchUrl.toString());
+      attempts.push({ method: 'textsearch', query: textQuery, bias: bias && bias.label, status: searched.data.status, result_count: searched.data.results ? searched.data.results.length : 0 });
+      if (searched.data.results) {
+        for (const result of searched.data.results.slice(0, 10)) {
+          if (result.place_id && !byPlaceId.has(result.place_id)) {
+            byPlaceId.set(result.place_id, await detailsForPlace(result.place_id));
+          }
+        }
+      }
+    }
+  }
+  const nearbySearches = [
+    { label: 'grass-valley', location: '39.2191,-121.0611', radius: '50000', keyword: 'Twin Rivers Fence' },
+    { label: 'sacramento', location: '38.5816,-121.4944', radius: '80000', keyword: 'Twin Rivers Fence' },
+    { label: 'roseville-rocklin', location: '38.7521,-121.2880', radius: '60000', keyword: 'Twin Rivers Fence' }
+  ];
+  for (const nearby of nearbySearches) {
+    const nearbyUrl = new URL('https://maps.googleapis.com/maps/api/place/nearbysearch/json');
+    nearbyUrl.searchParams.set('location', nearby.location);
+    nearbyUrl.searchParams.set('radius', nearby.radius);
+    nearbyUrl.searchParams.set('keyword', nearby.keyword);
+    nearbyUrl.searchParams.set('key', apiKey);
+    const searched = await googleJson(nearbyUrl.toString());
+    attempts.push({ method: 'nearbysearch', keyword: nearby.keyword, bias: nearby.label, status: searched.data.status, result_count: searched.data.results ? searched.data.results.length : 0 });
     if (searched.data.results) {
-      for (const result of searched.data.results.slice(0, 8)) {
+      for (const result of searched.data.results.slice(0, 10)) {
         if (result.place_id && !byPlaceId.has(result.place_id)) {
           byPlaceId.set(result.place_id, await detailsForPlace(result.place_id));
         }
