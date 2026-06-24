@@ -65,6 +65,28 @@ async function googleJson(url) {
   return { data, google_http_status: res.status, google_request_url: redactedUrl };
 }
 
+async function googlePlacesV1Details(apiKey, placeName) {
+  const url = 'https://places.googleapis.com/v1/' + placeName.replace(/^\//, '');
+  const res = await fetch(url, {
+    headers: {
+      Accept: 'application/json',
+      'X-Goog-Api-Key': apiKey,
+      'X-Goog-FieldMask': 'id,name,displayName,formattedAddress,nationalPhoneNumber,internationalPhoneNumber,websiteUri,rating,userRatingCount,googleMapsUri,businessStatus,types,location,reviews'
+    }
+  });
+  const text = await res.text();
+  let data;
+  try { data = JSON.parse(text); } catch (e) { data = { raw: text.slice(0, 1000) }; }
+  if (!res.ok) {
+    const error = new Error('Google Places v1 details HTTP ' + res.status);
+    error.google_http_status = res.status;
+    error.google_response_body = data;
+    error.google_request_url = url;
+    throw error;
+  }
+  return { data, google_http_status: res.status, google_request_url: url };
+}
+
 async function googlePlacesV1Search(apiKey, payload) {
   const url = 'https://places.googleapis.com/v1/places:searchText';
   const res = await fetch(url, {
@@ -165,6 +187,36 @@ async function verifyGoogleProfile(apiKey, query, currentPlaceId) {
           }
         }
       }
+    }
+  }
+  const v1DirectPlaceNames = [
+    'places/0x85bce80757fb6d95:0x564a545566e5e531',
+    'places/6217874961313686833',
+    'places/g/11z2g5p6z2',
+    'places/ChFUd2luIFJpdmVycyBGZW5jZVoTIhF0d2luIHJpdmVycyBmZW5jZZIBEGZlbmNlX2NvbnRyYWN0b3LgAQA'
+  ];
+  for (const placeName of v1DirectPlaceNames) {
+    try {
+      const direct = await googlePlacesV1Details(apiKey, placeName);
+      attempts.push({
+        method: 'places-v1-details',
+        place_name: placeName,
+        status: 'OK',
+        place: {
+          id: direct.data.id || null,
+          name: direct.data.name || null,
+          display_name: direct.data.displayName && direct.data.displayName.text || null,
+          formatted_address: direct.data.formattedAddress || null,
+          phone: direct.data.nationalPhoneNumber || null,
+          website: direct.data.websiteUri || null,
+          rating: direct.data.rating || null,
+          review_count: direct.data.userRatingCount || null,
+          google_maps_uri: direct.data.googleMapsUri || null,
+          location: direct.data.location || null
+        }
+      });
+    } catch (error) {
+      attempts.push({ method: 'places-v1-details', place_name: placeName, status: 'ERROR', error: error.message, google_http_status: error.google_http_status || null, google_response_body: error.google_response_body || null });
     }
   }
   const v1Searches = [
