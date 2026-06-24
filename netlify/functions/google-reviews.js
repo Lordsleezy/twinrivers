@@ -93,26 +93,34 @@ exports.handler = async function (event) {
     }
 
     async function findFreshPlaceId() {
-      const findUrl = new URL('https://maps.googleapis.com/maps/api/place/findplacefromtext/json');
-      findUrl.searchParams.set('input', query);
-      findUrl.searchParams.set('inputtype', 'textquery');
-      findUrl.searchParams.set('fields', 'place_id,name,formatted_address');
-      findUrl.searchParams.set('key', apiKey);
-      const found = await googleJson(findUrl.toString());
-      if (found.data.status !== 'OK' || !found.data.candidates || !found.data.candidates[0] || !found.data.candidates[0].place_id) {
-        const error = new Error(
-          'Find Place status: ' + found.data.status +
-          (found.data.error_message ? ' — ' + found.data.error_message : '') +
-          '. Query used: ' + query
-        );
-        error.google_http_status = found.google_http_status;
-        error.google_status = found.data.status;
-        error.google_error_message = found.data.error_message || '';
-        error.google_response_body = found.data;
-        error.google_request_url = found.google_request_url;
-        throw error;
+      const inputs = [
+        { input: query, inputtype: 'textquery' },
+        { input: '+19169062254', inputtype: 'phonenumber' },
+        { input: 'Twin Rivers Fence 21030 Home Camp Rd Grass Valley CA', inputtype: 'textquery' },
+        { input: 'Twin Rivers LLC 21030 Home Camp Rd Grass Valley CA', inputtype: 'textquery' },
+        { input: 'Twin Rivers Fence Sacramento CA', inputtype: 'textquery' },
+        { input: 'Twin Rivers Fence Northern California', inputtype: 'textquery' }
+      ];
+      const attempts = [];
+      for (const item of inputs) {
+        const findUrl = new URL('https://maps.googleapis.com/maps/api/place/findplacefromtext/json');
+        findUrl.searchParams.set('input', item.input);
+        findUrl.searchParams.set('inputtype', item.inputtype);
+        findUrl.searchParams.set('fields', 'place_id,name,formatted_address');
+        findUrl.searchParams.set('key', apiKey);
+        const found = await googleJson(findUrl.toString());
+        attempts.push({ input: item.input, inputtype: item.inputtype, status: found.data.status, candidates: found.data.candidates || [] });
+        if (found.data.status === 'OK' && found.data.candidates && found.data.candidates[0] && found.data.candidates[0].place_id) {
+          return found.data.candidates[0].place_id;
+        }
       }
-      return found.data.candidates[0].place_id;
+      const error = new Error('Find Place failed for all Twin Rivers search inputs.');
+      error.google_http_status = 200;
+      error.google_status = 'ZERO_RESULTS';
+      error.google_error_message = '';
+      error.google_response_body = { attempts };
+      error.google_request_url = 'multiple findplacefromtext requests; keys redacted';
+      throw error;
     }
 
     let googleResult = await fetchDetails(placeId);
