@@ -43,8 +43,68 @@ body p {
   line-height: 1.8;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 a {
   color: inherit;
+}
+
+.top-contact-strip {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 8vw 0.8rem 1rem;
+  background: linear-gradient(90deg, rgba(10,10,10,0.55), rgba(10,10,10,0.92));
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+}
+
+.top-contact-strip a {
+  text-decoration: none;
+}
+
+.top-call-link {
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.top-call-link span {
+  color: var(--gold);
+}
+
+.top-estimate-link {
+  display: inline-block;
+  border: 1px solid rgba(212,168,83,0.38);
+  border-radius: 3px;
+  padding: 0.55rem 0.85rem;
+  color: var(--gold);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.top-estimate-link:hover,
+.top-estimate-link:focus-visible {
+  border-color: var(--gold);
+  color: var(--gold-bright);
+  transform: translateY(-1px);
 }
 
 #hero-canvas {
@@ -573,8 +633,1112 @@ h2 {
   background: #0a0a0a;
 }
 
+.ai-contact-header {
+  max-width: 760px;
+  margin-bottom: 3rem;
+}
+
+.ai-contact-header h2,
 .contact-copy h2 {
   margin-bottom: 1rem;
+}
+
+.ai-contact-layout {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.72fr) minmax(360px, 1.12fr) minmax(240px, 0.78fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+}
+
+.ai-trust-panel,
+.river-chat,
+.river-mascot-card {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px;
+  background: rgba(22,22,22,0.9);
+  box-shadow: 0 30px 90px rgba(0,0,0,0.24);
+}
+
+.ai-trust-panel {
+  padding: 2rem;
+}
+
+.ai-trust-list {
+  display: grid;
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+
+.ai-trust-item {
+  border-left: 3px solid var(--gold);
+  padding-left: 1rem;
+}
+
+.ai-trust-item strong {
+  display: block;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.ai-trust-item span {
+  display: block;
+  margin-top: 0.25rem;
+  color: rgba(255,255,255,0.48);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.river-chat {
+  overflow: hidden;
+}
+
+.river-chat-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 1.35rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.river-status {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.river-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #d4a853, #8b6914);
+  color: #1a1008;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.river-status strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.river-status span,
+.read-receipt {
+  color: rgba(255,255,255,0.45);
+  font-size: 12px;
+}
+
+.river-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #70d68a;
+  box-shadow: 0 0 0 5px rgba(112,214,138,0.12);
+}
+
+.chat-log {
+  height: min(560px, 62vh);
+  min-height: 430px;
+  overflow-y: auto;
+  padding: 1.35rem;
+  scroll-behavior: smooth;
+}
+
+.chat-message {
+  display: flex;
+  margin-bottom: 1rem;
+  animation: messageIn 260ms ease both;
+}
+
+.chat-message.assistant {
+  justify-content: flex-start;
+}
+
+.chat-message.user {
+  justify-content: flex-end;
+}
+
+.message-bubble {
+  max-width: min(78%, 430px);
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.055);
+  color: rgba(255,255,255,0.86);
+  font-size: 15px;
+  line-height: 1.65;
+  white-space: pre-line;
+}
+
+.chat-message.user .message-bubble {
+  border-color: rgba(212,168,83,0.28);
+  background: rgba(212,168,83,0.16);
+  color: #fff;
+}
+
+.typing-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.9rem 1rem;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.055);
+}
+
+.typing-indicator span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.55);
+  animation: typingPulse 900ms ease-in-out infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 240ms;
+}
+
+.quick-replies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  padding: 0 1.35rem 1.1rem;
+}
+
+.quick-reply {
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 3px;
+  padding: 0.6rem 0.8rem;
+  background: rgba(255,255,255,0.035);
+  color: rgba(255,255,255,0.75);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.quick-reply:hover,
+.quick-reply:focus-visible {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.chat-composer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  padding: 1.1rem 1.35rem 1.35rem;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.chat-composer input {
+  margin: 0;
+}
+
+.chat-send {
+  width: auto;
+  min-width: 112px;
+  margin: 0;
+  border: 0;
+  border-radius: 4px;
+  background: var(--gold);
+  color: #1a1008;
+  cursor: pointer;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.chat-send:hover,
+.chat-send:focus-visible {
+  background: var(--gold-bright);
+  transform: translateY(-2px);
+}
+
+.chat-send:disabled,
+.chat-composer input:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.lead-complete-note {
+  display: none;
+  margin: 0 1.35rem 1.35rem;
+  padding: 1rem;
+  border-left: 3px solid var(--gold);
+  background: rgba(212,168,83,0.09);
+  color: rgba(255,255,255,0.78);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.lead-complete-note.is-visible {
+  display: block;
+}
+
+.river-mascot-card {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+  display: grid;
+  place-items: end center;
+  padding: 2rem 1.4rem 0;
+  background:
+    radial-gradient(circle at 50% 22%, rgba(212,168,83,0.13), transparent 34%),
+    rgba(22,22,22,0.9);
+}
+
+.speech-bubble {
+  position: absolute;
+  top: 1.4rem;
+  left: 1.2rem;
+  right: 1.2rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(212,168,83,0.22);
+  border-radius: 4px;
+  background: rgba(10,10,10,0.82);
+  color: rgba(255,255,255,0.72);
+  font-size: 13px;
+  line-height: 1.55;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.river-mascot-card.is-talking .speech-bubble,
+.river-mascot-card.is-complete .speech-bubble {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mascot {
+  position: relative;
+  width: min(250px, 75vw);
+  height: 430px;
+  transform-origin: 50% 100%;
+  animation: mascotBreathe 3.6s ease-in-out infinite;
+}
+
+.mascot-head {
+  position: absolute;
+  top: 62px;
+  left: 50%;
+  width: 118px;
+  height: 128px;
+  transform: translateX(-50%);
+  border-radius: 44% 44% 48% 48%;
+  background: linear-gradient(145deg, #ffd6aa, #c98d60);
+  box-shadow: inset -12px -14px 24px rgba(80,40,20,0.12), 0 18px 35px rgba(0,0,0,0.28);
+  animation: mascotHead 5.8s ease-in-out infinite;
+}
+
+.mascot-hat {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  width: 144px;
+  height: 55px;
+  transform: translateX(-50%);
+  border-radius: 55px 55px 24px 24px;
+  background: linear-gradient(145deg, #f0be32, #b88916);
+  box-shadow: inset 0 -8px 14px rgba(90,60,0,0.18);
+}
+
+.mascot-hat::before {
+  content: "TRF";
+  position: absolute;
+  left: 50%;
+  top: 16px;
+  transform: translateX(-50%);
+  color: #1a1008;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.mascot-hat::after {
+  content: "";
+  position: absolute;
+  left: -15px;
+  right: -15px;
+  bottom: -8px;
+  height: 15px;
+  border-radius: 999px;
+  background: #d4a853;
+}
+
+.mascot-eye {
+  position: absolute;
+  top: 58px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #1a1008;
+  animation: mascotBlink 5.6s infinite;
+}
+
+.mascot-eye.left {
+  left: 34px;
+}
+
+.mascot-eye.right {
+  right: 34px;
+}
+
+.mascot-mouth {
+  position: absolute;
+  left: 50%;
+  bottom: 29px;
+  width: 42px;
+  height: 18px;
+  transform: translateX(-50%);
+  border-bottom: 4px solid #6b2a1e;
+  border-radius: 0 0 40px 40px;
+}
+
+.river-mascot-card.is-talking .mascot-mouth {
+  height: 16px;
+  border: 0;
+  border-radius: 50%;
+  background: #6b2a1e;
+  animation: mascotTalk 320ms ease-in-out infinite;
+}
+
+.mascot-neck {
+  position: absolute;
+  top: 178px;
+  left: 50%;
+  width: 48px;
+  height: 42px;
+  transform: translateX(-50%);
+  background: #c98d60;
+}
+
+.mascot-torso {
+  position: absolute;
+  top: 205px;
+  left: 50%;
+  width: 156px;
+  height: 145px;
+  transform: translateX(-50%);
+  border-radius: 28px 28px 14px 14px;
+  background: linear-gradient(145deg, #101010, #242424);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 22px 45px rgba(0,0,0,0.28);
+}
+
+.mascot-torso::before {
+  content: "Twin Rivers";
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.mascot-arm {
+  position: absolute;
+  top: 220px;
+  width: 38px;
+  height: 128px;
+  border-radius: 999px;
+  background: linear-gradient(145deg, #ffd6aa, #c98d60);
+  transform-origin: 50% 16px;
+}
+
+.mascot-arm.left {
+  left: 20px;
+  transform: rotate(14deg);
+}
+
+.mascot-arm.right {
+  right: 20px;
+  transform: rotate(-14deg);
+}
+
+.river-mascot-card.is-talking .mascot-arm.right {
+  animation: mascotGesture 900ms ease-in-out infinite;
+}
+
+.river-mascot-card.is-typing .mascot-head {
+  transform: translateX(-50%) rotate(-5deg);
+}
+
+.river-mascot-card.is-complete .mascot-arm.right {
+  animation: mascotThumbs 900ms ease-out both;
+}
+
+.mascot-belt {
+  position: absolute;
+  top: 330px;
+  left: 50%;
+  width: 176px;
+  height: 26px;
+  transform: translateX(-50%);
+  border-radius: 6px;
+  background: #8B6914;
+}
+
+.mascot-belt::before,
+.mascot-belt::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  width: 30px;
+  height: 38px;
+  border-radius: 4px;
+  background: #5c3a1e;
+}
+
+.mascot-belt::before {
+  left: 18px;
+}
+
+.mascot-belt::after {
+  right: 18px;
+}
+
+.mascot-leg {
+  position: absolute;
+  top: 350px;
+  width: 48px;
+  height: 75px;
+  border-radius: 14px 14px 8px 8px;
+  background: #222;
+}
+
+.mascot-leg.left {
+  left: 70px;
+}
+
+.mascot-leg.right {
+  right: 70px;
+}
+
+.mascot-boot {
+  position: absolute;
+  bottom: 0;
+  width: 62px;
+  height: 22px;
+  border-radius: 10px 10px 4px 4px;
+  background: #1b1007;
+}
+
+.mascot-boot.left {
+  left: 58px;
+}
+
+.mascot-boot.right {
+  right: 58px;
+}
+
+.netlify-lead-form {
+  display: none;
+}
+
+/* Compact guided estimate form */
+#contact {
+  min-height: auto;
+}
+
+.ai-contact-header {
+  max-width: 680px;
+  margin-bottom: 2rem;
+}
+
+.ai-contact-layout {
+  grid-template-columns: minmax(320px, 0.95fr) minmax(180px, 0.45fr);
+  align-items: center;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.river-chat {
+  height: auto;
+  min-height: 0;
+  padding: 1.5rem;
+  background: rgba(22,22,22,0.92);
+}
+
+.river-chat-top,
+.read-receipt,
+.lead-complete-note {
+  display: none;
+}
+
+.lead-complete-note.is-visible {
+  display: block;
+  margin: 1rem 0 0;
+}
+
+.chat-log {
+  min-height: 92px;
+  height: auto;
+  overflow: visible;
+  padding: 0;
+}
+
+.chat-message {
+  margin-bottom: 1rem;
+}
+
+.chat-message.user {
+  display: none;
+}
+
+.message-bubble {
+  max-width: 100%;
+  border-color: rgba(212,168,83,0.18);
+  background: rgba(255,255,255,0.04);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+}
+
+.chat-composer {
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 0;
+  border-top: 0;
+}
+
+.quick-replies {
+  padding: 0 0 0.75rem;
+}
+
+.quick-reply {
+  background: rgba(212,168,83,0.12);
+  border-color: rgba(212,168,83,0.3);
+  color: var(--gold);
+}
+
+.river-mascot-card {
+  min-height: 290px;
+  height: 320px;
+  position: relative;
+  top: auto;
+  padding: 3.5rem 1rem 0;
+  box-shadow: none;
+}
+
+.speech-bubble {
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  padding: 0.7rem 0.85rem;
+  font-size: 12px;
+}
+
+.pro-worker {
+  width: 185px;
+  height: 320px;
+  transform: scale(0.58);
+}
+
+#contact {
+  position: relative;
+  overflow: hidden;
+}
+
+#contact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 78% 35%, rgba(212,168,83,0.08), transparent 32%),
+    linear-gradient(180deg, rgba(255,255,255,0.015), transparent 45%);
+}
+
+#contact > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ai-contact-layout {
+  grid-template-columns: minmax(300px, 1fr) minmax(220px, 0.58fr);
+  align-items: stretch;
+  max-width: 860px;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.river-chat {
+  height: auto;
+  min-height: 0;
+  display: block;
+  align-self: center;
+  padding: 1.2rem;
+  background: rgba(14,14,14,0.96);
+}
+
+.chat-log {
+  height: auto;
+  min-height: 0;
+}
+
+.river-mascot-card {
+  align-self: center;
+  position: relative;
+  top: auto;
+  min-height: 270px;
+  height: 285px;
+  place-items: center;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.speech-bubble {
+  display: none;
+}
+
+.pro-worker {
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 300px;
+  height: 520px;
+  translate: -50% 0;
+  scale: 0.5;
+  transform-origin: 50% 100%;
+  animation: proBreathe 4.4s ease-in-out infinite;
+}
+
+.pro-worker-shadow {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  width: 250px;
+  height: 36px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.34), transparent 68%);
+}
+
+.pro-hardhat {
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  width: 174px;
+  height: 66px;
+  transform: translateX(-50%);
+  border-radius: 58px 58px 24px 24px;
+  background:
+    linear-gradient(90deg, transparent 49%, rgba(255,255,255,0.18) 50%, transparent 52%),
+    linear-gradient(145deg, #f5c744, #a97910);
+  box-shadow: inset 0 -10px 18px rgba(90,55,0,0.22), 0 14px 30px rgba(0,0,0,0.22);
+  z-index: 5;
+}
+
+.pro-hardhat::after {
+  content: "";
+  position: absolute;
+  left: -22px;
+  right: -22px;
+  bottom: -9px;
+  height: 17px;
+  border-radius: 999px;
+  background: linear-gradient(145deg, #e4b139, #c89522);
+}
+
+.pro-hardhat span {
+  position: absolute;
+  left: 50%;
+  top: 22px;
+  transform: translateX(-50%);
+  color: #1a1008;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  z-index: 2;
+}
+
+.pro-head {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  width: 132px;
+  height: 150px;
+  transform: translateX(-50%);
+  border-radius: 42% 42% 48% 48%;
+  background:
+    radial-gradient(circle at 30% 32%, rgba(255,255,255,0.28), transparent 22%),
+    linear-gradient(145deg, #e6ad7c, #b36e42);
+  box-shadow: inset -16px -18px 28px rgba(77,39,22,0.18), 0 18px 38px rgba(0,0,0,0.28);
+  animation: proHeadShift 6s ease-in-out infinite;
+  z-index: 4;
+}
+
+.pro-brow {
+  position: absolute;
+  top: 55px;
+  width: 24px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(55,30,18,0.45);
+}
+
+.pro-brow.left {
+  left: 31px;
+  transform: rotate(-7deg);
+}
+
+.pro-brow.right {
+  right: 31px;
+  transform: rotate(7deg);
+}
+
+.pro-eye {
+  position: absolute;
+  top: 68px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #17120e;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.08);
+  animation: proBlink 5.7s infinite;
+}
+
+.pro-eye.left {
+  left: 41px;
+}
+
+.pro-eye.right {
+  right: 41px;
+}
+
+.pro-nose {
+  position: absolute;
+  top: 78px;
+  left: 50%;
+  width: 20px;
+  height: 34px;
+  transform: translateX(-50%);
+  border-radius: 40% 40% 50% 50%;
+  background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(89,44,25,0.12));
+}
+
+.pro-mouth {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  width: 42px;
+  height: 18px;
+  transform: translateX(-50%);
+  border-bottom: 4px solid rgba(80,35,25,0.76);
+  border-radius: 0 0 40px 40px;
+}
+
+.river-mascot-card.is-talking .pro-mouth {
+  height: 15px;
+  width: 26px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(80,35,25,0.8);
+  animation: proTalk 360ms ease-in-out infinite;
+}
+
+.pro-neck {
+  position: absolute;
+  top: 218px;
+  left: 50%;
+  width: 54px;
+  height: 50px;
+  transform: translateX(-50%);
+  background: linear-gradient(145deg, #c07b4e, #9b5b34);
+  z-index: 2;
+}
+
+.pro-body {
+  position: absolute;
+  top: 250px;
+  left: 50%;
+  width: 202px;
+  height: 178px;
+  transform: translateX(-50%);
+  border-radius: 34px 34px 16px 16px;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.07), transparent 32%, rgba(0,0,0,0.18)),
+    linear-gradient(145deg, #111, #252525);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.07), 0 26px 48px rgba(0,0,0,0.3);
+  z-index: 3;
+}
+
+.pro-collar {
+  position: absolute;
+  top: 0;
+  width: 54px;
+  height: 44px;
+  background: #0b0b0b;
+}
+
+.pro-collar.left {
+  left: 48px;
+  clip-path: polygon(0 0, 100% 0, 58% 100%);
+}
+
+.pro-collar.right {
+  right: 48px;
+  clip-path: polygon(0 0, 100% 0, 42% 100%);
+}
+
+.pro-logo {
+  position: absolute;
+  top: 62px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.pro-arm {
+  position: absolute;
+  top: 270px;
+  width: 48px;
+  height: 148px;
+  border-radius: 999px;
+  background: linear-gradient(145deg, #d99663, #a55f36);
+  transform-origin: 50% 18px;
+  z-index: 2;
+}
+
+.pro-arm.left {
+  left: 26px;
+  transform: rotate(13deg);
+}
+
+.pro-arm.right {
+  top: 252px;
+  right: 30px;
+  height: 132px;
+  transform: rotate(-142deg);
+  transform-origin: 50% 18px;
+  z-index: 5;
+}
+
+.pro-hand {
+  position: absolute;
+  top: 392px;
+  width: 52px;
+  height: 42px;
+  border-radius: 45%;
+  background: linear-gradient(145deg, #df9f6d, #a96138);
+  z-index: 3;
+}
+
+.pro-hand.left {
+  left: 38px;
+}
+
+.pro-hand.right {
+  display: none;
+}
+
+.river-mascot-card:not(.is-complete) .pro-arm.right {
+  animation: proArmWave 1.6s ease-in-out infinite;
+}
+
+.river-mascot-card.is-typing .pro-head {
+  transform: translateX(-50%) rotate(-4deg);
+}
+
+.river-mascot-card.is-complete .pro-arm.right,
+.river-mascot-card.is-complete .pro-hand.right {
+  animation: proThumbs 900ms ease-out both;
+}
+
+.pro-belt {
+  position: absolute;
+  top: 406px;
+  left: 50%;
+  width: 220px;
+  height: 30px;
+  transform: translateX(-50%);
+  border-radius: 7px;
+  background: linear-gradient(145deg, #9a7119, #68480e);
+  z-index: 4;
+}
+
+.pro-buckle {
+  position: absolute;
+  left: 50%;
+  top: 5px;
+  width: 30px;
+  height: 20px;
+  transform: translateX(-50%);
+  border: 2px solid var(--gold);
+  border-radius: 3px;
+}
+
+.pro-pouch {
+  position: absolute;
+  top: 20px;
+  width: 42px;
+  height: 48px;
+  border-radius: 5px;
+  background: linear-gradient(145deg, #674016, #3e250c);
+}
+
+.pro-pouch.left {
+  left: 22px;
+}
+
+.pro-pouch.right {
+  right: 22px;
+}
+
+.pro-leg {
+  position: absolute;
+  top: 434px;
+  width: 58px;
+  height: 88px;
+  border-radius: 15px 15px 8px 8px;
+  background: linear-gradient(145deg, #252525, #111);
+  z-index: 1;
+}
+
+.pro-leg.left {
+  left: 82px;
+}
+
+.pro-leg.right {
+  right: 82px;
+}
+
+.pro-boot {
+  position: absolute;
+  bottom: 3px;
+  width: 74px;
+  height: 26px;
+  border-radius: 10px 10px 4px 4px;
+  background: linear-gradient(145deg, #2b180b, #120904);
+  z-index: 5;
+}
+
+.pro-boot.left {
+  left: 66px;
+}
+
+.pro-boot.right {
+  right: 66px;
+}
+
+@keyframes proBreathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes proHeadShift {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  45% { transform: translateX(-50%) rotate(1.8deg); }
+  70% { transform: translateX(-50%) rotate(-1deg); }
+}
+
+@keyframes proBlink {
+  0%, 91%, 100% { transform: scaleY(1); }
+  94% { transform: scaleY(0.1); }
+}
+
+@keyframes proTalk {
+  0%, 100% { transform: translateX(-50%) scaleY(0.58); }
+  50% { transform: translateX(-50%) scaleY(1); }
+}
+
+@keyframes proGesture {
+  0%, 100% { transform: rotate(-13deg); }
+  50% { transform: rotate(-27deg) translateY(-8px); }
+}
+
+@keyframes proArmWave {
+  0%, 100% { transform: rotate(-138deg); }
+  25% { transform: rotate(-156deg); }
+  50% { transform: rotate(-132deg); }
+  75% { transform: rotate(-154deg); }
+}
+
+@keyframes proHandWave {
+  0%, 100% { transform: translate(0, 0) rotate(-8deg); }
+  25% { transform: translate(8px, -10px) rotate(12deg); }
+  50% { transform: translate(-2px, 2px) rotate(-12deg); }
+  75% { transform: translate(7px, -8px) rotate(10deg); }
+}
+
+@keyframes proThumbs {
+  0% { transform: rotate(-13deg); }
+  100% { transform: rotate(-62deg) translateY(-30px); }
+}
+
+@keyframes messageIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes typingPulse {
+  0%, 80%, 100% { opacity: 0.35; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-3px); }
+}
+
+@keyframes mascotBreathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.012); }
+}
+
+@keyframes mascotHead {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  45% { transform: translateX(-50%) rotate(2deg); }
+  70% { transform: translateX(-50%) rotate(-1deg); }
+}
+
+@keyframes mascotBlink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.12); }
+}
+
+@keyframes mascotTalk {
+  0%, 100% { transform: translateX(-50%) scaleY(0.62); }
+  50% { transform: translateX(-50%) scaleY(1); }
+}
+
+@keyframes mascotGesture {
+  0%, 100% { transform: rotate(-14deg); }
+  50% { transform: rotate(-38deg) translateY(-8px); }
+}
+
+@keyframes mascotThumbs {
+  0% { transform: rotate(-14deg); }
+  45% { transform: rotate(-72deg) translateY(-28px); }
+  100% { transform: rotate(-58deg) translateY(-22px); }
+}
+
+.reduced-motion .mascot,
+.reduced-motion .mascot-head,
+.reduced-motion .mascot-eye,
+.reduced-motion .mascot-mouth,
+.reduced-motion .mascot-arm,
+.reduced-motion .pro-worker,
+.reduced-motion .pro-head,
+.reduced-motion .pro-eye,
+.reduced-motion .pro-mouth,
+.reduced-motion .pro-arm,
+.reduced-motion .pro-hand,
+.reduced-motion .chat-message,
+.reduced-motion .typing-indicator span {
+  animation: none !important;
+  transition: none !important;
 }
 
 .contact-detail {
@@ -704,6 +1868,7 @@ footer a:hover {
 
   .who-grid,
   .contact-grid,
+  .ai-contact-layout,
   .legacy-stats,
   .commercial-grid,
   .professional-grid,
@@ -714,6 +1879,67 @@ footer a:hover {
 
   .dark-section {
     padding: 4.5rem 1.25rem;
+  }
+
+  .top-contact-strip {
+    left: 0;
+    right: 0;
+    justify-content: center;
+    padding: 0.65rem 1rem;
+  }
+
+  .top-call-link {
+    font-size: 12px;
+  }
+
+  .top-estimate-link {
+    display: none;
+  }
+
+  .ai-contact-header {
+    margin-bottom: 2rem;
+  }
+
+  .ai-contact-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(96px, 0.34fr);
+    align-items: center;
+    gap: 0.65rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .river-mascot-card {
+    position: relative;
+    top: auto;
+    order: 0;
+    min-height: 230px;
+    height: 250px;
+    padding: 3rem 0.4rem 0;
+  }
+
+  .river-chat {
+    padding: 1rem;
+  }
+
+  .pro-worker {
+    bottom: -5px;
+    scale: 0.34;
+    transform-origin: 50% 100%;
+  }
+
+  .chat-log {
+    height: auto;
+    min-height: 92px;
+  }
+
+  .chat-composer {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+  }
+
+  .chat-send {
+    width: 100%;
+    min-height: 44px;
   }
 
   .testimonial-row {
@@ -733,9 +1959,152 @@ footer a:hover {
     padding: 2rem 1.25rem;
   }
 }
+.google-trust-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  max-width: 940px;
+  margin: 2rem auto 0;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(212,168,83,0.28);
+  border-radius: 4px;
+  background: rgba(10,10,10,0.58);
+  box-shadow: 0 18px 55px rgba(0,0,0,0.28);
+  backdrop-filter: blur(12px);
+}
+
+.google-trust-bar span,
+.google-trust-bar a {
+  color: rgba(255,255,255,0.78);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.google-trust-bar a:hover,
+.google-trust-bar a:focus-visible {
+  color: var(--gold);
+}
+
+.google-star-row,
+.google-review-stars {
+  color: var(--gold);
+  letter-spacing: 0.08em;
+}
+
+.google-reviews-section {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.google-review-intro {
+  max-width: 860px;
+  margin: 0 auto 2.8rem;
+  text-align: center;
+}
+
+.google-review-intro .sub-text,
+.google-review-local {
+  margin-top: 1rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.google-review-summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem auto 0;
+}
+
+.google-review-pill {
+  border: 1px solid rgba(212,168,83,0.3);
+  border-radius: 4px;
+  padding: 1rem 1.2rem;
+  background: rgba(255,255,255,0.03);
+  color: #fff;
+}
+
+.google-review-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.google-review-card {
+  min-height: 240px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px;
+  padding: 1.6rem;
+  background: #161616;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.google-review-card:hover,
+.google-review-card:focus-within {
+  border-color: rgba(212,168,83,0.45);
+  transform: translateY(-4px);
+}
+
+.google-review-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.google-review-card strong {
+  display: block;
+  color: #fff;
+  font-weight: 500;
+}
+
+.google-review-card span {
+  display: block;
+  margin-top: 0.25rem;
+  color: rgba(255,255,255,0.42);
+  font-size: 0.82rem;
+}
+
+.google-review-card p {
+  color: rgba(255,255,255,0.74);
+  font-size: 0.95rem;
+}
+
+.google-review-actions {
+  margin-top: 2.2rem;
+  text-align: center;
+}
+
+.google-review-status {
+  min-height: 1.4rem;
+  margin-top: 1rem;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .google-review-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 </style>
 </head>
 <body>
+<header class="top-contact-strip" aria-label="Contact Twin Rivers Fence">
+  <a class="top-call-link" href="tel:+19169062254"><span>Call Now:</span> (916) 906-2254</a>
+  <a class="top-estimate-link" href="#contact">Call For Free Estimate</a>
+</header>
+
 <main>
   <section id="hero">
     <canvas id="hero-canvas" aria-hidden="true"></canvas>
@@ -744,6 +2113,12 @@ footer a:hover {
       <h1>Fencing built to last<br><em>decades</em>, not seasons.</h1>
       <p class="sub">Wood · Vinyl · Chain Link · Gates<br>Sacramento to the Sierra Foothills</p>
       <a href="#contact" class="btn-gold">Get a Free Estimate</a>
+      <div class="google-trust-bar" aria-label="Twin Rivers Fence Google review summary">
+        <a class="google-review-link" href="https://www.google.com/search?q=Twin+Rivers+Fence+Google+reviews" target="_blank" rel="noopener noreferrer"><span class="google-star-row">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="google-review-rating">Loading Google rating</span></a>
+        <span class="google-review-count">Loading Google reviews</span>
+        <span>40+ Years Experience</span>
+        <span>Residential &amp; Commercial</span>
+      </div>
     </div>
     <div class="scroll-cue" aria-hidden="true">
       <span>Scroll</span>
@@ -935,27 +2310,6 @@ footer a:hover {
     </div>
   </section>
 
-  <section class="dark-section testimonials">
-    <h2>What neighbors say</h2>
-    <div class="testimonial-row">
-      <article class="quote-card">
-        <span class="quote-mark">"</span>
-        <p>Roughly 120 feet of tired cedar came out after last winter. They flagged the gate swing on our sloped driveway before we ordered lumber, then knocked it out in two days.</p>
-        <div class="attribution">- Mark J., Roseville</div>
-      </article>
-      <article class="quote-card">
-        <span class="quote-mark">"</span>
-        <p>Back line was leaning and one panel was on the ground. They swapped bad posts, reused what was sound, and didn't push a full tear-out. Bill matched what they quoted.</p>
-        <div class="attribution">- Amanda R., Citrus Heights</div>
-      </article>
-      <article class="quote-card">
-        <span class="quote-mark">"</span>
-        <p>Wanted a real privacy fence off the back patio - not a wobbly screen. Crew showed up, stayed on the line, and left the yard cleaner than they found it.</p>
-        <div class="attribution">- Daniel K., Folsom</div>
-      </article>
-    </div>
-  </section>
-
   <section class="dark-section alt areas">
     <h2>Where we work</h2>
     <p class="sub-text">Sacramento Valley to the Sierra Foothills</p>
@@ -1007,24 +2361,110 @@ footer a:hover {
     <h2 class="panorama-title">Built right. Built to last.</h2>
   </section>
 
-  <section class="dark-section" id="contact">
-    <div class="contact-grid">
-      <div class="contact-copy">
-        <h2>Get a free estimate</h2>
-        <p>Tell us about your project - we'll give you a straight answer and a real quote.</p>
-        <div class="contact-detail"><span>Phone</span> <a href="tel:+19169062254">(916) 906-2254</a></div>
-        <p class="small">Grass Valley, CA · Serving Sacramento region and Sierra foothills</p>
+  <section class="dark-section alt google-reviews-section" data-google-reviews-section>
+    <div class="google-review-intro">
+      <span class="section-tag">Google Reviews</span>
+      <h2>Trusted By Northern California Property Owners</h2>
+      <p class="sub-text">Real reviews from Twin Rivers Fence customers.</p>
+      <p class="google-review-local">Real Google reviews from Twin Rivers Fence customers throughout Northern California.</p>
+      <div class="google-review-summary" aria-label="Google review summary">
+        <div class="google-review-pill"><span class="google-star-row">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+        <div class="google-review-pill google-review-rating">Loading Google rating</div>
+        <div class="google-review-pill google-review-count">Loading Google reviews</div>
       </div>
-      <form id="contact-form">
-        <input type="text" name="name" placeholder="Your name" required autocomplete="name">
-        <input type="tel" name="phone" placeholder="Phone number" required autocomplete="tel">
-        <input type="email" name="email" placeholder="Email (optional)" autocomplete="email">
-        <textarea name="message" rows="5" placeholder="Tell us about your fence project..."></textarea>
-        <button type="submit">Send message -></button>
-        <p class="fine-print">By submitting you agree to be contacted by Twin Rivers Fence.</p>
-        <p class="success-message" aria-live="polite"></p>
-      </form>
+      <p class="google-review-status" data-google-reviews-status>Loading real Google reviews...</p>
     </div>
+    <div class="google-review-cards" data-google-review-cards>
+      <article class="google-review-card"><p>Loading recent Google reviews...</p></article>
+      <article class="google-review-card"><p>Loading recent Google reviews...</p></article>
+      <article class="google-review-card"><p>Loading recent Google reviews...</p></article>
+    </div>
+    <div class="google-review-actions">
+      <a class="btn-gold google-review-link" href="https://www.google.com/search?q=Twin+Rivers+Fence+Google+reviews" target="_blank" rel="noopener noreferrer">View All Reviews On Google</a>
+    </div>
+  </section>
+
+  <section class="dark-section" id="contact">
+    <div class="ai-contact-header">
+      <span class="section-tag">Free Estimate</span>
+      <h2>Contact Us</h2>
+    </div>
+    <div class="ai-contact-layout">
+      <section class="river-chat" aria-label="Twin Rivers Fence project assistant chat">
+        <div class="river-chat-top">
+          <div class="river-status">
+            <div class="river-avatar" aria-hidden="true">TR</div>
+            <div>
+              <strong>River</strong>
+              <span>Twin Rivers estimate desk</span>
+            </div>
+          </div>
+          <div class="river-live-dot" aria-label="Assistant is online"></div>
+        </div>
+        <div id="chat-log" class="chat-log" role="log" aria-live="polite" aria-relevant="additions"></div>
+        <div class="quick-replies" aria-label="Suggested replies"></div>
+        <div class="chat-composer">
+          <label class="sr-only" for="chat-input">Message River</label>
+          <input id="chat-input" type="text" autocomplete="off" placeholder="Tell River about your project...">
+          <button class="chat-send" type="button">Send</button>
+        </div>
+        <p class="read-receipt" id="read-receipt" aria-live="polite"></p>
+        <div class="lead-complete-note" aria-live="polite">Thanks - your request was sent to Twin Rivers Fence. A team member will follow up soon.</div>
+      </section>
+
+      <aside class="river-mascot-card" aria-label="River, a Twin Rivers Fence construction professional">
+        <div class="speech-bubble">I'm ready when you are. The questions on the left help our crew price the right solution.</div>
+        <div class="pro-worker" aria-hidden="true">
+          <div class="pro-worker-shadow"></div>
+          <div class="pro-hardhat">
+            <span>TRF</span>
+          </div>
+          <div class="pro-head">
+            <div class="pro-brow left"></div>
+            <div class="pro-brow right"></div>
+            <div class="pro-eye left"></div>
+            <div class="pro-eye right"></div>
+            <div class="pro-nose"></div>
+            <div class="pro-mouth"></div>
+          </div>
+          <div class="pro-neck"></div>
+          <div class="pro-body">
+            <div class="pro-collar left"></div>
+            <div class="pro-collar right"></div>
+            <div class="pro-logo">Twin Rivers</div>
+          </div>
+          <div class="pro-arm left"></div>
+          <div class="pro-arm right"></div>
+          <div class="pro-hand left"></div>
+          <div class="pro-hand right"></div>
+          <div class="pro-belt">
+            <div class="pro-buckle"></div>
+            <div class="pro-pouch left"></div>
+            <div class="pro-pouch right"></div>
+          </div>
+          <div class="pro-leg left"></div>
+          <div class="pro-leg right"></div>
+          <div class="pro-boot left"></div>
+          <div class="pro-boot right"></div>
+        </div>
+      </aside>
+
+      <form name="lead-chat" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" class="netlify-lead-form" aria-hidden="true">
+        <input type="hidden" name="form-name" value="lead-chat">
+        <input type="text" name="bot-field" tabindex="-1" autocomplete="off">
+        <input type="hidden" name="name">
+        <input type="hidden" name="phone">
+        <input type="hidden" name="email">
+        <input type="hidden" name="project_type">
+        <input type="hidden" name="source" value="Twin Rivers Fence homepage contact section">
+        <input type="hidden" name="material">
+        <input type="hidden" name="approximate_size">
+        <input type="hidden" name="city">
+        <input type="hidden" name="timeline">
+        <input type="hidden" name="notes">
+        <textarea name="message"></textarea>
+      </form>
+      </div>
   </section>
 </main>
 
@@ -1773,6 +3213,7 @@ footer a:hover {
     if (!window.gsap || !window.ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.body.classList.toggle("reduced-motion", reduceMotion);
     var animatedItems = [
       "main > section:not(#hero)",
       ".photo-content",
@@ -1797,8 +3238,10 @@ footer a:hover {
       ".expanded-area-grid",
       ".seo-service-copy",
       ".panorama-title",
-      ".contact-copy",
-      "#contact-form",
+      ".ai-contact-header",
+      ".ai-trust-panel",
+      ".river-chat",
+      ".river-mascot-card",
       ".service-card",
       ".quote-card",
       ".city-tag",
@@ -1875,8 +3318,10 @@ footer a:hover {
       ".expanded-area-grid",
       ".seo-service-copy",
       ".panorama-title",
-      ".contact-copy",
-      "#contact-form"
+      ".ai-contact-header",
+      ".ai-trust-panel",
+      ".river-chat",
+      ".river-mascot-card"
     ].join(", ");
 
     gsap.utils.toArray(revealSelectors).forEach(function (content) {
@@ -1989,21 +3434,263 @@ footer a:hover {
     if (stats) observer.observe(stats);
   }
 
-  function initContactForm() {
-    var form = document.getElementById("contact-form");
-    var success = form.querySelector(".success-message");
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-      success.textContent = "Thanks - we'll be in touch within 1 business day.";
-      form.reset();
+  function initRiverAssistant() {
+    var log = document.getElementById("chat-log");
+    var input = document.getElementById("chat-input");
+    var send = document.querySelector(".chat-send");
+    var quickReplyWrap = document.querySelector(".quick-replies");
+    var mascot = document.querySelector(".river-mascot-card");
+    var speech = document.querySelector(".speech-bubble");
+    var receipt = document.getElementById("read-receipt");
+    var completeNote = document.querySelector(".lead-complete-note");
+    var leadForm = document.querySelector(".netlify-lead-form");
+    if (!log || !input || !send || !leadForm) return;
+
+    var assistantState = {
+      step: "name",
+      submitted: false,
+      responding: false,
+      data: {
+        name: "",
+        phone: "",
+        email: "",
+        project_type: "Website chat request",
+        message: ""
+      },
+      transcript: []
+    };
+
+    function setMascot(mode, text) {
+      mascot.classList.remove("is-talking", "is-typing", "is-complete");
+      if (mode) mascot.classList.add(mode);
+      if (text) speech.textContent = text;
+    }
+
+    function setInputPrompt(placeholder) {
+      input.placeholder = placeholder;
+    }
+
+    function addMessage(role, text) {
+      assistantState.transcript.push((role === "assistant" ? "River: " : "Visitor: ") + text);
+      if (role === "user") {
+        receipt.textContent = "River is reading...";
+        return;
+      }
+      log.innerHTML = "";
+      var row = document.createElement("div");
+      row.className = "chat-message " + role;
+      var bubble = document.createElement("div");
+      bubble.className = "message-bubble";
+      bubble.textContent = text;
+      row.appendChild(bubble);
+      log.appendChild(row);
+      log.scrollTop = log.scrollHeight;
+      if (role === "assistant") {
+        receipt.textContent = "Delivered";
+      } else {
+        receipt.textContent = "River is reading...";
+      }
+    }
+
+    function showTyping() {
+      var row = document.createElement("div");
+      row.className = "chat-message assistant typing-row";
+      row.innerHTML = '<div class="typing-indicator" aria-label="River is typing"><span></span><span></span><span></span></div>';
+      log.appendChild(row);
+      log.scrollTop = log.scrollHeight;
+      setMascot("is-talking", "Let me get the next detail for the estimate desk.");
+    }
+
+    function hideTyping() {
+      var typing = log.querySelector(".typing-row");
+      if (typing) typing.remove();
+    }
+
+    function assistantSay(text, delay) {
+      assistantState.responding = true;
+      input.disabled = true;
+      send.disabled = true;
+      showTyping();
+      window.setTimeout(function () {
+        hideTyping();
+        addMessage("assistant", text);
+        setMascot("", "The chat on the left helps our team prepare the right follow-up.");
+        assistantState.responding = false;
+        input.disabled = false;
+        send.disabled = false;
+      }, delay || 650);
+    }
+
+    function renderQuickReplies(options) {
+      quickReplyWrap.innerHTML = "";
+      (options || []).forEach(function (label) {
+        var button = document.createElement("button");
+        button.type = "button";
+        button.className = "quick-reply";
+        button.textContent = label;
+        button.addEventListener("click", function () {
+          handleUserMessage(label);
+        });
+        quickReplyWrap.appendChild(button);
+      });
+    }
+
+    function captureFromStep(text) {
+      var emailMatch = text.match(/[^\s@]+@[^\s@]+\.[^\s@]+/);
+      var digitCount = (text.match(/\d/g) || []).length;
+      var looksLikePhone = digitCount >= 7;
+      if (assistantState.step === "name") {
+        assistantState.data.name = text;
+      } else if (assistantState.step === "phone" && looksLikePhone) {
+        assistantState.data.phone = text;
+      } else if (assistantState.step === "email") {
+        assistantState.data.email = /skip|none|no thanks/i.test(text) ? "Not provided" : (emailMatch ? emailMatch[0] : text);
+      } else if (assistantState.step === "message") {
+        assistantState.data.message = text;
+      }
+    }
+
+    function nextStep() {
+      var order = ["name", "phone", "email", "message"];
+      for (var i = 0; i < order.length; i++) {
+        if (!assistantState.data[order[i]]) {
+          assistantState.step = order[i];
+          return;
+        }
+      }
+      assistantState.step = "complete";
+    }
+
+    function promptForStep() {
+      if (assistantState.step === "name") {
+        renderQuickReplies([]);
+        setInputPrompt("Type your name");
+        return "What is your name?";
+      }
+      if (assistantState.step === "phone") {
+        renderQuickReplies([]);
+        setInputPrompt("Type your phone number");
+        return "Thanks. What is the best phone number to reach you? A phone number is required so we can follow up.";
+      }
+      if (assistantState.step === "email") {
+        renderQuickReplies(["Skip email"]);
+        setInputPrompt("Type your email, or skip");
+        return "Email is optional. If you want, add it here. Otherwise tap Skip email.";
+      }
+      if (assistantState.step === "message") {
+        renderQuickReplies([]);
+        setInputPrompt("Tell us what you want done");
+        return "Last thing - what would you like done?";
+      }
+      return "";
+    }
+
+    function enoughForLead() {
+      return assistantState.data.name && assistantState.data.phone && assistantState.data.message;
+    }
+
+    function encodeFormData(form) {
+      return new URLSearchParams(new FormData(form)).toString();
+    }
+
+    async function submitLead() {
+      if (assistantState.submitted) return;
+      assistantState.submitted = true;
+      var visitorRequest = assistantState.data.message;
+      assistantState.data.project_type = visitorRequest;
+      assistantState.data.message = "Name: " + assistantState.data.name + "\nPhone: " + assistantState.data.phone + "\nEmail: " + assistantState.data.email + "\nWhat they want done: " + visitorRequest + "\n\nConversation:\n" + assistantState.transcript.join("\n");
+      Object.keys(assistantState.data).forEach(function (key) {
+        var field = leadForm.querySelector('[name="' + key + '"]');
+        if (field) field.value = assistantState.data[key];
+      });
+
+      if (!/^(localhost|127\.0\.0\.1)$/i.test(window.location.hostname)) {
+        try {
+          var response = await fetch(leadForm.getAttribute("action") || "/", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: encodeFormData(leadForm)
+          });
+          if (!response.ok) throw new Error("Netlify form submission failed");
+        } catch (error) {
+          assistantState.submitted = false;
+          completeNote.textContent = "Something went wrong sending your request. Please call Twin Rivers Fence at (916) 906-2254.";
+          completeNote.classList.add("is-visible");
+          setMascot("", "Please call us directly if the form does not go through.");
+          renderQuickReplies(["Call (916) 906-2254"]);
+          return;
+        }
+      }
+
+      completeNote.textContent = "Thanks - your request was sent to Twin Rivers Fence. A team member will follow up soon.";
+      completeNote.classList.add("is-visible");
+      setMascot("is-complete", "Got it. Your request was sent to Twin Rivers Fence.");
+      renderQuickReplies(["Start another project", "Call (916) 906-2254"]);
+    }
+
+    function handleUserMessage(text) {
+      if (assistantState.responding) return;
+      if (!text.trim()) return;
+      if (/start another/i.test(text)) {
+        assistantState.step = "name";
+        assistantState.submitted = false;
+        Object.keys(assistantState.data).forEach(function (key) { assistantState.data[key] = ""; });
+        assistantState.data.project_type = "Website chat request";
+        completeNote.classList.remove("is-visible");
+        log.innerHTML = "";
+        startConversation();
+        return;
+      }
+      if (/^call\s*\(916\)\s*906-2254$/i.test(text.trim())) {
+        window.location.href = "tel:+19169062254";
+        return;
+      }
+      if (assistantState.submitted) {
+        addMessage("user", text);
+        input.value = "";
+        assistantSay("This project is already ready for the Twin Rivers team. You can start another project or call us directly if you'd like to add something urgent.", 500);
+        return;
+      }
+      addMessage("user", text);
+      input.value = "";
+      captureFromStep(text);
+      nextStep();
+      if (enoughForLead() && assistantState.step === "complete") {
+        assistantSay("Perfect. I have your name, phone number, and project notes. I'll send this to Twin Rivers Fence now.", 700);
+        window.setTimeout(submitLead, 1250);
+        return;
+      }
+      assistantSay(promptForStep(), 650);
+    }
+
+    function startConversation() {
+      setInputPrompt("Type your name");
+      addMessage("assistant", "What's your name?");
+      renderQuickReplies([]);
+    }
+
+    send.addEventListener("click", function () {
+      handleUserMessage(input.value);
     });
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        handleUserMessage(input.value);
+      }
+    });
+    input.addEventListener("input", function () {
+      setMascot(input.value ? "is-typing" : "", input.value ? "I'm following along." : "The chat on the left helps our team prepare the right follow-up.");
+    });
+
+    startConversation();
   }
 
   initHeroCanvas();
   initGsap();
   initCounters();
-  initContactForm();
+  initRiverAssistant();
 }());
 </script>
+<script src="/assets/js/google-reviews.js" defer></script>
 </body>
 </html>
