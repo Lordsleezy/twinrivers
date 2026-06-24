@@ -65,6 +65,31 @@ async function googleJson(url) {
   return { data, google_http_status: res.status, google_request_url: redactedUrl };
 }
 
+async function googlePlacesV1Search(apiKey, payload) {
+  const url = 'https://places.googleapis.com/v1/places:searchText';
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'X-Goog-Api-Key': apiKey,
+      'X-Goog-FieldMask': 'places.id,places.name,places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.internationalPhoneNumber,places.websiteUri,places.rating,places.userRatingCount,places.googleMapsUri,places.businessStatus,places.types,places.location'
+    },
+    body: JSON.stringify(payload)
+  });
+  const text = await res.text();
+  let data;
+  try { data = JSON.parse(text); } catch (e) { data = { raw: text.slice(0, 1000) }; }
+  if (!res.ok) {
+    const error = new Error('Google Places v1 HTTP ' + res.status);
+    error.google_http_status = res.status;
+    error.google_response_body = data;
+    error.google_request_url = url;
+    throw error;
+  }
+  return { data, google_http_status: res.status, google_request_url: url };
+}
+
 async function verifyGoogleProfile(apiKey, query, currentPlaceId) {
   const inputs = [
     { input: query, inputtype: 'textquery' },
@@ -139,6 +164,36 @@ async function verifyGoogleProfile(apiKey, query, currentPlaceId) {
             byPlaceId.set(result.place_id, await detailsForPlace(result.place_id));
           }
         }
+      }
+    }
+  }
+  const v1Searches = [
+    { textQuery: 'Twin Rivers Fence', locationBias: { circle: { center: { latitude: 38.255235, longitude: -121.0614744 }, radius: 5000 } } },
+    { textQuery: 'Twin Rivers Fence Grass Valley CA', locationBias: { circle: { center: { latitude: 38.255235, longitude: -121.0614744 }, radius: 50000 } } },
+    { textQuery: 'Twin Rivers Fence 916-906-2254' },
+    { textQuery: 'Twin Rivers Fence twinriversfence.com' }
+  ];
+  for (const payload of v1Searches) {
+    const searched = await googlePlacesV1Search(apiKey, payload);
+    const places = searched.data.places || [];
+    attempts.push({ method: 'places-v1-searchText', query: payload.textQuery, status: 'OK', result_count: places.length });
+    for (const place of places.slice(0, 10)) {
+      const placeId = place.id || (place.name && place.name.replace(/^places\//, ''));
+      if (placeId && !byPlaceId.has(placeId)) {
+        byPlaceId.set(placeId, {
+          place_id: placeId,
+          name: place.displayName && place.displayName.text || null,
+          formatted_address: place.formattedAddress || null,
+          formatted_phone_number: place.nationalPhoneNumber || null,
+          international_phone_number: place.internationalPhoneNumber || null,
+          website: place.websiteUri || null,
+          rating: place.rating || null,
+          user_ratings_total: place.userRatingCount || null,
+          url: place.googleMapsUri || null,
+          business_status: place.businessStatus || null,
+          types: place.types || [],
+          location: place.location || null
+        });
       }
     }
   }
