@@ -3,6 +3,8 @@
 // To re-verify: search the business on Google Maps and extract the CID/place_id from the URL
 const DEFAULT_PLACE_ID = 'ChIJN_sBpJkMmoAR_sRjCkwUW8E';
 const DEFAULT_QUERY = 'Twin Rivers Fence Grass Valley CA';
+const EXPECTED_PHONE_DIGITS = '9169062254';
+const EXPECTED_WEBSITE_HOST = 'twinriversfence.com';
 const CACHE_HEADERS = {
   'Content-Type': 'application/json; charset=utf-8',
   'Cache-Control': 'public, max-age=900, s-maxage=43200, stale-while-revalidate=86400'
@@ -10,6 +12,21 @@ const CACHE_HEADERS = {
 
 function response(statusCode, payload) {
   return { statusCode, headers: CACHE_HEADERS, body: JSON.stringify(payload) };
+}
+
+function normalizePhone(value) {
+  return (value || '').replace(/\D/g, '');
+}
+
+function normalizeHost(value) {
+  try { return new URL(value).hostname.replace(/^www\./, '').toLowerCase(); } catch (e) { return ''; }
+}
+
+function isExpectedBusiness(result) {
+  if (!result) return false;
+  const phoneMatch = normalizePhone(result.formatted_phone_number) === EXPECTED_PHONE_DIGITS || normalizePhone(result.international_phone_number).endsWith(EXPECTED_PHONE_DIGITS);
+  const websiteMatch = normalizeHost(result.website) === EXPECTED_WEBSITE_HOST;
+  return phoneMatch || websiteMatch;
 }
 
 function normalizeReview(review) {
@@ -184,7 +201,7 @@ exports.handler = async function (event) {
     async function fetchDetails(id) {
       const detailsUrl = new URL('https://maps.googleapis.com/maps/api/place/details/json');
       detailsUrl.searchParams.set('place_id', id);
-      detailsUrl.searchParams.set('fields', 'place_id,name,rating,user_ratings_total,reviews,url');
+      detailsUrl.searchParams.set('fields', 'place_id,name,formatted_address,formatted_phone_number,international_phone_number,website,rating,user_ratings_total,reviews,url');
       detailsUrl.searchParams.set('reviews_sort', 'newest');
       detailsUrl.searchParams.set('key', apiKey);
       return googleJson(detailsUrl.toString());
@@ -213,11 +230,9 @@ exports.handler = async function (event) {
             if (!candidate.place_id) continue;
             const candidateDetails = await fetchDetails(candidate.place_id);
             const result = candidateDetails.data && candidateDetails.data.result;
-            const name = (result && result.name || candidate.name || '').toLowerCase();
             const hasReviews = result && (typeof result.rating === 'number' || typeof result.user_ratings_total === 'number' || (Array.isArray(result.reviews) && result.reviews.length));
-            const looksLikeBusiness = /twin\s*rivers|fence/.test(name);
-            attempts.push({ input: item.input, inputtype: item.inputtype, details_status: candidateDetails.data.status, details_name: result && result.name, details_rating: result && result.rating, details_review_count: result && result.user_ratings_total });
-            if (candidateDetails.data.status === 'OK' && hasReviews && looksLikeBusiness) {
+            attempts.push({ input: item.input, inputtype: item.inputtype, details_status: candidateDetails.data.status, details_name: result && result.name, details_address: result && result.formatted_address, details_phone: result && result.formatted_phone_number, details_website: result && result.website, details_rating: result && result.rating, details_review_count: result && result.user_ratings_total });
+            if (candidateDetails.data.status === 'OK' && hasReviews && isExpectedBusiness(result)) {
               return candidate.place_id;
             }
           }
@@ -241,6 +256,24 @@ exports.handler = async function (event) {
       details = googleResult.data;
     }
 
+    if (details.status === 'OK' && details.result && !isExpectedBusiness(details.result)) {
+      const error = new Error('Google profile identity mismatch. Refusing to display reviews from a profile that does not match Twin Rivers Fence website or phone.');
+      error.google_http_status = googleResult.google_http_status;
+      error.google_status = 'IDENTITY_MISMATCH';
+      error.google_error_message = 'Expected phone ending ' + EXPECTED_PHONE_DIGITS + ' or website ' + EXPECTED_WEBSITE_HOST;
+      error.google_response_body = {
+        place_id: details.result.place_id || placeId,
+        name: details.result.name || null,
+        formatted_address: details.result.formatted_address || null,
+        formatted_phone_number: details.result.formatted_phone_number || null,
+        website: details.result.website || null,
+        rating: details.result.rating || null,
+        user_ratings_total: details.result.user_ratings_total || null
+      };
+      error.google_request_url = googleResult.google_request_url;
+      throw error;
+    }
+
     if (details.status !== 'OK' || !details.result) {
       const error = new Error(
         'Places API status: ' + details.status +
@@ -262,6 +295,9 @@ exports.handler = async function (event) {
       cached_at: Math.floor(Date.now() / 1000),
       place_id: result.place_id || placeId,
       name: result.name || 'Twin Rivers Fence',
+      formatted_address: result.formatted_address || null,
+      formatted_phone_number: result.formatted_phone_number || null,
+      website: result.website || null,
       rating: typeof result.rating === 'number' ? result.rating : null,
       user_ratings_total: typeof result.user_ratings_total === 'number' ? result.user_ratings_total : null,
       url: result.url || 'https://www.google.com/maps/search/?api=1&query=Twin%20Rivers%20Fence&query_place_id=' + encodeURIComponent(placeId),
