@@ -41,35 +41,32 @@
     var numeric = Number(count);
     return Number.isFinite(numeric) && numeric > 0
       ? numeric.toLocaleString() + " Google reviews"
-      : "Verified Google Business Profile";
+      : "Verified Twin Rivers Fence profile";
   }
 
-  function googleBrandMarkup() {
-    return '<span class="google-brand-mark" aria-hidden="true">' +
-      '<svg viewBox="0 0 74 24" width="74" height="24" focusable="false">' +
-      '<path fill="#4285F4" d="M9.24 8.19v2.46h5.88c-.18 1.38-.64 2.39-1.34 3.1-.86.86-2.2 1.8-4.54 1.8-3.62 0-6.45-2.92-6.45-6.54S5.62 2.47 9.24 2.47c2.05 0 3.47.8 4.26 1.49l2.26-2.26C14.03 1.08 11.83 0 9.24 0 4.28 0 .11 4.04.11 9s4.17 9 9.13 9c2.68 0 4.7-.88 6.28-2.52 1.62-1.62 2.14-3.9 2.14-5.71 0-.57-.04-1.1-.13-1.58H9.24z"/>' +
-      '<path fill="#EA4335" d="M25 6.19c-3.21 0-5.83 2.44-5.83 5.81 0 3.34 2.62 5.81 5.83 5.81 3.21 0 5.83-2.46 5.83-5.81 0-3.37-2.62-5.81-5.83-5.81zm0 9.33c-1.76 0-3.28-1.45-3.28-3.52 0-2.09 1.52-3.52 3.28-3.52 1.77 0 3.27 1.43 3.27 3.52 0 2.07-1.5 3.52-3.27 3.52z"/>' +
-      '<path fill="#FBBC05" d="M53.58 7.49h-.09c-.57-.68-1.67-1.3-3.06-1.3-2.91 0-5.01 2.45-5.01 5.81 0 3.34 2.1 5.81 5.01 5.81 1.39 0 2.49-.62 3.06-1.31h.09v.81c0 2.22-1.19 3.41-3.1 3.41-1.56 0-2.52-.78-2.96-1.43l-2.05 1.9c.98 1.45 2.81 2.55 5.01 2.55 2.91 0 5.38-1.71 5.38-5.88V6.49h-2.24v1zm-2.93 8.03c-1.76 0-3.28-1.45-3.28-3.52 0-2.09 1.52-3.52 3.28-3.52 1.77 0 3.27 1.43 3.27 3.52 0 2.07-1.5 3.52-3.27 3.52z"/>' +
-      '<path fill="#34A853" d="M38 15.59c-3.21 0-5.83-2.44-5.83-5.81 0-3.34 2.62-5.81 5.83-5.81 3.21 0 5.83 2.46 5.83 5.81 0 3.37-2.62 5.81-5.83 5.81zm0-9.33c-1.76 0-3.28 1.45-3.28 3.52 0 2.09 1.52 3.52 3.28 3.52 1.77 0 3.27-1.43 3.27-3.52 0-2.07-1.5-3.52-3.27-3.52z"/>' +
-      '<path fill="#EA4335" d="M58 .24h2.51v17.57H58z"/>' +
-      '<path fill="#4285F4" d="M68.26 15.59c-2.13 0-3.57-1.77-3.57-3.75 0-2.31 1.79-3.89 4.12-3.89 1.72 0 2.96.98 3.63 1.83l-1.91 1.22c-.35-.52-.98-.88-1.72-.88-1.18 0-2.1.99-2.1 2.72 0 1.69.92 2.72 2.1 2.72.74 0 1.38-.36 1.72-.88l1.91 1.22c-.67.85-1.91 1.83-3.63 1.83z"/>' +
-      "</svg></span>";
-  }
-
-  function renderFallbackCards(data) {
-    var mapsUrl = data.url || VERIFIED_GOOGLE_MAPS_URL;
-    return '<article class="google-review-card">' +
-      '<div class="google-review-card-head"><div><strong>' + googleBrandMarkup() + ' Twin Rivers Fence</strong><span>Verified Google Business Profile</span></div>' +
-      '<div class="google-review-stars" aria-label="' + (data.rating || 5) + ' star Google rating">' + starMarkup(data.rating || 5) + '</div></div>' +
-      '<p>Read customer reviews, photos, directions, and business details on the verified Twin Rivers Fence Google Maps listing.</p>' +
-      '<a class="google-review-inline-link" href="' + mapsUrl + '" target="_blank" rel="noopener noreferrer">Open Google Maps</a></article>' +
-      '<article class="google-review-card"><div class="google-review-card-head"><div><strong>' + formatRating(data.rating || 5) + '</strong><span>Customer rating</span></div>' +
-      '<div class="google-review-stars" aria-label="Google reviews">' + starMarkup(data.rating || 5) + '</div></div>' +
-      '<p>Our team stands behind decades of Northern California fence work. See what homeowners and property owners are saying on Google.</p></article>' +
-      '<article class="google-review-card"><div class="google-review-card-head"><div><strong>View All Reviews On Google</strong><span>Grass Valley, CA</span></div>' +
-      '<div class="google-review-stars" aria-label="Google reviews">' + starMarkup(data.rating || 5) + '</div></div>' +
-      '<p>Live review text is shown on Google to protect against unrelated business listings with similar names.</p>' +
-      '<a class="google-review-inline-link" href="' + mapsUrl + '" target="_blank" rel="noopener noreferrer">Read reviews on Google</a></article>';
+  function renderTrustPanel(data) {
+    var rating = data.rating != null ? data.rating : FALLBACK_PROFILE.rating;
+    var countLabel = formatCount(data.user_ratings_total);
+    return '<div class="google-trust-panel">' +
+      '<div class="google-trust-badge" aria-label="Google Business Profile">' +
+        '<div class="google-logo-mark" aria-hidden="true">' +
+          '<svg viewBox="0 0 24 24" width="28" height="28" focusable="false"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>' +
+        '</div>' +
+        '<div class="google-trust-meta">' +
+          '<span class="google-trust-label">Google Business Profile</span>' +
+          '<div class="google-trust-rating-row">' +
+            '<span class="google-review-stars" aria-label="' + rating + ' out of 5 stars on Google">' + starMarkup(rating) + '</span>' +
+            '<strong class="google-trust-score">' + Number(rating).toFixed(1) + '</strong>' +
+          '</div>' +
+          '<span class="google-trust-business">Twin Rivers Fence · Grass Valley, CA · ' + countLabel + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<ul class="google-trust-points">' +
+        '<li><strong>Licensed contractor</strong><span>California License #1089233</span></li>' +
+        '<li><strong>40+ years experience</strong><span>Residential and commercial fencing</span></li>' +
+        '<li><strong>Verified profile only</strong><span>Customer reviews are read directly on our official Google listing</span></li>' +
+      '</ul>' +
+    '</div>';
   }
 
   function render(data) {
@@ -82,6 +79,7 @@
     setText(".google-review-count", formatCount(count));
     qsAll(".google-star-row").forEach(function (node) {
       node.innerHTML = starMarkup(rating);
+      node.setAttribute("aria-label", rating + " out of 5 stars on Google");
     });
     qsAll(".google-review-link").forEach(function (node) {
       node.setAttribute("href", mapsUrl);
@@ -90,7 +88,7 @@
     });
     qsAll("[data-google-reviews-status]").forEach(function (node) {
       node.textContent = profile.live_reviews_available === false
-        ? "Customer reviews are hosted on our verified Google Business Profile."
+        ? "Read real customer reviews, photos, and business details on our official Google Business Profile."
         : "Recent Google reviews from Twin Rivers Fence customers.";
     });
 
@@ -108,7 +106,7 @@
             (review.text || "") + "</p></article>";
         }).join("");
       } else {
-        container.innerHTML = renderFallbackCards(profile);
+        container.innerHTML = renderTrustPanel(profile);
       }
     });
   }
