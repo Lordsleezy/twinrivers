@@ -2,13 +2,13 @@
   "use strict";
 
   var pricing = {
-    wood: { low: 32, high: 48, label: "Wood Privacy Fence" },
-    cedar: { low: 38, high: 58, label: "Cedar Fence" },
-    vinyl: { low: 42, high: 65, label: "Vinyl Fence" },
-    chainlink: { low: 22, high: 38, label: "Chain Link Fence" },
-    ornamental: { low: 60, high: 95, label: "Ornamental Iron Fence" },
-    ranch: { low: 18, high: 34, label: "Ranch Fence" },
-    custom: { low: 55, high: 110, label: "Custom Fence" }
+    wood: { low: 14, high: 22, label: "Wood Privacy Fence" },
+    cedar: { low: 17, high: 26, label: "Cedar Fence" },
+    vinyl: { low: 18, high: 28, label: "Vinyl Fence" },
+    chainlink: { low: 10, high: 17, label: "Chain Link Fence" },
+    ornamental: { low: 26, high: 42, label: "Ornamental Iron Fence" },
+    ranch: { low: 8, high: 15, label: "Ranch Fence" },
+    custom: { low: 24, high: 48, label: "Custom Fence" }
   };
 
   var heightMultipliers = {
@@ -18,18 +18,13 @@
   };
 
   var gatePricing = {
-    low: 325,
-    high: 850
+    low: 150,
+    high: 400
   };
 
   var removalPricing = {
-    low: 5,
-    high: 12
-  };
-
-  var commercialMultiplier = {
-    low: 1.08,
-    high: 1.18
+    low: 2,
+    high: 6
   };
 
   var cityMultipliers = {
@@ -67,11 +62,6 @@
     low += gates * gatePricing.low;
     high += gates * gatePricing.high;
 
-    if (input.projectType === "commercial") {
-      low *= commercialMultiplier.low;
-      high *= commercialMultiplier.high;
-    }
-
     return {
       low: Math.max(0, Math.round(low)),
       high: Math.max(0, Math.round(high)),
@@ -84,7 +74,6 @@
     heightMultipliers: heightMultipliers,
     gatePricing: gatePricing,
     removalPricing: removalPricing,
-    commercialMultiplier: commercialMultiplier,
     cityMultipliers: cityMultipliers,
     calculateEstimate: calculateEstimate,
     formatMoney: money

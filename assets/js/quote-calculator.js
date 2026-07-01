@@ -27,7 +27,6 @@
         footage: field(inputForm, "footage").value,
         gates: field(inputForm, "gates").value,
         removal: field(inputForm, "removal").value,
-        projectType: field(inputForm, "project_type").value,
         city: field(inputForm, "city").value
       };
     }
@@ -40,7 +39,6 @@
         footage: input.footage,
         gates: input.gates === "3" ? "3+" : input.gates,
         removal: input.removal,
-        project_type: input.projectType,
         city: input.city
       };
       Object.keys(values).forEach(function (name) {

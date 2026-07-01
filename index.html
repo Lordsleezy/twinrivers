@@ -2086,6 +2086,26 @@ footer a:hover {
   text-align: center;
 }
 
+.google-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  margin-right: 0.35rem;
+}
+
+.google-review-inline-link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--gold);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.google-review-inline-link:hover,
+.google-review-inline-link:focus-visible {
+  text-decoration: underline;
+}
+
 .quote-calculator-section {
   position: relative;
   border-top: 1px solid rgba(212,168,83,0.18);
@@ -2271,8 +2291,8 @@ footer a:hover {
       <a href="#contact" class="btn-gold">Get a Free Estimate</a>
       <a href="/projects/" class="btn-gold">View Fence Projects</a>
       <div class="google-trust-bar" aria-label="Twin Rivers Fence Google review summary">
-        <a class="google-review-link" href="https://www.google.com/search?q=Twin+Rivers+Fence+Google+reviews" target="_blank" rel="noopener noreferrer"><span class="google-star-row">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="google-review-rating">Loading Google rating</span></a>
-        <span class="google-review-count">Loading Google reviews</span>
+        <a class="google-review-link" href="https://maps.app.goo.gl/rXBxsJXV2E6Z3Luu6" target="_blank" rel="noopener noreferrer"><span class="google-star-row">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="google-review-rating">5.0 on Google</span></a>
+        <span class="google-review-count">Verified Google Business Profile</span>
         <span>40+ Years Experience</span>
         <span>Residential &amp; Commercial</span>
       </div>
@@ -2539,18 +2559,18 @@ footer a:hover {
       <p class="google-review-local">Real Google reviews from Twin Rivers Fence customers throughout Northern California.</p>
       <div class="google-review-summary" aria-label="Google review summary">
         <div class="google-review-pill"><span class="google-star-row">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
-        <div class="google-review-pill google-review-rating">Loading Google rating</div>
-        <div class="google-review-pill google-review-count">Loading Google reviews</div>
+        <div class="google-review-pill google-review-rating">5.0 on Google</div>
+        <div class="google-review-pill google-review-count">Verified Google Business Profile</div>
       </div>
-      <p class="google-review-status" data-google-reviews-status>Loading real Google reviews...</p>
+      <p class="google-review-status" data-google-reviews-status>Customer reviews are hosted on our verified Google Business Profile.</p>
     </div>
     <div class="google-review-cards" data-google-review-cards>
-      <article class="google-review-card"><p>Loading recent Google reviews...</p></article>
-      <article class="google-review-card"><p>Loading recent Google reviews...</p></article>
-      <article class="google-review-card"><p>Loading recent Google reviews...</p></article>
+      <article class="google-review-card"><p>Read customer reviews on the verified Twin Rivers Fence Google Maps profile.</p></article>
+      <article class="google-review-card"><p>See ratings, photos, directions, and business details on Google.</p></article>
+      <article class="google-review-card"><p>Live review text is shown on Google to protect against unrelated business listings.</p></article>
     </div>
     <div class="google-review-actions">
-      <a class="btn-gold google-review-link" href="https://www.google.com/search?q=Twin+Rivers+Fence+Google+reviews" target="_blank" rel="noopener noreferrer">View All Reviews On Google</a>
+      <a class="btn-gold google-review-link" href="https://maps.app.goo.gl/rXBxsJXV2E6Z3Luu6" target="_blank" rel="noopener noreferrer">View All Reviews On Google</a>
     </div>
   </section>
 
@@ -2558,8 +2578,8 @@ footer a:hover {
     <div class="quote-calculator-shell">
       <div class="quote-calculator-header">
         <span class="section-tag">Instant Fence Estimate</span>
-        <h2>Get a rough project estimate in under 30 seconds.</h2>
-        <p class="sub-text">Use the calculator below for a planning range, then send your details to get an exact quote from Twin Rivers Fence.</p>
+        <h2>Get a preliminary online estimate in under 30 seconds.</h2>
+        <p class="sub-text">Use the calculator below for a budgetary planning range only. Send your details to receive an exact on-site quote from Twin Rivers Fence.</p>
       </div>
       <div class="quote-calculator-grid" data-quote-calculator>
         <form class="quote-form-card" data-quote-inputs>
@@ -2604,13 +2624,6 @@ footer a:hover {
                 <option value="yes">Yes</option>
               </select>
             </div>
-            <div class="quote-field">
-              <label for="quote-project-type">Project Type</label>
-              <select id="quote-project-type" name="project_type">
-                <option value="residential" selected>Residential</option>
-                <option value="commercial">Commercial</option>
-              </select>
-            </div>
             <div class="quote-field full">
               <label for="quote-city">City</label>
               <select id="quote-city" name="city">
@@ -2626,9 +2639,9 @@ footer a:hover {
           </div>
         </form>
         <aside class="quote-result-card">
-          <span class="estimate-range-label">Estimated Project Range</span>
+          <span class="estimate-range-label">Preliminary Online Estimate</span>
           <div class="estimate-range" data-estimate-range>$0 - $0</div>
-          <p class="estimate-note">Most projects similar to yours fall within this range. Final pricing depends on access, grade, material availability, gates, removals, and site conditions.</p>
+          <p class="estimate-note"><strong>This is a preliminary online estimate for budget planning only.</strong> It is not a final quote. On-site pricing depends on access, grade, material availability, gates, removals, and site conditions.</p>
           <div class="offer-card-grid" aria-label="Twin Rivers Fence estimate offers">
             <div class="offer-card"><strong>🎉 Schedule Today</strong><span>Receive up to 15% off qualifying projects.</span></div>
             <div class="offer-card"><strong>🤝 Refer A Friend</strong><span>Receive up to 25% off for both you and your referred friend.</span></div>
@@ -2644,7 +2657,6 @@ footer a:hover {
             <input type="hidden" name="footage">
             <input type="hidden" name="gates">
             <input type="hidden" name="removal">
-            <input type="hidden" name="project_type">
             <input type="hidden" name="city">
             <div class="quote-field"><label for="quote-name">Name</label><input id="quote-name" name="name" type="text" autocomplete="name"></div>
             <div class="quote-field"><label for="quote-phone">Phone Number (Required)</label><input id="quote-phone" name="phone" type="tel" autocomplete="tel" required></div>
