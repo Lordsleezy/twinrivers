@@ -2,10 +2,10 @@
   "use strict";
 
   var pricing = {
-    wood: { low: 7, high: 11, label: "Wood Privacy Fence" },
+    wood: { low: 5, high: 8, label: "Wood Privacy Fence" },
     cedar: { low: 9, high: 13, label: "Cedar Fence" },
-    vinyl: { low: 9, high: 14, label: "Vinyl Fence" },
-    chainlink: { low: 5, high: 9, label: "Chain Link Fence" },
+    vinyl: { low: 7, high: 11, label: "Vinyl Fence" },
+    chainlink: { low: 3, high: 5, label: "Chain Link Fence" },
     ornamental: { low: 13, high: 21, label: "Ornamental Iron Fence" },
     ranch: { low: 4, high: 8, label: "Ranch Fence" },
     custom: { low: 12, high: 24, label: "Custom Fence" }
