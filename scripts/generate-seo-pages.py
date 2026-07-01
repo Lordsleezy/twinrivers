@@ -114,6 +114,10 @@ def generate_sitemap():
     <loc>https://twinriversllc.org/</loc>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://twinriversfence.com/reviews/</loc>
+    <priority>0.9</priority>
+  </url>
 '''
     
     # Add city pages
