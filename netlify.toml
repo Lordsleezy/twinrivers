@@ -10,3 +10,39 @@
   for = "/assets/js/*"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+[[redirects]]
+  from = "/property-improvement/fence-repair"
+  to = "/fence-repair/"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/property-improvement/fence-repair/"
+  to = "/fence-repair/"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/property-improvement/gate-installation"
+  to = "/gate-installation/"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/property-improvement/gate-installation/"
+  to = "/gate-installation/"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/property-improvement/deck-installation"
+  to = "/deck-patio/"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/property-improvement/deck-installation/"
+  to = "/deck-patio/"
+  status = 301
+  force = false
