@@ -162,12 +162,17 @@ a {
   top: 100%;
   left: 0;
   min-width: 200px;
+  max-height: min(70vh, 28rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background: #0f0f0f;
   border: 1px solid rgba(255,255,255,0.08);
   border-top: 2px solid var(--gold);
   border-radius: 0 0 4px 4px;
   padding: 0.5rem 0;
   z-index: 100;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212,168,83,0.45) transparent;
 }
 .nav-dropdown:hover .nav-dropdown-panel,
 .nav-dropdown:focus-within .nav-dropdown-panel {
@@ -252,6 +257,8 @@ a {
     border-radius: 0;
     padding: 0;
     width: 100%;
+    max-height: min(50vh, 22rem);
+    overflow-y: auto;
   }
   .nav-dropdown.mobile-open .nav-dropdown-panel { display: block !important; }
   .top-call { display: none; }
@@ -2622,96 +2629,56 @@ footer a:hover {
       <span aria-hidden="true"></span>
     </button>
     <nav id="site-nav" class="site-nav" aria-label="Main">
-      <!-- Services -->
       <div class="nav-dropdown">
         <a href="/services/" class="nav-dropdown-trigger" aria-haspopup="true">Services</a>
         <div class="nav-dropdown-panel" role="menu">
           <a href="/services/" role="menuitem">All Services</a>
           <a href="/fence-installation/" role="menuitem">Fence Installation</a>
           <a href="/fence-repair/" role="menuitem">Fence Repair</a>
-          <a href="/services/fence-replacement/" role="menuitem">Fence Replacement</a>
           <a href="/fence-staining/" role="menuitem">Fence Staining</a>
-          <a href="/commercial-fencing/" role="menuitem">Commercial Fencing</a>
           <a href="/gate-installation/" role="menuitem">Gate Installation</a>
+          <a href="/custom-fence-design/" role="menuitem">Custom Fence Design</a>
           <a href="/deck-patio/" role="menuitem">Deck &amp; Patio</a>
           <a href="/retaining-wall/" role="menuitem">Retaining Walls</a>
+          <a href="/services/temporary-fence-rental/" role="menuitem">Temporary Fence Rental</a>
         </div>
       </div>
-      <!-- Fencing -->
       <div class="nav-dropdown">
-        <a href="/fencing/" class="nav-dropdown-trigger" aria-haspopup="true">Fencing</a>
+        <a href="/services/" class="nav-dropdown-trigger" aria-haspopup="true">Fencing</a>
         <div class="nav-dropdown-panel" role="menu">
-          <a href="/fencing/" role="menuitem">All Fence Types</a>
-          <a href="/fencing/wood-fence/" role="menuitem">Wood Fencing</a>
-          <a href="/fencing/vinyl-fence/" role="menuitem">Vinyl Fencing</a>
-          <a href="/fencing/chain-link/" role="menuitem">Chain Link</a>
-          <a href="/fencing/privacy-fence/" role="menuitem">Privacy Fence</a>
-          <a href="/fencing/ornamental-iron/" role="menuitem">Ornamental Iron</a>
-          <a href="/fencing/pool-fence/" role="menuitem">Pool Fence</a>
-          <a href="/fencing/ranch-fence/" role="menuitem">Ranch Fence</a>
-          <a href="/fencing/agricultural-fence/" role="menuitem">Agricultural Fence</a>
-          <a href="/fencing/temporary-fence/" role="menuitem">Temporary Fence</a>
+          <a href="/services/wood-fence-installation/" role="menuitem">Wood Fencing</a>
+          <a href="/services/vinyl-fence-installation/" role="menuitem">Vinyl Fencing</a>
+          <a href="/services/chain-link-fence-installation/" role="menuitem">Chain Link</a>
+          <a href="/services/privacy-fence-installation/" role="menuitem">Privacy Fence</a>
+          <a href="/services/temporary-fence-rental/" role="menuitem">Temporary Fence</a>
+          <a href="/custom-fence-design/" role="menuitem">Custom Fence Design</a>
         </div>
       </div>
-      <!-- Gates -->
-      <div class="nav-dropdown">
-        <a href="/gate-installation/" class="nav-dropdown-trigger" aria-haspopup="true">Gates</a>
-        <div class="nav-dropdown-panel" role="menu">
-          <a href="/gate-installation/" role="menuitem">All Gates</a>
-          <a href="/gate-installation/driveway-gates/" role="menuitem">Driveway Gates</a>
-          <a href="/gate-installation/automatic-gates/" role="menuitem">Automatic Gates</a>
-          <a href="/gate-installation/wood-gates/" role="menuitem">Wood Gates</a>
-          <a href="/gate-installation/iron-gates/" role="menuitem">Iron Gates</a>
-          <a href="/gate-installation/gate-repair/" role="menuitem">Gate Repair</a>
-        </div>
-      </div>
-      <!-- Decks -->
-      <div class="nav-dropdown">
-        <a href="/deck-patio/" class="nav-dropdown-trigger" aria-haspopup="true">Decks</a>
-        <div class="nav-dropdown-panel" role="menu">
-          <a href="/deck-patio/" role="menuitem">All Decks &amp; Patios</a>
-          <a href="/deck-patio/wood-deck/" role="menuitem">Wood Decks</a>
-          <a href="/deck-patio/composite-deck/" role="menuitem">Composite Decks</a>
-          <a href="/deck-patio/redwood-deck/" role="menuitem">Redwood Decks</a>
-          <a href="/deck-patio/deck-railing/" role="menuitem">Deck Railing</a>
-          <a href="/deck-patio/pergola/" role="menuitem">Pergolas</a>
-          <a href="/deck-patio/deck-repair/" role="menuitem">Deck Repair</a>
-        </div>
-      </div>
-      <!-- Patios -->
-      <div class="nav-dropdown">
-        <a href="/deck-patio/" class="nav-dropdown-trigger" aria-haspopup="true">Patios</a>
-        <div class="nav-dropdown-panel" role="menu">
-          <a href="/deck-patio/concrete-patio/" role="menuitem">Concrete Patios</a>
-          <a href="/deck-patio/paver-patio/" role="menuitem">Paver Patios</a>
-          <a href="/deck-patio/stamped-concrete/" role="menuitem">Stamped Concrete</a>
-          <a href="/deck-patio/stone-patio/" role="menuitem">Stone Patios</a>
-          <a href="/deck-patio/patio-cover/" role="menuitem">Patio Covers</a>
-          <a href="/deck-patio/patio-repair/" role="menuitem">Patio Repair</a>
-        </div>
-      </div>
-      <a href="/commercial-fencing/">Commercial</a>
-      <!-- Areas -->
+      <a href="/gate-installation/">Gates</a>
+      <a href="/deck-patio/">Decks &amp; Patios</a>
+      <a href="/commercial-projects/">Commercial</a>
       <div class="nav-dropdown">
         <a href="/fencing/" class="nav-dropdown-trigger" aria-haspopup="true">Areas</a>
         <div class="nav-dropdown-panel" role="menu">
           <a href="/fencing/" role="menuitem">All Areas</a>
+          <a href="/fencing/nevada-county/" role="menuitem">Nevada County</a>
+          <a href="/fencing/sacramento-county/" role="menuitem">Sacramento County</a>
           <a href="/fencing/grass-valley/" role="menuitem">Grass Valley</a>
           <a href="/fencing/nevada-city/" role="menuitem">Nevada City</a>
-          <a href="/fencing/auburn/" role="menuitem">Auburn</a>
-          <a href="/fencing/rocklin/" role="menuitem">Rocklin</a>
-          <a href="/fencing/roseville/" role="menuitem">Roseville</a>
-          <a href="/fencing/elk-grove/" role="menuitem">Elk Grove</a>
-          <a href="/fencing/folsom/" role="menuitem">Folsom</a>
-          <a href="/fencing/sacramento/" role="menuitem">Sacramento</a>
-          <a href="/fencing/lincoln/" role="menuitem">Lincoln</a>
-          <a href="/fencing/citrus-heights/" role="menuitem">Citrus Heights</a>
-          <a href="/fencing/alta-sierra/" role="menuitem">Alta Sierra</a>
           <a href="/fencing/penn-valley/" role="menuitem">Penn Valley</a>
-          <a href="/fencing/north-san-juan/" role="menuitem">North San Juan</a>
-          <a href="/fencing/lake-wildwood/" role="menuitem">Lake Wildwood</a>
           <a href="/fencing/rough-and-ready/" role="menuitem">Rough and Ready</a>
           <a href="/fencing/chicago-park/" role="menuitem">Chicago Park</a>
+          <a href="/fencing/north-san-juan/" role="menuitem">North San Juan</a>
+          <a href="/fencing/lake-wildwood/" role="menuitem">Lake Wildwood</a>
+          <a href="/fencing/alta-sierra/" role="menuitem">Alta Sierra</a>
+          <a href="/fencing/auburn/" role="menuitem">Auburn</a>
+          <a href="/fencing/sacramento/" role="menuitem">Sacramento</a>
+          <a href="/fencing/elk-grove/" role="menuitem">Elk Grove</a>
+          <a href="/fencing/folsom/" role="menuitem">Folsom</a>
+          <a href="/fencing/citrus-heights/" role="menuitem">Citrus Heights</a>
+          <a href="/fencing/roseville/" role="menuitem">Roseville</a>
+          <a href="/fencing/rocklin/" role="menuitem">Rocklin</a>
+          <a href="/fencing/lincoln/" role="menuitem">Lincoln</a>
         </div>
       </div>
       <a href="/fence-learning-center/">Resources</a>
