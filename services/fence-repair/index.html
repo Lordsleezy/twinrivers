@@ -1,395 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Fence Repair | Twin Rivers LLC</title>
-
-<meta name="description" content="Twin Rivers LLC provides professional wood fence installation services across Northern California. Find wood fence installation services in your city.">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+<title>Fence Repair in Sacramento Valley | Twin Rivers Fence</title>
+<link rel="canonical" href="https://twinriversfence.com/services/fence-repair/">
+<meta name="description" content="Fence repair for leaning posts, broken panels, storm damage, and failing gates across the Sacramento Valley. Licensed Twin Rivers Fence (#1089233). Call (916) 906-2254.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:title" content="Fence Repair | Twin Rivers Fence">
+<meta property="og:description" content="Professional fence repair for wood, vinyl, chain link, and gates. Free estimates.">
+<meta property="og:url" content="https://twinriversfence.com/services/fence-repair/">
+<link rel="stylesheet" href="/assets/lead-chat.css">
+<link rel="stylesheet" href="/assets/twinrivers-mobile.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Fence Repair",
+  "description": "Fence repair for residential and commercial properties across the Sacramento Valley and Sierra foothills.",
+  "provider": {
+    "@type": "HomeAndConstructionBusiness",
+    "name": "Twin Rivers Fence",
+    "telephone": "+19169062254",
+    "url": "https://twinriversfence.com/",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Grass Valley",
+      "addressRegion": "CA",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": ["Sacramento", "Roseville", "Rocklin", "Folsom", "Elk Grove", "Grass Valley"],
+  "url": "https://twinriversfence.com/services/fence-repair/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://twinriversfence.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Fence Repair", "item": "https://twinriversfence.com/services/fence-repair/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can a leaning fence be repaired or does it need replacement?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Many leaning sections can be repaired by resetting posts, replacing rotten bases, or rebuilding a short run. If posts and rails are failing across most of the line, replacement is usually the better long-term value. We inspect on-site and explain both options before work starts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you repair wood, vinyl, and chain link fences?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Twin Rivers Fence repairs wood privacy and ranch fences, vinyl panels and posts, chain link fabric and hardware, and most pedestrian or driveway gates tied into those systems."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How quickly can fence repair be scheduled?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Scheduling depends on crew availability and material needs. Call (916) 906-2254 with photos if possible so we can prioritize storm damage, pet containment issues, and unsafe sections."
+      }
+    }
+  ]
+}
+</script>
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-html{
-scroll-behavior:smooth;
-}
-
-body{
-font-family:'Inter',sans-serif;
-background:#0f1117;
-color:#eee;
-min-height:100vh;
-overflow-x:hidden;
-}
-
-header{
-position:fixed;
-width:100%;
-background:rgba(10,10,10,.75);
-backdrop-filter:blur(10px);
-z-index:1000;
-}
-
-nav{
-max-width:1200px;
-margin:auto;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 20px;
-}
-
-nav h2{
-color:white;
-}
-
-nav h2 a{
-color:white;
-text-decoration:none;
-}
-
-nav ul {
-display:flex;
-list-style:none;
-}
-
-nav li {
-position:relative;
-margin-left:25px;
-}
-
-nav a {
-display:block;
-padding:12px 15px;
-color:white;
-text-decoration:none;
-transition:color .2s ease;
-}
-
-nav a:hover {
-color:#ff7b00;
-}
-
-nav li ul {
-position:absolute;
-top:100%;
-left:0;
-background:#1c1f2a;
-border-radius:6px;
-min-width:220px;
-opacity:0;
-visibility:hidden;
-transform:translateY(10px);
-transition:all .25s ease;
-pointer-events:none;
-z-index:1001;
-display:grid;
-grid-template-columns:repeat(3, auto);
-gap:10px 40px;
-padding:15px 20px;
-}
-
-nav li:hover > ul,
-nav li ul:hover {
-opacity:1;
-visibility:visible;
-transform:translateY(0);
-pointer-events:auto;
-}
-
-nav li ul li {
-margin:0;
-}
-
-nav li ul li a {
-padding:8px 12px;
-white-space:nowrap;
-}
-
-nav li ul li a:hover {
-background:#ff7b00;
-border-radius:4px;
-}
-
-.nav-phone {
-color:#ff7b00;
-font-weight:bold;
-text-decoration:none;
-margin-left:30px;
-}
-
-.nav-phone:hover {
-text-decoration:underline;
-}
-
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-position:relative;
-width:100%;
-background:url("https://images.unsplash.com/photo-1503387762-592deb58ef4e");
-background-size:cover;
-background-position:center;
-}
-
-.hero::before{
-content:"";
-position:absolute;
-inset:0;
-background:rgba(0,0,0,0.55);
-z-index:0;
-}
-
-.hero > *{
-position:relative;
-z-index:1;
-}
-
-.hero h1{
-font-size:56px;
-margin-top:15px;
-}
-
-.hero p{
-font-size:20px;
-opacity:.9;
-max-width:800px;
-margin:20px auto;
-}
-
-.content-section{
-max-width:1200px;
-margin:0 auto;
-padding:80px 20px;
-text-align:center;
-}
-
-.content-section h2{
-font-size:32px;
-margin-bottom:40px;
-color:#fff;
-}
-
-.content-section p{
-font-size:18px;
-line-height:1.8;
-margin-bottom:30px;
-color:#d0d0d0;
-max-width:800px;
-margin-left:auto;
-margin-right:auto;
-}
-
-.city-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:15px;
-max-width:900px;
-margin:40px auto;
-}
-
-.city-grid a{
-display:block;
-padding:14px;
-background:#111;
-border-radius:6px;
-text-align:center;
-text-decoration:none;
-color:#fff;
-transition:all .3s ease;
-border:1px solid rgba(255,255,255,0.08);
-}
-
-.city-grid a:hover{
-background:#1f1f1f;
-border-color:#ff7b00;
-transform:translateY(-2px);
-}
-
-footer{
-background:#090b10;
-text-align:center;
-padding:50px;
-margin-top:80px;
-}
-
+:root { --bg:#0f1117; --panel:#151821; --text:#eee; --muted:#a8b0c0; --accent:#d4a853; }
+*{box-sizing:border-box} body{margin:0;font-family:Georgia,"Times New Roman",serif;background:linear-gradient(165deg,#0a0a0a,#141821 45%,#0f1117);color:var(--text);line-height:1.55}
+a{color:var(--accent)} header{position:sticky;top:0;background:rgba(10,10,10,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.08);z-index:20}
+.nav{max-width:1100px;margin:auto;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;font-family:system-ui,sans-serif}
+.nav a.brand{color:#fff;font-weight:700;text-decoration:none}
+.nav-links{display:flex;gap:1rem;flex-wrap:wrap;font-size:.92rem}
+.nav-links a{color:#ddd;text-decoration:none}
+.hero,.section{max-width:1100px;margin:0 auto;padding:3rem 20px}
+.hero h1{font-size:clamp(2rem,4vw,3rem);margin:0 0 .75rem}
+.hero p,.section p{color:var(--muted);font-family:system-ui,sans-serif}
+.eyebrow{font-family:system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;font-size:.75rem;color:var(--accent)}
+.btn{display:inline-block;margin:.4rem .4rem 0 0;padding:.85rem 1.2rem;background:var(--accent);color:#111;text-decoration:none;font-family:system-ui,sans-serif;font-weight:700}
+.btn.secondary{background:transparent;border:1px solid var(--accent);color:var(--accent)}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:1.25rem}
+.card{background:var(--panel);padding:1.25rem;border:1px solid rgba(255,255,255,.06)}
+.card h3{margin:.2rem 0 .5rem;font-size:1.15rem}
+.card p,.card li{font-family:system-ui,sans-serif;color:var(--muted);font-size:.95rem}
+ul{padding-left:1.1rem}
+.faq details{background:var(--panel);padding:1rem 1.1rem;margin:.6rem 0;border:1px solid rgba(255,255,255,.06);font-family:system-ui,sans-serif}
+.faq summary{cursor:pointer;font-weight:700}
+.cities{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.cities a{font-family:system-ui,sans-serif;padding:.55rem .8rem;background:#111;border:1px solid rgba(255,255,255,.08);text-decoration:none;color:#fff;font-size:.9rem}
+footer{margin-top:3rem;padding:2rem 20px;text-align:center;border-top:1px solid rgba(255,255,255,.08);font-family:system-ui,sans-serif;color:var(--muted)}
 </style>
-
-<!-- twinrivers-lead-chat:head-start -->
-<link rel="stylesheet" href="../../assets/lead-chat.css">
-<link rel="stylesheet" href="../../assets/twinrivers-mobile.css">
-<!-- twinrivers-lead-chat:head-end -->
 </head>
-
 <body>
-
 <header>
-
-<nav>
-
-<h2><a href="/">Twin Rivers</a></h2>
-
-<a href="tel:+19169062254" class="nav-phone">916-906-2254</a>
-
-<ul>
-
-<li><a href="#">Fencing</a>
-<ul>
-<li><a href="/fencing/elk-grove">Elk Grove</a></li>
-<li><a href="/fencing/sacramento">Sacramento</a></li>
-<li><a href="/fencing/roseville">Roseville</a></li>
-<li><a href="/fencing/rocklin">Rocklin</a></li>
-<li><a href="/fencing/lincoln">Lincoln</a></li>
-<li><a href="/fencing/folsom">Folsom</a></li>
-<li><a href="/fencing/auburn">Auburn</a></li>
-<li><a href="/fencing/grass-valley">Grass Valley</a></li>
-<li><a href="/fencing/nevada-city">Nevada City</a></li>
-<li><a href="/fencing/penn-valley">Penn Valley</a></li>
-<li><a href="/fencing/alta-sierra">Alta Sierra</a></li>
-<li><a href="/fencing/north-san-juan">North San Juan</a></li>
-<li><a href="/fencing/chicago-park">Chicago Park</a></li>
-<li><a href="/fencing/rough-and-ready">Rough and Ready</a></li>
-<li><a href="/fencing/lake-wildwood">Lake Wildwood</a></li>
-</ul>
-</li>
-
-<li><a href="#">Services</a>
-<ul>
-<li><a href="/services/fence-repair/">Fence Repair</a></li>
-<li><a href="/services/chain-link-fence-installation/">Chain Link Fence Installation</a></li>
-<li><a href="/services/vinyl-fence-installation/">Vinyl Fence Installation</a></li>
-<li><a href="/services/privacy-fence-installation/">Privacy Fence Installation</a></li>
-<li><a href="/services/fence-repair/">Fence Repair</a></li>
-<li><a href="/services/gate-installation/">Gate Installation</a></li>
-</ul>
-</li>
-
-<li><a href="#">Property Improvement</a>
-<ul>
-<li><a href="/property-improvement/deck-installation">Deck Installation</a></li>
-<li><a href="/property-improvement/gate-installation">Gate Installation</a></li>
-<li><a href="/property-improvement/fence-repair">Fence Repair</a></li>
-<li><a href="/property-improvement/property-upgrades">Property Upgrades</a></li>
-<li><a href="/property-improvement/yard-improvements">Yard Improvements</a></li>
-</ul>
-</li>
-
-<li><a href="/#areas">Service Areas</a></li>
-<li><a href="/#testimonials">Testimonials</a></li>
-<li><a href="/#about">About Us</a></li>
-<li><a href="/#faq">FAQ</a></li>
-
-</ul>
-
-</nav>
-
+  <div class="nav">
+    <a class="brand" href="/">Twin Rivers Fence</a>
+    <a href="tel:+19169062254">Call (916) 906-2254</a>
+    <div class="nav-links">
+      <a href="/services/wood-fence-installation/">Installation</a>
+      <a href="/services/privacy-fence-installation/">Privacy</a>
+      <a href="/reviews/">Reviews</a>
+      <a href="/#contact">Quote</a>
+    </div>
+  </div>
 </header>
 
 <section class="hero">
-
-<h1>Fence Repair</h1>
-
-<p>Twin Rivers LLC provides professional wood fence installation services across Northern California. Select your city to learn more about wood fence installation in your area.</p>
-
+  <p class="eyebrow">Licensed #1089233</p>
+  <h1>Fence Repair Across the Sacramento Valley</h1>
+  <p>Leaning posts, broken panels, storm damage, loose rails, and gates that no longer latch — Twin Rivers Fence diagnoses the failure and repairs the section that needs work, or tells you plainly when a full replacement is the smarter spend.</p>
+  <a class="btn" href="tel:+19169062254">Call (916) 906-2254</a>
+  <a class="btn secondary" href="/#contact">Request a Repair Quote</a>
 </section>
 
-<div class="content-section">
+<section class="section">
+  <h2>Common fence problems we fix</h2>
+  <div class="grid">
+    <article class="card"><h3>Leaning or soft posts</h3><p>Soil settlement, poor footing, or rot at grade. We reset or replace posts and reconnect rails so the line stands true again.</p></article>
+    <article class="card"><h3>Broken boards and panels</h3><p>Wind, impact, and age take out pickets and vinyl sections. Matching material and hardware keeps the repair from looking patched.</p></article>
+    <article class="card"><h3>Gate and hardware failures</h3><p>Sagging walk gates, sticky latches, and driveway gate alignment issues that leave yards insecure.</p></article>
+    <article class="card"><h3>Storm and tree damage</h3><p>Fallen limbs and saturated ground can take down whole runs. We stabilize unsafe sections first, then rebuild cleanly.</p></article>
+  </div>
+</section>
 
-<h2>Fence Repair by City</h2>
+<section class="section">
+  <h2>How fence repair works with Twin Rivers</h2>
+  <ol style="font-family:system-ui,sans-serif;color:var(--muted);padding-left:1.2rem">
+    <li>Share photos and the address — or schedule a site look.</li>
+    <li>We identify posts, rails, panels, and hardware that actually failed.</li>
+    <li>You get a clear repair scope versus replacement recommendation.</li>
+    <li>We complete the work with materials suited to your existing fence.</li>
+  </ol>
+  <p style="margin-top:1rem">Related services: <a href="/services/wood-fence-installation/">fence installation</a>, <a href="/services/privacy-fence-installation/">privacy fencing</a>, and <a href="/services/gate-installation/">gate installation</a>.</p>
+</section>
 
-<p>Twin Rivers LLC installs cedar, redwood, and pressure-treated wood fencing for residential and commercial properties. Select your city below to view local wood fence installation services.</p>
+<section class="section faq">
+  <h2>Fence repair FAQs</h2>
+  <details><summary>Can a leaning fence be repaired or does it need replacement?</summary><p>Many leaning sections can be repaired by resetting posts or rebuilding a short run. Widespread rot usually means replacement is the better long-term value.</p></details>
+  <details><summary>Do you repair wood, vinyl, and chain link?</summary><p>Yes — wood privacy and ranch fences, vinyl systems, chain link, and gates tied into those fences.</p></details>
+  <details><summary>How do I get on the schedule?</summary><p>Call <a href="tel:+19169062254">(916) 906-2254</a> or use the <a href="/#contact">quote form</a>. Photos help us prioritize unsafe or containment-critical repairs.</p></details>
+</section>
 
-<div class="city-grid">
-
-<a href="/services/fence-repair-sacramento/">Sacramento</a>
-<a href="/services/fence-repair-elk-grove/">Elk Grove</a>
-<a href="/services/fence-repair-roseville/">Roseville</a>
-<a href="/services/fence-repair-folsom/">Folsom</a>
-<a href="/services/fence-repair-citrus-heights/">Citrus Heights</a>
-<a href="/services/fence-repair-rocklin/">Rocklin</a>
-<a href="/services/fence-repair-grass-valley/">Grass Valley</a>
-<a href="/services/fence-repair-nevada-city/">Nevada City</a>
-<a href="/services/fence-repair-auburn/">Auburn</a>
-<a href="/services/fence-repair-lincoln/">Lincoln</a>
-<a href="/services/fence-repair-penn-valley/">Penn Valley</a>
-<a href="/services/fence-repair-lake-wildwood/">Lake Wildwood</a>
-<a href="/services/fence-repair-rough-and-ready/">Rough and Ready</a>
-<a href="/services/fence-repair-north-san-juan/">North San Juan</a>
-<a href="/services/fence-repair-chicago-park/">Chicago Park</a>
-<a href="/services/fence-repair-alta-sierra/">Alta Sierra</a>
-
-</div>
-
-</div>
+<section class="section">
+  <h2>Fence repair by city</h2>
+  <p>For city-focused repair pages and local specialists, start here or visit our local websites:</p>
+  <div class="cities">
+    <a href="/services/fence-repair-sacramento/">Sacramento</a>
+    <a href="/services/fence-repair-roseville/">Roseville</a>
+    <a href="/services/fence-repair-rocklin/">Rocklin</a>
+    <a href="/services/fence-repair-folsom/">Folsom</a>
+    <a href="/services/fence-repair-elk-grove/">Elk Grove</a>
+    <a href="/services/fence-repair-grass-valley/">Grass Valley</a>
+    <a href="https://rocklinfencing.com/fence-repair/">Rocklin site</a>
+    <a href="https://folsomfencing.com/fence-repair/">Folsom site</a>
+    <a href="https://rosevillefencingca.com/fence-repair/">Roseville site</a>
+    <a href="https://elkgrovefencing.com/fence-repair/">Elk Grove site</a>
+    <a href="https://grassvalleyfencing.com/fence-repair/">Grass Valley site</a>
+  </div>
+</section>
 
 <footer>
-
-<p>Twin Rivers LLC</p>
-<p>Sacramento Region • Northern California</p>
-<p>Licensed Contractor #1089233</p>
-
-
-
-<p class="footer-legal"><a href="../../privacy.html">Privacy Policy</a> · <a href="../../terms.html">Terms of Service</a></p>
-
+  Twin Rivers Fence · License #1089233 · <a href="/">Home</a> · <a href="/reviews/">Reviews</a> · <a href="tel:+19169062254">(916) 906-2254</a>
 </footer>
-<aside class="tr-sticky-call" aria-label="Call now"><a href="tel:+19169062254">Call Now</a></aside>
-
-<!-- twinrivers-lead-chat:body-start -->
-<form name="lead-chat" method="POST" action="/" data-netlify="true" netlify>
-  <input type="hidden" name="form-name" value="lead-chat">
-  <p style="display:none;">
-    <label>Project Type <input name="project_type"></label>
-    <label>City <input name="city"></label>
-    <label>Size <input name="size"></label>
-    <label>Name <input name="name"></label>
-    <label>Phone <input name="phone"></label>
-  </p>
-</form>
-<div class="lead-chat-nudge" id="leadChatNudge" role="status" aria-live="polite">
-  Want a quick fence estimate?
-  <button type="button" id="leadChatNudgeBtn">Open chat</button>
-</div>
-<button type="button" class="lead-chat-toggle" id="leadChatToggle" aria-label="Open chat" aria-expanded="false" aria-controls="leadChatPanel">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-  </svg>
-</button>
-<div class="lead-chat-backdrop" id="leadChatBackdrop" hidden></div>
-<section class="lead-chat-panel" id="leadChatPanel" role="dialog" aria-labelledby="leadChatTitle" aria-modal="true" hidden>
-  <header class="lead-chat-header">
-    <div>
-      <h2 id="leadChatTitle">Twin Rivers Assistant</h2>
-      <span>Usually replies instantly</span>
-    </div>
-    <button type="button" class="lead-chat-close" id="leadChatClose" aria-label="Close chat">×</button>
-  </header>
-  <div class="lead-chat-messages" id="leadChatMessages" role="log" aria-live="polite" aria-relevant="additions"></div>
-  <div class="lead-chat-typing" id="leadChatTyping" aria-hidden="true">
-    <span></span><span></span><span></span>
-  </div>
-  <div class="lead-chat-options" id="leadChatOptions" hidden></div>
-  <p class="lead-chat-status" id="leadChatStatus"></p>
-  <p class="lead-chat-consent" id="leadChatConsent">By submitting your information, you agree to be contacted by Twin Rivers Fence regarding your project.</p>
-  <div class="lead-chat-input-row">
-    <input type="text" id="leadChatInput" placeholder="Type your message…" autocomplete="section-chat" enterkeyhint="send">
-    <button type="button" class="lead-chat-send" id="leadChatSend">Send</button>
-  </div>
-</section>
-<script src="../../assets/lead-chat.js" defer></script>
-<!-- twinrivers-lead-chat:body-end -->
 </body>
 </html>

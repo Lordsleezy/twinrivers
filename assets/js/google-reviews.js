@@ -7,7 +7,7 @@
     ok: true,
     source: "verified-google-maps-link",
     name: "Twin Rivers Fence",
-    rating: 5.0,
+    rating: null,
     user_ratings_total: null,
     url: VERIFIED_GOOGLE_MAPS_URL,
     reviews: []
@@ -24,6 +24,7 @@
   }
 
   function starMarkup(rating) {
+    if (rating == null) return "";
     var score = Math.round(Number(rating) || 0);
     var stars = "";
     for (var i = 1; i <= 5; i += 1) {
@@ -34,7 +35,7 @@
 
   function formatRating(rating) {
     var numeric = Number(rating);
-    return Number.isFinite(numeric) ? numeric.toFixed(1) + " on Google" : "Rated on Google";
+    return rating != null && Number.isFinite(numeric) ? numeric.toFixed(1) + " on Google" : "See our Google reviews";
   }
 
   function formatCount(count) {
@@ -45,8 +46,17 @@
   }
 
   function renderTrustPanel(data) {
-    var rating = data.rating != null ? data.rating : FALLBACK_PROFILE.rating;
+    var rating = data.rating != null ? data.rating : null;
+    var mapsUrl = data.url || data.google_maps_url || VERIFIED_GOOGLE_MAPS_URL;
     var countLabel = formatCount(data.user_ratings_total);
+    var ratingMarkup = rating != null
+      ? '<div class="google-trust-rating-row">' +
+          '<span class="google-review-stars" aria-label="' + rating + ' out of 5 stars on Google">' + starMarkup(rating) + '</span>' +
+          '<strong class="google-trust-score">' + Number(rating).toFixed(1) + '</strong>' +
+        '</div>'
+      : '<div class="google-trust-rating-row">' +
+          '<a class="google-trust-see-reviews" href="' + mapsUrl + '" target="_blank" rel="noopener noreferrer">See our Google reviews</a>' +
+        '</div>';
     return '<div class="google-trust-panel">' +
       '<div class="google-trust-badge" aria-label="Google Business Profile">' +
         '<div class="google-logo-mark" aria-hidden="true">' +
@@ -54,10 +64,7 @@
         '</div>' +
         '<div class="google-trust-meta">' +
           '<span class="google-trust-label">Google Business Profile</span>' +
-          '<div class="google-trust-rating-row">' +
-            '<span class="google-review-stars" aria-label="' + rating + ' out of 5 stars on Google">' + starMarkup(rating) + '</span>' +
-            '<strong class="google-trust-score">' + Number(rating).toFixed(1) + '</strong>' +
-          '</div>' +
+          ratingMarkup +
           '<span class="google-trust-business">Twin Rivers Fence · Grass Valley, CA · ' + countLabel + '</span>' +
         '</div>' +
       '</div>' +
@@ -72,14 +79,18 @@
   function render(data) {
     var profile = data && data.ok !== false ? data : FALLBACK_PROFILE;
     var mapsUrl = profile.url || profile.google_maps_url || VERIFIED_GOOGLE_MAPS_URL;
-    var rating = profile.rating != null ? profile.rating : FALLBACK_PROFILE.rating;
+    var rating = profile.rating != null ? profile.rating : null;
     var count = profile.user_ratings_total != null ? profile.user_ratings_total : profile.review_count;
 
     setText(".google-review-rating", formatRating(rating));
     setText(".google-review-count", formatCount(count));
     qsAll(".google-star-row").forEach(function (node) {
       node.innerHTML = starMarkup(rating);
-      node.setAttribute("aria-label", rating + " out of 5 stars on Google");
+      if (rating != null) {
+        node.setAttribute("aria-label", rating + " out of 5 stars on Google");
+      } else {
+        node.removeAttribute("aria-label");
+      }
     });
     qsAll(".google-review-link").forEach(function (node) {
       node.setAttribute("href", mapsUrl);
@@ -123,9 +134,6 @@
         if (!data || data.ok === false) {
           render(FALLBACK_PROFILE);
           return;
-        }
-        if (data.rating == null) {
-          data.rating = FALLBACK_PROFILE.rating;
         }
         if (!data.url) {
           data.url = VERIFIED_GOOGLE_MAPS_URL;
