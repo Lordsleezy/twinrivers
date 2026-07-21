@@ -1,5 +1,7 @@
-[build]
+﻿[build]
   publish = "."
+
+# Netlify serves 404.html automatically for missing URLs (no SPA catch-all).
 
 [functions]
   directory = "netlify/functions"
@@ -8,8 +10,3 @@
   for = "/assets/js/*"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
