@@ -2616,12 +2616,198 @@ footer a:hover {
   }
 }
 
+/* ── Bright, colorful theme ─────────────────────────────────── */
+:root {
+  --gold: #ff6b5b;
+  --gold-bright: #ff806f;
+  --black: #fffaf2;
+  --panel: #ffffff;
+  --soft: #5f6472;
+  --ink: #24324a;
+  --teal: #16b8a6;
+  --sky: #7bc9f5;
+  --sun: #ffd166;
+  --lavender: #eee7ff;
+}
+
+html,
+body { background: var(--black); color: var(--ink); }
+body p { color: var(--soft); }
+
+.topbar {
+  background: rgba(255,250,242,0.94);
+  border-bottom-color: rgba(36,50,74,0.1);
+}
+.brand-link, .site-nav > a, .nav-dropdown > .nav-dropdown-trigger { color: var(--ink); }
+.site-nav > a:hover,
+.nav-dropdown:hover > .nav-dropdown-trigger,
+.site-nav > a[aria-current="page"],
+.nav-dropdown[data-active] > .nav-dropdown-trigger { color: var(--gold); }
+.nav-dropdown-panel {
+  background: #fff;
+  border-color: rgba(36,50,74,0.12);
+  border-top-color: var(--gold);
+  box-shadow: 0 16px 36px rgba(36,50,74,0.12);
+  scrollbar-color: rgba(255,107,91,0.45) transparent;
+}
+.nav-dropdown-panel a { color: var(--soft); }
+.nav-dropdown-panel a:hover { color: var(--gold); background: #fff1ed; }
+.top-call { border-color: rgba(255,107,91,0.55); color: var(--gold); }
+.top-call:hover { border-color: var(--gold); color: #e65345; }
+.nav-toggle { border-color: rgba(36,50,74,0.2); }
+.nav-toggle span:not(.sr-only) { background: var(--ink); }
+
+#hero {
+  background: linear-gradient(135deg, #fff8e9 0%, #e8f8f5 52%, #eaf4ff 100%);
+}
+#hero::before {
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 18%, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.35) 42%, transparent 72%),
+    linear-gradient(180deg, rgba(255,250,242,0.3) 0%, rgba(255,250,242,0.04) 38%, rgba(255,250,242,0.4) 100%);
+}
+.hero-inner { background: rgba(255,255,255,0.58); box-shadow: 0 18px 50px rgba(36,50,74,0.1); }
+.eyebrow { color: #68748a; }
+h1, h2 { color: var(--ink); }
+h1 { text-shadow: none; }
+h1 em, .section-tag { color: var(--gold); }
+.sub { color: #58657a; }
+.btn-gold { background: var(--gold); color: #fffaf2; box-shadow: 0 8px 18px rgba(255,107,91,0.22); }
+.btn-gold:hover, .btn-gold:focus-visible { background: var(--gold-bright); }
+.scroll-cue { color: #68748a; }
+.scroll-line { background: rgba(36,50,74,0.35); }
+
+.photo-section::before { background: linear-gradient(to right, rgba(36,50,74,0.56) 0%, rgba(36,50,74,0.14) 60%, transparent 100%); }
+.photo-section.overlay-right::before { background: linear-gradient(to left, rgba(36,50,74,0.56) 0%, rgba(36,50,74,0.14) 60%, transparent 100%); }
+.photo-section.overlay-soft::before { background: rgba(36,50,74,0.28); }
+.photo-content h2, .photo-content p, .photo-content .section-tag, .panorama-title { color: #fff; text-shadow: 0 2px 16px rgba(36,50,74,0.35); }
+
+.dark-section, .dark-section.alt, #contact { background: #fffaf2; }
+.dark-section.alt { background: #eef8f6; }
+.who, .commercial-section, .expanded-areas { background: #fff4d8; }
+.legacy-section, .professional-section, .google-reviews-section { background: #eee7ff; }
+.quote-calculator-section { background: #eaf4ff; }
+.stat-card, .service-card, .commercial-card, .professional-card, .quote-form-card, .quote-result-card {
+  background: rgba(255,255,255,0.82);
+  border-color: rgba(36,50,74,0.12);
+  box-shadow: 0 12px 30px rgba(36,50,74,0.07);
+}
+.stat-card:hover, .service-card:hover, .commercial-card:hover, .professional-card:hover { border-color: rgba(255,107,91,0.5); }
+.stat-card { border-left-color: var(--teal); }
+.stat-number, .service-icon, .commercial-card svg, .professional-card svg { color: var(--teal); }
+.stat-label, .small, .fine-print, .sub-text, .attribution { color: #68748a; }
+.legacy-stat { border-left-color: var(--gold); background: rgba(255,255,255,0.55); }
+.legacy-values span, .expanded-area-tag, .city-tag { border-color: rgba(22,184,166,0.3); background: rgba(255,255,255,0.5); color: var(--ink); }
+.legacy-values span:hover, .expanded-area-tag:hover, .city-tag:hover { border-color: var(--teal); color: var(--teal); }
+.areas, .google-review-actions { color: var(--ink); }
+
+.commercial-trust-strip { background: rgba(255,255,255,0.5); border-color: rgba(36,50,74,0.1); color: var(--teal); }
+.river-chat, .river-mascot-card { background: #fff; border-color: rgba(36,50,74,0.12); box-shadow: 0 20px 50px rgba(36,50,74,0.1); }
+.river-chat-top, .chat-composer { border-color: rgba(36,50,74,0.1); }
+.river-status span, .read-receipt { color: #68748a; }
+.river-avatar { background: linear-gradient(145deg, var(--gold), var(--sun)); color: #fff; }
+.chat-message .message-bubble { background: #f1f6ff; border-color: #d9e5f5; color: var(--ink); }
+.chat-message.user .message-bubble { background: #fff0ec; border-color: #ffc9c1; color: var(--ink); }
+.quick-reply { background: #f5fbfa; border-color: #b9e7df; color: var(--ink); }
+.quick-reply:hover, .quick-reply:focus-visible { border-color: var(--teal); color: var(--teal); }
+.chat-send { background: var(--teal); color: #fff; }
+.chat-send:hover, .chat-send:focus-visible { background: #0e9d8e; }
+.lead-complete-note { background: #e5f8f4; border-left-color: var(--teal); color: #35655e; }
+.river-mascot-card { background: linear-gradient(145deg, #fff4d8, #eaf4ff); }
+.speech-bubble { background: #fff; border-color: rgba(255,107,91,0.3); color: var(--ink); }
+
+.quote-field input, .quote-field select, .quote-field textarea { background: #fff; border-color: #cbd7e7; color: var(--ink); }
+.quote-field label, .estimate-range-label { color: #68748a; }
+.estimate-range { color: var(--teal); }
+.offer-card { background: #fff4d8; border-color: #f4d98b; color: var(--ink); }
+.offer-card strong { color: var(--gold); }
+.quote-result-card a, .google-review-actions .btn-outline { color: var(--gold) !important; border-color: rgba(255,107,91,0.45) !important; }
+
+main .dark-section h2,
+main .dark-section h3,
+main .dark-section strong { color: var(--ink); }
+main .dark-section p,
+main .dark-section li,
+main .google-review-card p,
+main .quote-status { color: var(--soft); }
+main .dark-section a:not(.btn-gold) { color: var(--ink); }
+main .dark-section .google-review-link,
+main .dark-section .quote-result-card a { color: var(--gold); }
+main .dark-section .section-tag,
+main .commercial-intro .section-tag { color: var(--gold); }
+.legacy-copy .sub-text,
+.commercial-intro .sub-text,
+.legacy-copy p,
+.commercial-intro p,
+.seo-service-copy,
+.expanded-area-tag,
+.city-tag { color: var(--soft); }
+.legacy-values,
+.legacy-stat strong,
+.commercial-card h3,
+.professional-card h3,
+.google-review-card strong { color: var(--ink); }
+.commercial-trust-strip span { color: var(--teal); }
+.google-review-card span { color: #68748a; }
+.brand-mark { display: inline-flex; width: 28px; height: 28px; margin-right: 1.5rem; flex: 0 0 auto; }
+.brand-mark svg { display: block; width: 100%; height: 100%; border-radius: 5px; box-shadow: 0 4px 10px rgba(36,50,74,0.14); }
+
+.commercial-section { position: relative; overflow: hidden; }
+.commercial-section::before {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  right: -150px;
+  top: 90px;
+  border-radius: 50%;
+  background: rgba(123,201,245,0.22);
+  filter: blur(8px);
+  pointer-events: none;
+}
+.commercial-section > * { position: relative; z-index: 1; }
+.commercial-gallery {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 1rem;
+  margin: 2.5rem 0 2rem;
+}
+.commercial-gallery-card {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(36,50,74,0.12);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 16px 34px rgba(36,50,74,0.1);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.commercial-gallery-card:first-child { transform: translateY(-10px); }
+.commercial-gallery-card:hover { transform: translateY(-6px); box-shadow: 0 22px 42px rgba(36,50,74,0.16); }
+.commercial-gallery-card:first-child:hover { transform: translateY(-16px); }
+.commercial-gallery-card img { display: block; width: 100%; height: 220px; object-fit: cover; }
+.commercial-gallery-card figcaption { display: grid; gap: .25rem; padding: 1rem 1.1rem 1.15rem; }
+.commercial-gallery-card figcaption strong { color: var(--ink); font-size: .95rem; }
+.commercial-gallery-card figcaption span { color: var(--soft); font-size: .83rem; line-height: 1.5; }
+
+@media (max-width: 900px) {
+  .site-nav { background: #fff; border-bottom-color: rgba(36,50,74,0.1); }
+  .nav-dropdown-panel { border-left-color: var(--gold); box-shadow: none; }
+  .brand-mark { margin-right: 0; }
+  .commercial-gallery { grid-template-columns: 1fr 1fr; }
+  .commercial-gallery-card:first-child { transform: none; }
+}
+@media (max-width: 600px) {
+  .commercial-gallery { grid-template-columns: 1fr; }
+  .commercial-gallery-card img { height: 210px; }
+}
+
 </style>
 </head>
 <body>
 <header class="topbar">
   <div class="topbar-inner">
     <a class="brand-link" href="/">Twin Rivers Fence</a>
+    <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><rect width="32" height="32" fill="#0a0a0a"/><path d="M7 23h18M9 13h14M11 8l3 4v14h-3V8Zm8 0 3 4v14h-3V8Z" fill="none" stroke="#d4a853" stroke-width="2" stroke-linejoin="round"/></svg></span>
     <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" id="nav-toggle-btn">
       <span class="sr-only">Menu</span>
       <span aria-hidden="true"></span>
@@ -2842,6 +3028,20 @@ footer a:hover {
       <p class="sub-text">Trusted by property owners, contractors, HOAs, and businesses throughout Northern California.</p>
       <p>Twin Rivers Fence delivers professional fencing solutions for commercial and multi-property projects of all sizes.</p>
       <p>Whether you're securing a construction site, upgrading an apartment community, protecting industrial equipment, or improving access control for a commercial property, our team has the experience and equipment to deliver dependable results.</p>
+    </div>
+    <div class="commercial-gallery" aria-label="Commercial fence project examples">
+      <figure class="commercial-gallery-card">
+        <img src="assets/gallery/job8.jpg" alt="Wood privacy fence installation with a long, clean run" loading="lazy" decoding="async">
+        <figcaption><strong>Fence installation</strong><span>Clean, durable runs that scale from property lines to larger sites.</span></figcaption>
+      </figure>
+      <figure class="commercial-gallery-card">
+        <img src="assets/gallery/job13.jpg" alt="White vinyl fence and double gate installation" loading="lazy" decoding="async">
+        <figcaption><strong>Gate systems</strong><span>Functional access points with clean lines and dependable hardware.</span></figcaption>
+      </figure>
+      <figure class="commercial-gallery-card">
+        <img src="assets/gallery/job7.jpg" alt="Detailed wood fence and gate craftsmanship" loading="lazy" decoding="async">
+        <figcaption><strong>Built details</strong><span>Thoughtful construction details that support long-term performance.</span></figcaption>
+      </figure>
     </div>
     <div class="commercial-grid">
       <article class="commercial-card">
