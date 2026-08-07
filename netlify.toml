@@ -5,6 +5,42 @@
 [functions]
   directory = "netlify/functions"
 
+[[redirects]]
+  from = "/fencing/grass-valley/"
+  to = "https://grassvalleyfencing.com/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/fencing/granite-bay/"
+  to = "https://granitebayfencing.com/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/fencing/elk-grove/"
+  to = "https://elkgrovefencing.com/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/fencing/folsom/"
+  to = "https://folsomfencing.com/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/fencing/roseville/"
+  to = "https://rosevillefencingca.com/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/fencing/rocklin/"
+  to = "https://rocklinfencing.com/"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/assets/js/*"
   [headers.values]
