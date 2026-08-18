@@ -66,6 +66,9 @@ html {
   scroll-behavior: smooth;
   background: var(--black);
 }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
 
 body {
   overflow-x: hidden;
@@ -419,7 +422,6 @@ h2 {
   display: flex;
   align-items: center;
   isolation: isolate;
-  will-change: opacity, transform, filter;
 }
 
 .photo-section.short {
@@ -486,7 +488,6 @@ h2 {
 .dark-section {
   background: #0d0d0d;
   padding: 6rem 8vw;
-  will-change: opacity, transform, filter;
 }
 
 .dark-section.alt {
@@ -4145,6 +4146,7 @@ main .commercial-intro .section-tag { color: var(--gold); }
   function initGsap() {
     if (!window.gsap || !window.ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     document.body.classList.toggle("reduced-motion", reduceMotion);
     var animatedItems = [
@@ -4189,42 +4191,57 @@ main .commercial-intro .section-tag { color: var(--gold); }
       return;
     }
 
-    gsap.fromTo(".hero-inner > *", { opacity: 0, y: 30 }, { opacity: 1, y: 0, stagger: 0.15, duration: 1.2, ease: "power2.out" });
-    gsap.to(".scroll-line", { height: 50, duration: 1.1, ease: "power2.out", delay: 0.35 });
+    var isMobile = window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
+    var slide = isMobile ? 20 : 48;
+    var cardSlide = isMobile ? 14 : 32;
+
+    gsap.fromTo(".hero-inner > *", { opacity: 0, y: 24 }, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.12,
+      duration: 0.9,
+      ease: "power2.out",
+      onComplete: function () { gsap.set(".hero-inner > *", { clearProps: "willChange" }); }
+    });
+    gsap.to(".scroll-line", { height: 50, duration: 0.9, ease: "power2.out", delay: 0.3 });
     gsap.to(".scroll-cue", { opacity: 0.4, repeat: -1, yoyo: true, duration: 0.9, ease: "sine.inOut" });
-    gsap.to(".hero-inner", {
-      opacity: 0,
-      y: -40,
-      ease: "none",
-      scrollTrigger: { trigger: "#hero", start: "top top", end: "400px top", scrub: true }
-    });
 
-    gsap.utils.toArray(".photo-bg").forEach(function (image) {
-      gsap.to(image, {
-        y: "7%",
+    if (!isMobile) {
+      gsap.to(".hero-inner", {
+        opacity: 0,
+        y: -32,
         ease: "none",
-        scrollTrigger: { trigger: image.closest(".photo-section"), start: "top bottom", end: "bottom top", scrub: true }
+        scrollTrigger: { trigger: "#hero", start: "top top", end: "400px top", scrub: 0.6 }
       });
-    });
+      gsap.utils.toArray(".photo-bg").forEach(function (image) {
+        gsap.to(image, {
+          y: "6%",
+          ease: "none",
+          scrollTrigger: {
+            trigger: image.closest(".photo-section"),
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 0.6
+          }
+        });
+      });
+    }
 
-    gsap.utils.toArray("main > section:not(#hero)").forEach(function (section) {
+    gsap.utils.toArray("main > section:not(#hero):not(#contact)").forEach(function (section) {
       gsap.fromTo(section, {
-        autoAlpha: 0.18,
-        y: 96,
-        scale: 0.985,
-        filter: "blur(14px)"
+        autoAlpha: 0.35,
+        y: isMobile ? 28 : 48
       }, {
         autoAlpha: 1,
         y: 0,
-        scale: 1,
-        filter: "blur(0px)",
+        duration: isMobile ? 0.45 : 0.7,
         ease: "power2.out",
         scrollTrigger: {
           trigger: section,
-          start: "top 94%",
-          end: "top 42%",
-          scrub: 0.85
-        }
+          start: "top 92%",
+          once: true
+        },
+        onComplete: function () { gsap.set(section, { clearProps: "willChange,filter" }); }
       });
     });
 
@@ -4259,85 +4276,44 @@ main .commercial-intro .section-tag { color: var(--gold); }
 
     gsap.utils.toArray(revealSelectors).forEach(function (content) {
       var trigger = content.closest("section") || content;
+      var fromRight = content.classList.contains("right");
       gsap.fromTo(content, {
         autoAlpha: 0,
-        x: -86,
-        filter: "blur(8px)"
+        x: fromRight ? slide : -slide
       }, {
         autoAlpha: 1,
         x: 0,
-        filter: "blur(0px)",
-        duration: 1.05,
+        duration: isMobile ? 0.55 : 0.85,
         ease: "power3.out",
         scrollTrigger: {
           trigger: trigger,
-          start: "top 76%",
-          toggleActions: "play none none reverse"
-        }
+          start: "top 80%",
+          once: true
+        },
+        onComplete: function () { gsap.set(content, { clearProps: "willChange,filter" }); }
       });
     });
 
-    gsap.fromTo(".service-card", { autoAlpha: 0, x: -36 }, {
-      autoAlpha: 1,
-      x: 0,
-      duration: 0.75,
-      stagger: 0.1,
-      ease: "power2.out",
-      scrollTrigger: { trigger: ".services-grid", start: "top 75%", toggleActions: "play none none reverse" }
-    });
-    gsap.fromTo(".quote-card", { autoAlpha: 0, x: -34 }, {
-      autoAlpha: 1,
-      x: 0,
-      duration: 0.75,
-      stagger: 0.15,
-      ease: "power2.out",
-      scrollTrigger: { trigger: ".testimonial-row", start: "top 78%", toggleActions: "play none none reverse" }
-    });
-    gsap.fromTo(".city-tag", { autoAlpha: 0, x: -22 }, {
-      autoAlpha: 1,
-      x: 0,
-      duration: 0.45,
-      stagger: 0.025,
-      ease: "power2.out",
-      scrollTrigger: { trigger: ".tag-cloud", start: "top 82%", toggleActions: "play none none reverse" }
-    });
-    gsap.fromTo(".legacy-stat", { autoAlpha: 0, x: -28 }, {
-      autoAlpha: 1,
-      x: 0,
-      duration: 0.55,
-      stagger: 0.08,
-      ease: "power2.out",
-      scrollTrigger: { trigger: ".legacy-stats", start: "top 82%", toggleActions: "play none none reverse" }
-    });
-    gsap.fromTo(".commercial-card", { autoAlpha: 0, x: -34 }, {
-      autoAlpha: 1,
-      x: 0,
-      duration: 0.65,
-      stagger: 0.065,
-      ease: "power2.out",
-      scrollTrigger: { trigger: ".commercial-grid", start: "top 80%", toggleActions: "play none none reverse" }
-    });
-    gsap.fromTo(".professional-card", { autoAlpha: 0, x: -32 }, {
-      autoAlpha: 1,
-      x: 0,
-      duration: 0.65,
-      stagger: 0.085,
-      ease: "power2.out",
-      scrollTrigger: { trigger: ".professional-grid", start: "top 82%", toggleActions: "play none none reverse" }
-    });
-    gsap.fromTo(".expanded-area-tag", { autoAlpha: 0, x: -22 }, {
-      autoAlpha: 1,
-      x: 0,
-      duration: 0.45,
-      stagger: 0.035,
-      ease: "power2.out",
-      scrollTrigger: { trigger: ".expanded-area-grid", start: "top 82%", toggleActions: "play none none reverse" }
-    });
+    function staggerOnce(selector, trigger, distance) {
+      if (!document.querySelector(selector) || !document.querySelector(trigger)) return;
+      gsap.fromTo(selector, { autoAlpha: 0, x: -distance }, {
+        autoAlpha: 1,
+        x: 0,
+        duration: isMobile ? 0.45 : 0.65,
+        stagger: isMobile ? 0.04 : 0.08,
+        ease: "power2.out",
+        scrollTrigger: { trigger: trigger, start: "top 82%", once: true },
+        onComplete: function () { gsap.set(selector, { clearProps: "willChange" }); }
+      });
+    }
 
-    gsap.to(".photo-content.right", {
-      textAlign: "right",
-      duration: 0.01
-    });
+    staggerOnce(".service-card", ".services-grid", cardSlide);
+    staggerOnce(".quote-card", ".testimonial-row", cardSlide);
+    staggerOnce(".city-tag", ".tag-cloud", isMobile ? 10 : 18);
+    staggerOnce(".legacy-stat", ".legacy-stats", cardSlide);
+    staggerOnce(".commercial-card", ".commercial-grid", cardSlide);
+    staggerOnce(".professional-card", ".professional-grid", cardSlide);
+    staggerOnce(".expanded-area-tag", ".expanded-area-grid", isMobile ? 10 : 18);
   }
 
   function initCounters() {
