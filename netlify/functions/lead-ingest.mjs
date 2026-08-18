@@ -1,4 +1,4 @@
-const crypto = require("crypto");
+import crypto from "node:crypto";
 
 const STORE_NAME = "twin-rivers-leads";
 const ALLOWED_DOMAINS = new Set([
@@ -225,7 +225,7 @@ function newLeadId() {
   return crypto.randomUUID ? crypto.randomUUID() : crypto.randomBytes(16).toString("hex");
 }
 
-exports.handler = async function (event) {
+async function runHandler(event) {
   if (event.httpMethod === "OPTIONS") {
     return json(204, { ok: true });
   }
@@ -270,7 +270,24 @@ exports.handler = async function (event) {
     return json(200, { ok: true, lead_id: result.lead.lead_id, duplicate: result.duplicate });
   } catch (error) {
     const reason = String((error && error.message) || error).slice(0, 80);
+    const envFlags = Object.keys(process.env).filter((key) => /BLOB|NETLIFY/i.test(key)).join(",");
     console.error("lead-ingest failed", reason);
-    return json(503, { ok: false, error: "Lead ledger unavailable.", reason });
+    return json(503, { ok: false, error: "Lead ledger unavailable.", reason, envFlags });
   }
+};
+
+
+export default async (request) => {
+  const url = new URL(request.url);
+  const event = {
+    httpMethod: request.method,
+    headers: Object.fromEntries(request.headers),
+    body: request.method === "GET" || request.method === "HEAD" ? "" : await request.text(),
+    isBase64Encoded: false,
+    rawQuery: url.search.replace(/^\?/, ""),
+    queryStringParameters: Object.fromEntries(url.searchParams),
+    blobs: process.env.NETLIFY_BLOBS_CONTEXT || globalThis.netlifyBlobsContext || null,
+  };
+  const result = await runHandler(event);
+  return new Response(result.body || "", { status: result.statusCode, headers: result.headers || {} });
 };

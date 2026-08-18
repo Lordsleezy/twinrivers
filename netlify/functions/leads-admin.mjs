@@ -1,4 +1,4 @@
-const crypto = require("crypto");
+import crypto from "node:crypto";
 
 const STORE_NAME = "twin-rivers-leads";
 
@@ -314,7 +314,7 @@ function renderAdmin({ year, month, leads, notice }) {
 </html>`;
 }
 
-exports.handler = async function (event) {
+async function runHandler(event) {
   const auth = checkAuth(event);
   if (auth === "unconfigured") {
     return html(
@@ -367,4 +367,20 @@ exports.handler = async function (event) {
   }
 
   return html(200, renderAdmin({ year, month, leads, notice }));
+};
+
+
+export default async (request) => {
+  const url = new URL(request.url);
+  const event = {
+    httpMethod: request.method,
+    headers: Object.fromEntries(request.headers),
+    body: request.method === "GET" || request.method === "HEAD" ? "" : await request.text(),
+    isBase64Encoded: false,
+    rawQuery: url.search.replace(/^\?/, ""),
+    queryStringParameters: Object.fromEntries(url.searchParams),
+    blobs: process.env.NETLIFY_BLOBS_CONTEXT || globalThis.netlifyBlobsContext || null,
+  };
+  const result = await runHandler(event);
+  return new Response(result.body || "", { status: result.statusCode, headers: result.headers || {} });
 };
