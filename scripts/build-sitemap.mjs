@@ -5,7 +5,27 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 const domain = "https://twinriversfence.com";
-const skipDirs = new Set(["node_modules", ".git", "admin", "templates", "server", "scripts", "screenshots", ".netlify"]);
+const skipDirs = new Set([
+  "node_modules",
+  ".git",
+  "admin",
+  "templates",
+  "server",
+  "scripts",
+  "screenshots",
+  ".netlify",
+  "preview",
+  ".ff-research",
+  "src",
+]);
+const skipUrlExact = new Set([
+  `${domain}/fencing/rocklin/`,
+  `${domain}/fencing/roseville/`,
+  `${domain}/fencing/folsom/`,
+  `${domain}/fencing/elk-grove/`,
+  `${domain}/fencing/granite-bay/`,
+  `${domain}/fencing/grass-valley/`,
+]);
 
 function walk(dir, files = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -27,7 +47,9 @@ function toUrl(filePath) {
 }
 
 const files = walk(root);
-const urls = [...new Set(files.map(toUrl))].sort();
+const urls = [...new Set(files.map(toUrl))]
+  .filter((u) => !skipUrlExact.has(u) && !u.includes("/preview/") && !u.includes("/.ff-research/"))
+  .sort();
 const today = new Date().toISOString().slice(0, 10);
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
