@@ -1,5 +1,113 @@
 const crypto = require("crypto");
-const { clip, normalizeLead, upsertLead } = require("../lib/leads-store.cjs");
+
+const STORE_NAME = "twin-rivers-leads";
+const ALLOWED_DOMAINS = new Set([
+  "twinriversfence.com",
+  "rocklinfencing.com",
+  "rosevillefencingca.com",
+  "folsomfencing.com",
+  "elkgrovefencing.com",
+  "granitebayfencing.com",
+  "grassvalleyfencing.com",
+  "localhost",
+]);
+
+function clip(value, max) {
+  return String(value == null ? "" : value).trim().slice(0, max);
+}
+
+function normalizeDomain(value) {
+  return clip(value, 200)
+    .replace(/^https?:\/\//i, "")
+    .replace(/^www\./i, "")
+    .split("/")[0]
+    .split(":")[0]
+    .toLowerCase();
+}
+
+function monthKeyFromIso(iso) {
+  const stamp = clip(iso, 40);
+  const match = stamp.match(/^(\d{4}-\d{2})/);
+  if (match) return match[1];
+  return new Date().toISOString().slice(0, 7);
+}
+
+function quoteDetailsFrom(data) {
+  if (clip(data.quote_details, 4000)) return clip(data.quote_details, 4000);
+  const parts = [];
+  const fields = [
+    ["fence_type", "Fence type"],
+    ["height", "Height"],
+    ["footage", "Linear feet"],
+    ["gates", "Gates"],
+    ["removal", "Removal"],
+    ["estimated_range", "Estimated range"],
+  ];
+  for (const [key, label] of fields) {
+    const value = clip(data[key], 120);
+    if (value) parts.push(label + ": " + value);
+  }
+  return parts.join("\n");
+}
+
+function normalizeLead(data, context) {
+  const now = new Date().toISOString();
+  const claimedDomain = normalizeDomain(data.source_domain || data.source);
+  const requestHost = normalizeDomain(context.host || "");
+  const sourceDomain = ALLOWED_DOMAINS.has(claimedDomain)
+    ? claimedDomain
+    : ALLOWED_DOMAINS.has(requestHost)
+      ? requestHost
+      : claimedDomain || requestHost;
+
+  return {
+    lead_id: clip(data.lead_id, 80),
+    submitted_at: clip(data.submitted_at, 40) || now,
+    name: clip(data.name, 120),
+    email: clip(data.email, 200),
+    phone: clip(data.phone, 40),
+    city: clip(data.city, 80),
+    source_domain: sourceDomain,
+    source_page: clip(data.source_page, 300),
+    form_name: clip(data.form_name || data["form-name"], 80),
+    lead_type: clip(data.lead_type, 80),
+    message: clip(data.message || data.notes, 4000),
+    project_details: clip(data.project_details, 4000),
+    quote_details: quoteDetailsFrom(data),
+    utm_source: clip(data.utm_source, 120),
+    utm_medium: clip(data.utm_medium, 120),
+    utm_campaign: clip(data.utm_campaign, 120),
+    utm_term: clip(data.utm_term, 120),
+    utm_content: clip(data.utm_content, 120),
+    referrer: clip(data.referrer, 300),
+  };
+}
+
+function getBlobsStore(event) {
+  const blobs = require("@netlify/blobs");
+  if (typeof blobs.connectLambda === "function" && event) {
+    try {
+      blobs.connectLambda(event);
+    } catch (error) {}
+  }
+  return blobs.getStore({ name: STORE_NAME, consistency: "strong" });
+}
+
+async function upsertLead(event, lead) {
+  const store = getBlobsStore(event);
+  const existing = await store.get("by-id/" + lead.lead_id, { type: "json" });
+  if (existing && existing.lead_id) {
+    return { lead: existing, duplicate: true };
+  }
+  await store.setJSON("by-id/" + lead.lead_id, lead);
+  const monthKey = monthKeyFromIso(lead.submitted_at);
+  const monthIds = (await store.get("months/" + monthKey, { type: "json" })) || [];
+  if (!monthIds.includes(lead.lead_id)) {
+    monthIds.push(lead.lead_id);
+    await store.setJSON("months/" + monthKey, monthIds);
+  }
+  return { lead, duplicate: false };
+}
 
 const rateWindow = new Map();
 const RATE_LIMIT = 12;
@@ -104,7 +212,7 @@ exports.handler = async function (event) {
   }
 
   try {
-    const result = await upsertLead(lead);
+    const result = await upsertLead(event, lead);
     return json(200, { ok: true, lead_id: result.lead.lead_id, duplicate: result.duplicate });
   } catch (error) {
     console.error("lead-ingest failed", error && error.message);

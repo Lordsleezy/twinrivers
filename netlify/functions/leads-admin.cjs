@@ -1,5 +1,44 @@
 const crypto = require("crypto");
-const { listMonth, deleteLead } = require("../lib/leads-store.cjs");
+
+const STORE_NAME = "twin-rivers-leads";
+
+function getBlobsStore(event) {
+  const blobs = require("@netlify/blobs");
+  if (typeof blobs.connectLambda === "function" && event) {
+    try {
+      blobs.connectLambda(event);
+    } catch (error) {}
+  }
+  return blobs.getStore({ name: STORE_NAME, consistency: "strong" });
+}
+
+async function listMonth(event, year, month) {
+  const store = getBlobsStore(event);
+  const monthKey = String(year).padStart(4, "0") + "-" + String(month).padStart(2, "0");
+  const ids = (await store.get("months/" + monthKey, { type: "json" })) || [];
+  const uniqueIds = [...new Set(ids.filter(Boolean))];
+  const leads = [];
+  for (const id of uniqueIds) {
+    const record = await store.get("by-id/" + id, { type: "json" });
+    if (record && record.lead_id) leads.push(record);
+  }
+  leads.sort((a, b) => String(a.submitted_at).localeCompare(String(b.submitted_at)));
+  return { monthKey, leads };
+}
+
+async function deleteLead(event, leadId) {
+  const id = String(leadId || "").trim();
+  if (!id) return false;
+  const store = getBlobsStore(event);
+  const existing = await store.get("by-id/" + id, { type: "json" });
+  await store.delete("by-id/" + id);
+  if (existing && existing.submitted_at) {
+    const monthKey = String(existing.submitted_at).slice(0, 7);
+    const ids = (await store.get("months/" + monthKey, { type: "json" })) || [];
+    await store.setJSON("months/" + monthKey, ids.filter((item) => item !== id));
+  }
+  return true;
+}
 
 const CSV_COLUMNS = [
   ["Date", "date"],
@@ -246,15 +285,29 @@ exports.handler = async function (event) {
     year = form.year || year;
     month = form.month || month;
     if (form.action === "delete" && form.lead_id) {
-      await deleteLead(form.lead_id);
-      notice = "Lead removed from the ledger.";
+      try {
+        await deleteLead(event, form.lead_id);
+        notice = "Lead removed from the ledger.";
+      } catch (error) {
+        console.error("lead delete failed", error && error.message);
+        notice = "Could not delete that lead.";
+      }
     }
   }
 
   const query = parseQuery(event);
   year = query.get("year") || year;
   month = query.get("month") || month;
-  const { monthKey, leads } = await listMonth(year, month);
+  let monthKey = String(year).padStart(4, "0") + "-" + String(month).padStart(2, "0");
+  let leads = [];
+  try {
+    const listed = await listMonth(event, year, month);
+    monthKey = listed.monthKey;
+    leads = listed.leads;
+  } catch (error) {
+    console.error("lead list failed", error && error.message);
+    notice = notice || "Lead storage is temporarily unavailable.";
+  }
 
   if (query.get("download") === "1" || query.get("format") === "csv") {
     return csvResponse("twin-rivers-leads-" + monthKey + ".csv", toCsv(leads));
