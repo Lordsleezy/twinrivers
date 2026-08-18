@@ -83,28 +83,82 @@ function normalizeLead(data, context) {
   };
 }
 
-function getBlobsStore(event) {
-  const blobs = require("@netlify/blobs");
-  if (typeof blobs.connectLambda === "function" && event) {
+function readBlobsContext(event) {
+  const headers = (event && event.headers) || {};
+  const candidates = [
+    process.env.NETLIFY_BLOBS_CONTEXT,
+    event && event.blobs,
+    headers["x-nf-blobs-info"],
+    headers["X-Nf-Blobs-Info"],
+  ].filter(Boolean);
+  for (const raw of candidates) {
     try {
-      blobs.connectLambda(event);
+      if (typeof raw === "object") return raw;
+      const text = String(raw);
+      const json = text.trim().startsWith("{") ? text : Buffer.from(text, "base64").toString("utf8");
+      const parsed = JSON.parse(json);
+      if (parsed && (parsed.siteID || parsed.site_id) && parsed.token) return parsed;
     } catch (error) {}
   }
-  return blobs.getStore({ name: STORE_NAME, consistency: "strong" });
+  return null;
+}
+
+function blobUrl(ctx, key) {
+  const siteID = ctx.siteID || ctx.site_id;
+  const encodedKey = encodeURIComponent(key);
+  if (ctx.edgeURL || ctx.edge_url) {
+    return String(ctx.edgeURL || ctx.edge_url).replace(/\/$/, "") + "/" + siteID + "/" + encodeURIComponent(STORE_NAME) + "/" + encodedKey;
+  }
+  const api = String(ctx.apiURL || ctx.api_url || "https://api.netlify.com").replace(/\/$/, "");
+  return api + "/api/v1/blobs/" + siteID + "/" + encodeURIComponent(STORE_NAME) + "/" + encodedKey;
+}
+
+function blobHeaders(ctx) {
+  return {
+    Authorization: "Bearer " + ctx.token,
+    "Netlify-Consistency": "strong",
+  };
+}
+
+async function blobGetJson(event, key) {
+  const ctx = readBlobsContext(event);
+  if (!ctx) throw new Error("blobs context missing");
+  const res = await fetch(blobUrl(ctx, key), { headers: { ...blobHeaders(ctx), Accept: "application/json" } });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error("blob get " + res.status);
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
+}
+
+async function blobSetJson(event, key, value) {
+  const ctx = readBlobsContext(event);
+  if (!ctx) throw new Error("blobs context missing");
+  const res = await fetch(blobUrl(ctx, key), {
+    method: "PUT",
+    headers: { ...blobHeaders(ctx), "Content-Type": "application/json" },
+    body: JSON.stringify(value),
+  });
+  if (!res.ok) throw new Error("blob set " + res.status);
+}
+
+async function blobDelete(event, key) {
+  const ctx = readBlobsContext(event);
+  if (!ctx) throw new Error("blobs context missing");
+  const res = await fetch(blobUrl(ctx, key), { method: "DELETE", headers: blobHeaders(ctx) });
+  if (res.status !== 404 && !res.ok) throw new Error("blob delete " + res.status);
 }
 
 async function upsertLead(event, lead) {
-  const store = getBlobsStore(event);
-  const existing = await store.get("by-id/" + lead.lead_id, { type: "json" });
+  const existing = await blobGetJson(event, "by-id/" + lead.lead_id);
   if (existing && existing.lead_id) {
     return { lead: existing, duplicate: true };
   }
-  await store.setJSON("by-id/" + lead.lead_id, lead);
+  await blobSetJson(event, "by-id/" + lead.lead_id, lead);
   const monthKey = monthKeyFromIso(lead.submitted_at);
-  const monthIds = (await store.get("months/" + monthKey, { type: "json" })) || [];
+  const monthIds = (await blobGetJson(event, "months/" + monthKey)) || [];
   if (!monthIds.includes(lead.lead_id)) {
     monthIds.push(lead.lead_id);
-    await store.setJSON("months/" + monthKey, monthIds);
+    await blobSetJson(event, "months/" + monthKey, monthIds);
   }
   return { lead, duplicate: false };
 }
@@ -215,7 +269,8 @@ exports.handler = async function (event) {
     const result = await upsertLead(event, lead);
     return json(200, { ok: true, lead_id: result.lead.lead_id, duplicate: result.duplicate });
   } catch (error) {
-    console.error("lead-ingest failed", error && error.message);
-    return json(503, { ok: false, error: "Lead ledger unavailable." });
+    const reason = String((error && error.message) || error).slice(0, 80);
+    console.error("lead-ingest failed", reason);
+    return json(503, { ok: false, error: "Lead ledger unavailable.", reason });
   }
 };

@@ -2,24 +2,78 @@ const crypto = require("crypto");
 
 const STORE_NAME = "twin-rivers-leads";
 
-function getBlobsStore(event) {
-  const blobs = require("@netlify/blobs");
-  if (typeof blobs.connectLambda === "function" && event) {
+function readBlobsContext(event) {
+  const headers = (event && event.headers) || {};
+  const candidates = [
+    process.env.NETLIFY_BLOBS_CONTEXT,
+    event && event.blobs,
+    headers["x-nf-blobs-info"],
+    headers["X-Nf-Blobs-Info"],
+  ].filter(Boolean);
+  for (const raw of candidates) {
     try {
-      blobs.connectLambda(event);
+      if (typeof raw === "object") return raw;
+      const text = String(raw);
+      const json = text.trim().startsWith("{") ? text : Buffer.from(text, "base64").toString("utf8");
+      const parsed = JSON.parse(json);
+      if (parsed && (parsed.siteID || parsed.site_id) && parsed.token) return parsed;
     } catch (error) {}
   }
-  return blobs.getStore({ name: STORE_NAME, consistency: "strong" });
+  return null;
+}
+
+function blobUrl(ctx, key) {
+  const siteID = ctx.siteID || ctx.site_id;
+  const encodedKey = encodeURIComponent(key);
+  if (ctx.edgeURL || ctx.edge_url) {
+    return String(ctx.edgeURL || ctx.edge_url).replace(/\/$/, "") + "/" + siteID + "/" + encodeURIComponent(STORE_NAME) + "/" + encodedKey;
+  }
+  const api = String(ctx.apiURL || ctx.api_url || "https://api.netlify.com").replace(/\/$/, "");
+  return api + "/api/v1/blobs/" + siteID + "/" + encodeURIComponent(STORE_NAME) + "/" + encodedKey;
+}
+
+function blobHeaders(ctx) {
+  return {
+    Authorization: "Bearer " + ctx.token,
+    "Netlify-Consistency": "strong",
+  };
+}
+
+async function blobGetJson(event, key) {
+  const ctx = readBlobsContext(event);
+  if (!ctx) throw new Error("blobs context missing");
+  const res = await fetch(blobUrl(ctx, key), { headers: { ...blobHeaders(ctx), Accept: "application/json" } });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error("blob get " + res.status);
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
+}
+
+async function blobSetJson(event, key, value) {
+  const ctx = readBlobsContext(event);
+  if (!ctx) throw new Error("blobs context missing");
+  const res = await fetch(blobUrl(ctx, key), {
+    method: "PUT",
+    headers: { ...blobHeaders(ctx), "Content-Type": "application/json" },
+    body: JSON.stringify(value),
+  });
+  if (!res.ok) throw new Error("blob set " + res.status);
+}
+
+async function blobDelete(event, key) {
+  const ctx = readBlobsContext(event);
+  if (!ctx) throw new Error("blobs context missing");
+  const res = await fetch(blobUrl(ctx, key), { method: "DELETE", headers: blobHeaders(ctx) });
+  if (res.status !== 404 && !res.ok) throw new Error("blob delete " + res.status);
 }
 
 async function listMonth(event, year, month) {
-  const store = getBlobsStore(event);
   const monthKey = String(year).padStart(4, "0") + "-" + String(month).padStart(2, "0");
-  const ids = (await store.get("months/" + monthKey, { type: "json" })) || [];
+  const ids = (await blobGetJson(event, "months/" + monthKey)) || [];
   const uniqueIds = [...new Set(ids.filter(Boolean))];
   const leads = [];
   for (const id of uniqueIds) {
-    const record = await store.get("by-id/" + id, { type: "json" });
+    const record = await blobGetJson(event, "by-id/" + id);
     if (record && record.lead_id) leads.push(record);
   }
   leads.sort((a, b) => String(a.submitted_at).localeCompare(String(b.submitted_at)));
@@ -29,13 +83,12 @@ async function listMonth(event, year, month) {
 async function deleteLead(event, leadId) {
   const id = String(leadId || "").trim();
   if (!id) return false;
-  const store = getBlobsStore(event);
-  const existing = await store.get("by-id/" + id, { type: "json" });
-  await store.delete("by-id/" + id);
+  const existing = await blobGetJson(event, "by-id/" + id);
+  await blobDelete(event, "by-id/" + id);
   if (existing && existing.submitted_at) {
     const monthKey = String(existing.submitted_at).slice(0, 7);
-    const ids = (await store.get("months/" + monthKey, { type: "json" })) || [];
-    await store.setJSON("months/" + monthKey, ids.filter((item) => item !== id));
+    const ids = (await blobGetJson(event, "months/" + monthKey)) || [];
+    await blobSetJson(event, "months/" + monthKey, ids.filter((item) => item !== id));
   }
   return true;
 }
