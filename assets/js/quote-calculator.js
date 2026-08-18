@@ -9,6 +9,39 @@
     return (value || "").replace(/\D/g, "");
   }
 
+  function leadId() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return "lead-" + Date.now() + "-" + Math.random().toString(16).slice(2);
+  }
+
+  function readUtms() {
+    var out = {};
+    try {
+      Object.assign(out, JSON.parse(sessionStorage.getItem("tr_utm") || "{}"));
+    } catch (error) {}
+    var params = new URLSearchParams(window.location.search);
+    ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach(function (key) {
+      var value = params.get(key);
+      if (value) out[key] = value;
+    });
+    try {
+      sessionStorage.setItem("tr_utm", JSON.stringify(out));
+    } catch (error) {}
+    return out;
+  }
+
+  function ensureHidden(form, name, value) {
+    var el = field(form, name);
+    if (!el) {
+      el = document.createElement("input");
+      el.type = "hidden";
+      el.name = name;
+      form.appendChild(el);
+    }
+    if (value != null) el.value = value;
+    return el;
+  }
+
   function initQuoteCalculator() {
     var calculator = document.querySelector("[data-quote-calculator]");
     var pricing = window.TwinRiversFencePricing;
@@ -56,19 +89,101 @@
       return estimateText;
     }
 
+    function payloadFromForms() {
+      var input = readInput();
+      var utm = readUtms();
+      var estimateText = updateEstimate();
+      var id = ensureHidden(leadForm, "lead_id").value || leadId();
+      ensureHidden(leadForm, "lead_id", id);
+      return {
+        lead_id: id,
+        name: (field(leadForm, "name") && field(leadForm, "name").value) || "",
+        email: (field(leadForm, "email") && field(leadForm, "email").value) || "",
+        phone: (field(leadForm, "phone") && field(leadForm, "phone").value) || "",
+        city: input.city,
+        source_domain: window.location.hostname,
+        source_page: window.location.pathname + window.location.hash,
+        form_name: "instant-quote",
+        lead_type: "fence-quote",
+        message: (field(leadForm, "notes") && field(leadForm, "notes").value) || "",
+        project_details: "",
+        quote_details: [
+          "Fence type: " + input.fenceType,
+          "Height: " + input.height + " Foot",
+          "Linear feet: " + input.footage,
+          "Gates: " + (input.gates === "3" ? "3+" : input.gates),
+          "Removal: " + input.removal,
+          "Estimated range: " + estimateText
+        ].join("\n"),
+        fence_type: input.fenceType,
+        height: input.height + " Foot",
+        footage: input.footage,
+        gates: input.gates === "3" ? "3+" : input.gates,
+        removal: input.removal,
+        estimated_range: estimateText,
+        utm_source: utm.utm_source || "",
+        utm_medium: utm.utm_medium || "",
+        utm_campaign: utm.utm_campaign || "",
+        utm_term: utm.utm_term || "",
+        utm_content: utm.utm_content || "",
+        referrer: document.referrer || "",
+        "bot-field": (field(leadForm, "bot-field") && field(leadForm, "bot-field").value) || ""
+      };
+    }
+
     inputForm.addEventListener("input", updateEstimate);
     inputForm.addEventListener("change", updateEstimate);
 
     leadForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (leadForm.dataset.submitting === "true") return;
       var phone = field(leadForm, "phone");
       if (!phone || digits(phone.value).length < 10) {
-        event.preventDefault();
-        status.textContent = "Please enter a phone number so we can follow up with an exact quote.";
-        phone.focus();
+        if (status) status.textContent = "Please enter a phone number so we can follow up with an exact quote.";
+        if (phone) phone.focus();
         return;
       }
-      status.textContent = "Sending your estimate request...";
-      updateEstimate();
+
+      var endpoint = leadForm.getAttribute("action") || "/";
+      var isCity = /\/\.netlify\/functions\/contact-lead/.test(endpoint);
+      var body = payloadFromForms();
+      leadForm.dataset.submitting = "true";
+      var button = leadForm.querySelector("button[type='submit']");
+      if (button) button.disabled = true;
+      if (status) status.textContent = "Sending your estimate request...";
+
+      function succeed() {
+        delete leadForm.dataset.submitting;
+        if (button) button.disabled = false;
+        if (status) status.textContent = "Thanks — your estimate request was sent. Twin Rivers Fence will follow up with an exact quote.";
+        field(leadForm, "name") && (field(leadForm, "name").value = "");
+        field(leadForm, "email") && (field(leadForm, "email").value = "");
+        field(leadForm, "phone") && (field(leadForm, "phone").value = "");
+        field(leadForm, "notes") && (field(leadForm, "notes").value = "");
+        ensureHidden(leadForm, "lead_id", "");
+      }
+
+      function fail() {
+        delete leadForm.dataset.submitting;
+        if (button) button.disabled = false;
+        if (status) status.textContent = "Something went wrong sending your request. Please call Twin Rivers Fence at (916) 906-2254.";
+      }
+
+      var headers = { "Content-Type": "application/json", Accept: "application/json" };
+      var primary = isCity ? endpoint : "/.netlify/functions/lead-ingest";
+
+      fetch(primary, { method: "POST", headers: headers, body: JSON.stringify(body) })
+        .then(function (res) {
+          if (!res.ok) throw new Error("primary failed");
+          if (isCity) return res;
+          return fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(new FormData(leadForm)).toString()
+          });
+        })
+        .then(succeed)
+        .catch(fail);
     });
 
     updateEstimate();

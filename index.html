@@ -2872,6 +2872,13 @@ main .commercial-intro .section-tag { color: var(--gold); }
         </div>
       </div>
       <a href="/fence-learning-center/">Resources</a>
+      <div class="nav-dropdown">
+        <a href="/#instant-estimate" class="nav-dropdown-trigger" aria-haspopup="true">Tools</a>
+        <div class="nav-dropdown-panel" role="menu">
+          <a href="/#instant-estimate" role="menuitem">Fence Quote</a>
+          <a href="/fence-learning-center/" role="menuitem">Fence Learning Center</a>
+        </div>
+      </div>
       <a href="/#contact">Quote</a>
     </nav>
     <a class="top-call" href="tel:+19169062254">Call (916) 906-2254</a>
@@ -3258,6 +3265,7 @@ main .commercial-intro .section-tag { color: var(--gold); }
                 <option value="folsom">Folsom</option>
                 <option value="rocklin">Rocklin</option>
                 <option value="roseville">Roseville</option>
+                <option value="granite-bay">Granite Bay</option>
                 <option value="grass-valley">Grass Valley</option>
                 <option value="other">Other</option>
               </select>
@@ -3284,6 +3292,8 @@ main .commercial-intro .section-tag { color: var(--gold); }
             <input type="hidden" name="gates">
             <input type="hidden" name="removal">
             <input type="hidden" name="city">
+            <input type="hidden" name="lead_id">
+            <input type="hidden" name="lead_type" value="fence-quote">
             <div class="quote-field"><label for="quote-name">Name</label><input id="quote-name" name="name" type="text" autocomplete="name"></div>
             <div class="quote-field"><label for="quote-phone">Phone Number (Required)</label><input id="quote-phone" name="phone" type="tel" autocomplete="tel" required></div>
             <div class="quote-field"><label for="quote-email">Email (Optional)</label><input id="quote-email" name="email" type="email" autocomplete="email"></div>
@@ -3373,6 +3383,8 @@ main .commercial-intro .section-tag { color: var(--gold); }
         <input type="hidden" name="city">
         <input type="hidden" name="notes">
         <input type="hidden" name="source" value="Twin Rivers Fence homepage lead chat">
+        <input type="hidden" name="lead_id">
+        <input type="hidden" name="lead_type" value="chat">
         <textarea name="message"></textarea>
       </form>
       </div>
@@ -4508,20 +4520,50 @@ main .commercial-intro .section-tag { color: var(--gold); }
       var visitorRequest = assistantState.data.message;
       assistantState.data.project_type = visitorRequest;
       assistantState.data.message = "Name: " + assistantState.data.name + "\nPhone: " + assistantState.data.phone + "\nEmail: " + assistantState.data.email + "\nWhat they want done: " + visitorRequest + "\n\nConversation:\n" + assistantState.transcript.join("\n");
+      var leadId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ("lead-" + Date.now());
+      assistantState.data.lead_id = leadId;
+      assistantState.data.lead_type = "chat";
       Object.keys(assistantState.data).forEach(function (key) {
         var field = leadForm.querySelector('[name="' + key + '"]');
         if (field) field.value = assistantState.data[key];
       });
+      var idField = leadForm.querySelector('[name="lead_id"]');
+      if (idField) idField.value = leadId;
+      var ledgerBody = {
+        lead_id: leadId,
+        name: assistantState.data.name || "",
+        email: assistantState.data.email || "",
+        phone: assistantState.data.phone || "",
+        city: assistantState.data.city || "",
+        source_domain: window.location.hostname,
+        source_page: window.location.pathname + "#contact",
+        form_name: "lead-chat",
+        lead_type: "chat",
+        message: visitorRequest || "",
+        project_details: assistantState.data.message || "",
+        referrer: document.referrer || ""
+      };
 
       if (!/^(localhost|127\.0\.0\.1)$/i.test(window.location.hostname)) {
+        var ledgerOk = false;
+        var netlifyOk = false;
+        try {
+          var ledgerRes = await fetch("/.netlify/functions/lead-ingest", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify(ledgerBody)
+          });
+          ledgerOk = ledgerRes.ok;
+        } catch (error) {}
         try {
           var response = await fetch(leadForm.getAttribute("action") || "/", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: encodeFormData(leadForm)
           });
-          if (!response.ok) throw new Error("Netlify form submission failed");
-        } catch (error) {
+          netlifyOk = response.ok;
+        } catch (error) {}
+        if (!ledgerOk && !netlifyOk) {
           assistantState.submitted = false;
           completeNote.textContent = "Something went wrong sending your request. Please call Twin Rivers Fence at (916) 906-2254.";
           completeNote.classList.add("is-visible");
@@ -4600,8 +4642,8 @@ main .commercial-intro .section-tag { color: var(--gold); }
   initRiverAssistant();
 }());
 </script>
-<script src="/assets/js/fence-pricing.js?v=20260630-2" defer></script>
-<script src="/assets/js/quote-calculator.js?v=20260630-2" defer></script>
+<script src="/assets/js/fence-pricing.js?v=20260818-quote1" defer></script>
+<script src="/assets/js/quote-calculator.js?v=20260818-quote1" defer></script>
 <script src="/assets/js/google-reviews.js?v=20260630-2" defer></script>
 </body>
 </html>

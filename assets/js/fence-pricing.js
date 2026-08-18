@@ -33,6 +33,7 @@
     folsom: 1.04,
     rocklin: 1.04,
     roseville: 1.04,
+    "granite-bay": 1.04,
     "grass-valley": 1.08,
     other: 1.05
   };
