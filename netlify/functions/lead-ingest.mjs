@@ -269,10 +269,8 @@ async function runHandler(event) {
     const result = await upsertLead(event, lead);
     return json(200, { ok: true, lead_id: result.lead.lead_id, duplicate: result.duplicate });
   } catch (error) {
-    const reason = String((error && error.message) || error).slice(0, 80);
-    const envFlags = Object.keys(process.env).filter((key) => /BLOB|NETLIFY/i.test(key)).join(",");
-    console.error("lead-ingest failed", reason);
-    return json(503, { ok: false, error: "Lead ledger unavailable.", reason, envFlags });
+    console.error("lead-ingest failed", error && error.message);
+    return json(503, { ok: false, error: "Lead ledger unavailable." });
   }
 };
 
