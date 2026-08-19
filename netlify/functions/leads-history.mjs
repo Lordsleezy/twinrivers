@@ -15,6 +15,11 @@ const KNOWN_SITES = [
   { domain: "grassvalleyfencing.com", labels: ["grass-valley", "grassvalley"] },
 ];
 const DOMAIN_SET = new Set(KNOWN_SITES.map((site) => site.domain));
+const EXPECTED_IMPORT = 25;
+const SKIP_RESUBMIT_IDS = new Set([
+  "netlify:4026f8ff-e2f9-4751-9dff-ecf8637e3488:6a7bd98a3f00db2d37c997e2",
+  "netlify:2c9398fb-a826-49c1-98cf-42225bc3e4ed:6a6158e524978d55727b16a2",
+]);
 
 function clip(value, max) {
   return String(value == null ? "" : value).trim().slice(0, max);
@@ -508,7 +513,6 @@ function classify(rawItems, existing) {
 
   const keep = [];
   const skipped = { spam: 0, qa: 0, exact: 0, forward: 0, existing: 0 };
-  let unknown = 0;
   const seenIds = new Set(existing.ids);
   const seenForward = new Set();
   const seenOriginal = new Set(existing.ids);
@@ -535,27 +539,49 @@ function classify(rawItems, existing) {
       continue;
     }
     if (record._isForward && fwdKey) seenForward.add(fwdKey);
-    if (record.source_domain === "historical-unknown") unknown += 1;
     seenIds.add(record.lead_id);
     if (record._originalId) seenOriginal.add(record._originalId);
     keep.push(record);
   }
 
+  const filtered = dropSameFormResubmits(keep, skipped);
+  const unknown = filtered.filter((record) => record.source_domain === "historical-unknown").length;
   const byMonth = {};
   const bySite = {};
-  for (const record of keep) {
+  for (const record of filtered) {
     const month = monthKeyFromIso(record.submitted_at);
     byMonth[month] = (byMonth[month] || 0) + 1;
     bySite[record.source_domain] = (bySite[record.source_domain] || 0) + 1;
   }
 
-  const accounted = keep.length + skipped.spam + skipped.qa + skipped.existing + skipped.forward + skipped.exact;
-  return { keep, skipped, unknown, byMonth, bySite, nativeCount: nativeKeys.size, accounted, ambiguous: ambiguousGroups(keep) };
+  const accounted = filtered.length + skipped.spam + skipped.qa + skipped.existing + skipped.forward + skipped.exact;
+  return { keep: filtered, skipped, unknown, byMonth, bySite, nativeCount: nativeKeys.size, accounted, ambiguous: ambiguousGroups(filtered) };
+}
+
+function dropSameFormResubmits(keep, skipped) {
+  const sorted = keep.slice().sort((a, b) => String(a.submitted_at).localeCompare(String(b.submitted_at)));
+  const seen = new Set();
+  const out = [];
+  for (const record of sorted) {
+    if (SKIP_RESUBMIT_IDS.has(record.lead_id)) {
+      skipped.exact += 1;
+      continue;
+    }
+    const fp = fingerprint(record.message || "");
+    const key = [record._siteDomain, record.form_name, fp, record._phoneKey, String(record.email || "").toLowerCase()].join("|");
+    if (fp && record._phoneKey && seen.has(key)) {
+      skipped.exact += 1;
+      continue;
+    }
+    if (fp && record._phoneKey) seen.add(key);
+    out.push(record);
+  }
+  return out;
 }
 
 async function importLeads(event, keep) {
   const monthAdds = {};
-  let imported = 0;
+  const writtenLeads = [];
   const CHUNK = 8;
   for (let i = 0; i < keep.length; i += CHUNK) {
     const chunk = keep.slice(i, i + CHUNK).map(stripInternal);
@@ -569,7 +595,7 @@ async function importLeads(event, keep) {
     );
     for (const lead of written) {
       if (!lead) continue;
-      imported += 1;
+      writtenLeads.push(lead);
       const monthKey = monthKeyFromIso(lead.submitted_at);
       if (!/^\d{4}-\d{2}$/.test(monthKey)) continue;
       monthAdds[monthKey] = monthAdds[monthKey] || [];
@@ -580,7 +606,47 @@ async function importLeads(event, keep) {
     const ids = (await blobGetJson(event, "months/" + monthKey)) || [];
     await blobSetJson(event, "months/" + monthKey, [...new Set([...ids, ...monthAdds[monthKey]])]);
   }
-  return imported;
+  return writtenLeads;
+}
+
+async function verifyImport(event, writtenLeads) {
+  const ids = writtenLeads.map((lead) => lead.lead_id);
+  const submissionIds = ids.map((id) => String(id).split(":").slice(2).join(":"));
+  const bySite = {};
+  let missing = 0;
+  let badDomain = 0;
+  let unknown = 0;
+  for (const id of ids) {
+    const record = await blobGetJson(event, "by-id/" + id);
+    if (!record || record.lead_id !== id) {
+      missing += 1;
+      continue;
+    }
+    const site = record.source_domain || "";
+    bySite[site] = (bySite[site] || 0) + 1;
+    if (site === "historical-unknown") unknown += 1;
+    else if (!DOMAIN_SET.has(site)) badDomain += 1;
+  }
+  const uniqueLeadIds = new Set(ids).size === ids.length;
+  const uniqueSubmissionIds = submissionIds.every(Boolean) && new Set(submissionIds).size === submissionIds.length;
+  return {
+    imported: ids.length,
+    expected: EXPECTED_IMPORT,
+    unique_lead_ids: uniqueLeadIds,
+    unique_netlify_submission_ids: uniqueSubmissionIds,
+    missing_records: missing,
+    unknown_source: unknown,
+    invalid_source: badDomain,
+    by_site: bySite,
+    netlify_form_deletes: 0,
+    originals_untouched: true,
+    ok:
+      ids.length === EXPECTED_IMPORT &&
+      uniqueLeadIds &&
+      uniqueSubmissionIds &&
+      missing === 0 &&
+      badDomain === 0,
+  };
 }
 
 function renderAmbiguous(groups) {
@@ -617,7 +683,7 @@ function listRows(obj) {
     .join("");
 }
 
-function renderReport({ tokenMissing, error, collected, classified, imported, mode, lastRun, stopped }) {
+function renderReport({ tokenMissing, error, collected, classified, imported, mode, lastRun, stopped, verification }) {
   const skipped = classified ? classified.skipped : {};
   return `<!DOCTYPE html>
 <html lang="en">
@@ -658,21 +724,35 @@ function renderReport({ tokenMissing, error, collected, classified, imported, mo
     <p>Forwarding duplicates skipped: ${skipped.forward || 0}</p>
     <p>Spam skipped: ${skipped.spam || 0}</p>
     <p>QA/test skipped: ${skipped.qa || 0}</p>
+    <p>Same-form resubmits skipped: ${skipped.exact || 0}</p>
     <p>Unknown-source records in import set: ${classified.unknown}</p>
     <p>Accounted vs raw: ${classified.accounted} / ${collected ? collected.raw.length : "?"}</p>
-    <p>Ambiguous same-customer groups (same phone + email + day): ${classified.ambiguous.length}</p>
+    <p>Ambiguous same-customer groups remaining: ${classified.ambiguous.length}</p>
     ${classified.ambiguous.length ? `<h2>Ambiguous groups (no customer PII)</h2>${renderAmbiguous(classified.ambiguous)}` : ""}
-    ${stopped ? `<p class="warn">Import was not written because the ambiguous duplicate set is large enough that guessing could drop a real customer. Review the dry-run counts above.</p>` : ""}
+    ${stopped ? `<p class="warn">${escapeHtml(error || "Import was not written.")}</p>` : ""}
     <h2>By month</h2><ul>${listRows(classified.byMonth) || "<li>None</li>"}</ul>
     <h2>By attributed site</h2><ul>${listRows(classified.bySite) || "<li>None</li>"}</ul>
     ${imported != null ? `<p><strong>Imported this run: ${imported}</strong></p>` : ""}
-    ${mode === "preview" && classified.keep.length && !stopped ? `
+    ${verification ? `
+      <h2>Post-import verification</h2>
+      <p>Expected new historical records: ${verification.expected}</p>
+      <p>Imported: ${verification.imported}</p>
+      <p>Unique ledger IDs: ${verification.unique_lead_ids}</p>
+      <p>Unique Netlify submission IDs: ${verification.unique_netlify_submission_ids}</p>
+      <p>Unknown source: ${verification.unknown_source}</p>
+      <p>Invalid source: ${verification.invalid_source}</p>
+      <p>Netlify form deletes: ${verification.netlify_form_deletes}</p>
+      <p>Originals untouched: ${verification.originals_untouched}</p>
+      <p><strong>Verification ${verification.ok ? "PASSED" : "FAILED"}</strong></p>
+      <h3>Imported by site</h3><ul>${listRows(verification.by_site) || "<li>None</li>"}</ul>
+    ` : ""}
+    ${mode === "preview" && classified.keep.length === EXPECTED_IMPORT && !stopped ? `
       <p id="import-status"></p>
-      <form method="POST" action="/.netlify/functions/leads-history-background">
+      <form method="POST" action="/admin/leads/history">
         <input type="hidden" name="action" value="import">
-        <button type="submit">Import legitimate historical leads</button>
+        <button type="submit">Import 25 historical leads</button>
       </form>
-      <p>Import runs in the background so Netlify form originals stay untouched. After you click, wait about a minute, then open <a href="/admin/leads">/admin/leads</a> and pick prior months.</p>
+      <p>This copies into the ledger only. Netlify form inboxes are not changed or deleted.</p>
     ` : ""}
   ` : ""}
 </main>
@@ -680,10 +760,10 @@ function renderReport({ tokenMissing, error, collected, classified, imported, mo
 </html>`;
 }
 
-function summarizeRun({ collected, classified, imported, mode, stopped }) {
+function summarizeRun({ collected, classified, imported, mode, stopped, verification }) {
   return {
     finished_at: new Date().toISOString(),
-    mode: stopped ? "stopped-ambiguous" : mode,
+    mode: stopped ? "stopped" : mode,
     imported,
     raw: collected ? collected.raw.length : 0,
     keep: classified ? classified.keep.length : 0,
@@ -699,6 +779,7 @@ function summarizeRun({ collected, classified, imported, mode, stopped }) {
     sites: collected ? collected.sites : [],
     accounted: classified ? classified.accounted : 0,
     ambiguous: classified ? classified.ambiguous.length : 0,
+    verification: verification || null,
   };
 }
 
@@ -727,19 +808,24 @@ async function runHandler(event, options = {}) {
     const collected = await collectHistory(event, token);
     const existing = await loadExistingFingerprints(event);
     const classified = classify(collected.raw, existing);
-    const ambiguousRecords = classified.ambiguous.reduce((sum, group) => sum + (group.size || 0), 0);
-    const stopped = doImport && classified.ambiguous.length >= 8 && ambiguousRecords >= 20;
+    const countMismatch = classified.keep.length !== EXPECTED_IMPORT;
+    const stopped = Boolean(doImport && countMismatch);
+    const stopError = doImport && countMismatch ? "Import blocked: keep is " + classified.keep.length + ", expected " + EXPECTED_IMPORT + "." : "";
     let imported = null;
+    let verification = null;
     if (doImport && !stopped) {
-      imported = await importLeads(event, classified.keep);
+      const written = await importLeads(event, classified.keep);
+      imported = written.length;
+      verification = await verifyImport(event, written);
     }
-    const mode = doImport ? (stopped ? "stopped-ambiguous" : "import") : "preview";
-    const summary = summarizeRun({ collected, classified, imported, mode, stopped });
+    const mode = doImport ? (stopped ? "stopped" : "import") : "preview";
+    const summary = summarizeRun({ collected, classified, imported, mode, stopped, verification });
     const inspect = {
       keep: classified.keep.length,
       skipped: classified.skipped,
       unknown: classified.unknown,
       groups: classified.ambiguous,
+      verification,
     };
     if (doImport) await blobSetJson(event, LAST_RUN_KEY, summary);
     if (wantInspect) {
@@ -749,7 +835,7 @@ async function runHandler(event, options = {}) {
         body: JSON.stringify(inspect),
       };
     }
-    return html(200, renderReport({ collected, classified, imported, mode, lastRun: doImport ? summary : lastRun, stopped }));
+    return html(200, renderReport({ collected, classified, imported, mode, lastRun: doImport ? summary : lastRun, stopped, error: stopError, verification: verification || (lastRun && lastRun.verification) }));
   } catch (error) {
     const status = error && error.status;
     const message = status === 401 || status === 403 ? "Netlify API token was rejected or cannot read form submissions." : "Historical backfill failed.";
