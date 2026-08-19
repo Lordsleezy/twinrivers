@@ -44,6 +44,23 @@ function monthKeyFromIso(iso) {
   return parts.year + "-" + parts.month;
 }
 
+function pacificDay(iso) {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return String(iso || "").slice(0, 10);
+  const fmt = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Los_Angeles",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+  const parts = Object.fromEntries(fmt.formatToParts(date).map((part) => [part.type, part.value]));
+  return parts.year + "-" + parts.month + "-" + parts.day;
+}
+
+function fingerprint(value) {
+  return crypto.createHash("sha256").update(String(value || "")).digest("hex").slice(0, 12);
+}
+
 function escapeHtml(value) {
   return String(value == null ? "" : value)
     .replace(/&/g, "&amp;")
@@ -431,16 +448,50 @@ async function collectHistory(event, token) {
   };
 }
 
+function inspectRecord(record) {
+  const message = String(record.message || "");
+  const sourceHost = hostFromUrl((message.match(/^[\s\S]*?Source:\s*(\S+)/i) || [])[1] || "");
+  return {
+    lead_id: record.lead_id,
+    submitted_at: record.submitted_at,
+    netlify_site: record._siteDomain || "",
+    attributed_site: record.source_domain || "",
+    form_name: record.form_name || "",
+    lead_type: record.lead_type || "",
+    is_forward: Boolean(record._isForward),
+    has_embedded_lead_id: Boolean(record._originalId),
+    source_line_host: DOMAIN_SET.has(sourceHost) ? sourceHost : sourceHost ? "non-network-host" : "",
+    city_header: /CITY SITE FENCE QUOTE/i.test(message) ? "CITY SITE FENCE QUOTE" : /CITY SITE LEAD/i.test(message) ? "CITY SITE LEAD" : "",
+    message_len: message.length,
+    message_fp: fingerprint(message),
+    quote_fp: fingerprint(record.quote_details || ""),
+    has_quote: Boolean(record.quote_details),
+  };
+}
+
 function ambiguousGroups(keep) {
   const buckets = new Map();
   for (const record of keep) {
     const phone = record._phoneKey || "";
     const email = String(record.email || "").toLowerCase();
     if (phone.length < 10 || !email) continue;
-    const key = phone + "|" + email + "|" + monthKeyFromIso(record.submitted_at) + "|" + String(record.submitted_at).slice(8, 10);
-    buckets.set(key, (buckets.get(key) || 0) + 1);
+    const key = phone + "|" + email + "|" + pacificDay(record.submitted_at);
+    if (!buckets.has(key)) buckets.set(key, []);
+    buckets.get(key).push(record);
   }
-  return [...buckets.values()].filter((count) => count > 1);
+  return [...buckets.values()]
+    .filter((records) => records.length > 1)
+    .map((records) => {
+      const sorted = records.slice().sort((a, b) => String(a.submitted_at).localeCompare(String(b.submitted_at)));
+      const first = new Date(sorted[0].submitted_at).getTime();
+      return {
+        pacific_day: pacificDay(sorted[0].submitted_at),
+        size: sorted.length,
+        seconds_apart: sorted.map((record) => Math.round((new Date(record.submitted_at).getTime() - first) / 1000)),
+        shared_embedded_lead_id: sorted.every((record) => record._originalId) && new Set(sorted.map((record) => record._originalId)).size === 1,
+        records: sorted.map(inspectRecord),
+      };
+    });
 }
 
 function classify(rawItems, existing) {
@@ -532,6 +583,33 @@ async function importLeads(event, keep) {
   return imported;
 }
 
+function renderAmbiguous(groups) {
+  if (!groups || !groups.length) return "";
+  return groups
+    .map((group, index) => {
+      const rows = (group.records || [])
+        .map((record, recIndex) => `<li>
+          ${recIndex + 1}. id=${escapeHtml(record.lead_id)}
+          time=${escapeHtml(record.submitted_at)}
+          netlify_site=${escapeHtml(record.netlify_site)}
+          form=${escapeHtml(record.form_name)}
+          type=${escapeHtml(record.lead_type)}
+          attributed=${escapeHtml(record.attributed_site)}
+          forward=${record.is_forward}
+          header=${escapeHtml(record.city_header || "none")}
+          source_host=${escapeHtml(record.source_line_host || "none")}
+          embedded_lead_id=${record.has_embedded_lead_id}
+          msg_len=${record.message_len}
+          msg_fp=${escapeHtml(record.message_fp)}
+          quote_fp=${escapeHtml(record.quote_fp)}
+          +${group.seconds_apart[recIndex]}s
+        </li>`)
+        .join("");
+      return `<h3>Group ${index + 1} — ${escapeHtml(group.pacific_day)} (${group.size} records, shared embedded lead id: ${group.shared_embedded_lead_id})</h3><ul>${rows}</ul>`;
+    })
+    .join("");
+}
+
 function listRows(obj) {
   return Object.keys(obj || {})
     .sort()
@@ -583,6 +661,7 @@ function renderReport({ tokenMissing, error, collected, classified, imported, mo
     <p>Unknown-source records in import set: ${classified.unknown}</p>
     <p>Accounted vs raw: ${classified.accounted} / ${collected ? collected.raw.length : "?"}</p>
     <p>Ambiguous same-customer groups (same phone + email + day): ${classified.ambiguous.length}</p>
+    ${classified.ambiguous.length ? `<h2>Ambiguous groups (no customer PII)</h2>${renderAmbiguous(classified.ambiguous)}` : ""}
     ${stopped ? `<p class="warn">Import was not written because the ambiguous duplicate set is large enough that guessing could drop a real customer. Review the dry-run counts above.</p>` : ""}
     <h2>By month</h2><ul>${listRows(classified.byMonth) || "<li>None</li>"}</ul>
     <h2>By attributed site</h2><ul>${listRows(classified.bySite) || "<li>None</li>"}</ul>
@@ -636,6 +715,8 @@ async function runHandler(event, options = {}) {
     return html(200, renderReport({ tokenMissing: true, mode: "blocked", lastRun }));
   }
 
+  const query = new URLSearchParams(event.rawQuery || "");
+  const wantInspect = query.get("inspect") === "1";
   const body =
     event.httpMethod === "POST"
       ? Object.fromEntries(new URLSearchParams(event.isBase64Encoded ? Buffer.from(event.body || "", "base64").toString("utf8") : event.body || ""))
@@ -646,7 +727,7 @@ async function runHandler(event, options = {}) {
     const collected = await collectHistory(event, token);
     const existing = await loadExistingFingerprints(event);
     const classified = classify(collected.raw, existing);
-    const ambiguousRecords = classified.ambiguous.reduce((sum, count) => sum + count, 0);
+    const ambiguousRecords = classified.ambiguous.reduce((sum, group) => sum + (group.size || 0), 0);
     const stopped = doImport && classified.ambiguous.length >= 8 && ambiguousRecords >= 20;
     let imported = null;
     if (doImport && !stopped) {
@@ -654,7 +735,20 @@ async function runHandler(event, options = {}) {
     }
     const mode = doImport ? (stopped ? "stopped-ambiguous" : "import") : "preview";
     const summary = summarizeRun({ collected, classified, imported, mode, stopped });
+    const inspect = {
+      keep: classified.keep.length,
+      skipped: classified.skipped,
+      unknown: classified.unknown,
+      groups: classified.ambiguous,
+    };
     if (doImport) await blobSetJson(event, LAST_RUN_KEY, summary);
+    if (wantInspect) {
+      return {
+        statusCode: 200,
+        headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow" },
+        body: JSON.stringify(inspect),
+      };
+    }
     return html(200, renderReport({ collected, classified, imported, mode, lastRun: doImport ? summary : lastRun, stopped }));
   } catch (error) {
     const status = error && error.status;
