@@ -61,7 +61,7 @@ function normalizeLead(data, context) {
       : claimedDomain || requestHost;
 
   return {
-    lead_id: clip(data.lead_id, 80),
+    lead_id: clip(data.lead_id, 160),
     submitted_at: clip(data.submitted_at, 40) || now,
     name: clip(data.name, 120),
     email: clip(data.email, 200),
@@ -254,7 +254,7 @@ async function runHandler(event) {
   const lead = normalizeLead(
     {
       ...data,
-      lead_id: clip(data.lead_id, 80) || newLeadId(),
+      lead_id: clip(data.lead_id, 160) || newLeadId(),
       form_name: clip(data.form_name || data["form-name"], 80) || "instant-quote",
       lead_type: clip(data.lead_type, 80) || "fence-quote",
     },

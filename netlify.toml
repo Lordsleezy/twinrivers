@@ -5,6 +5,9 @@
 [functions]
   directory = "netlify/functions"
 
+[functions.leads-history]
+  timeout = 26
+
 [[redirects]]
   from = "/fencing/rocklin"
   to = "https://rocklinfencing.com/"
@@ -86,6 +89,18 @@
 [[redirects]]
   from = "/admin/leads/"
   to = "/.netlify/functions/leads-admin"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/admin/leads/history"
+  to = "/.netlify/functions/leads-history"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/admin/leads/history/"
+  to = "/.netlify/functions/leads-history"
   status = 200
   force = true
 

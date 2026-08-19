@@ -67,6 +67,18 @@ async function blobDelete(event, key) {
   if (res.status !== 404 && !res.ok) throw new Error("blob delete " + res.status);
 }
 
+function monthKeyFromIso(iso) {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return String(iso || "").slice(0, 7);
+  const fmt = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Los_Angeles",
+    year: "numeric",
+    month: "2-digit",
+  });
+  const parts = Object.fromEntries(fmt.formatToParts(date).map((part) => [part.type, part.value]));
+  return parts.year + "-" + parts.month;
+}
+
 async function listMonth(event, year, month) {
   const monthKey = String(year).padStart(4, "0") + "-" + String(month).padStart(2, "0");
   const ids = (await blobGetJson(event, "months/" + monthKey)) || [];
@@ -86,7 +98,7 @@ async function deleteLead(event, leadId) {
   const existing = await blobGetJson(event, "by-id/" + id);
   await blobDelete(event, "by-id/" + id);
   if (existing && existing.submitted_at) {
-    const monthKey = String(existing.submitted_at).slice(0, 7);
+    const monthKey = monthKeyFromIso(existing.submitted_at);
     const ids = (await blobGetJson(event, "months/" + monthKey)) || [];
     await blobSetJson(event, "months/" + monthKey, ids.filter((item) => item !== id));
   }
@@ -242,10 +254,11 @@ function renderAdmin({ year, month, leads, notice }) {
       return `<tr>
         <td>${escapeHtml(stamp.date)} ${escapeHtml(stamp.time)}</td>
         <td>${escapeHtml(lead.name)}</td>
+        <td>${escapeHtml(lead.email)}</td>
         <td>${escapeHtml(lead.phone)}</td>
         <td>${escapeHtml(lead.city)}</td>
-        <td>${escapeHtml(lead.source_domain)}</td>
-        <td>${escapeHtml(lead.lead_type || lead.form_name)}</td>
+        <td>${escapeHtml(lead.source_domain)}<br>${escapeHtml(lead.form_name || "")}</td>
+        <td>${escapeHtml(lead.lead_type || "")}</td>
         <td>
           <form method="POST" action="/admin/leads" onsubmit="return confirm('Delete this lead from the ledger?');">
             <input type="hidden" name="action" value="delete">
@@ -303,11 +316,12 @@ function renderAdmin({ year, month, leads, notice }) {
     </label>
     <button type="submit">View month</button>
     <a class="download" href="/admin/leads?year=${encodeURIComponent(year)}&month=${encodeURIComponent(month)}&download=1">Download CSV</a>
+    <a class="download" href="/admin/leads/history" style="background:#24324a">Historical backfill</a>
   </form>
   <p class="summary"><strong>Total Leads: ${leads.length}</strong></p>
   <table>
-    <thead><tr><th>Submitted</th><th>Name</th><th>Phone</th><th>City</th><th>Source</th><th>Type</th><th></th></tr></thead>
-    <tbody>${rows || `<tr><td colspan="7">No leads stored for this month.</td></tr>`}</tbody>
+    <thead><tr><th>Submitted</th><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Source / Form</th><th>Type</th><th></th></tr></thead>
+    <tbody>${rows || `<tr><td colspan="8">No leads stored for this month.</td></tr>`}</tbody>
   </table>
 </main>
 </body>
