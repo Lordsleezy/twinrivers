@@ -166,19 +166,69 @@ async function upsertLead(event, lead) {
 const rateWindow = new Map();
 const RATE_LIMIT = 12;
 const RATE_WINDOW_MS = 10 * 60 * 1000;
+const MIN_FILL_MS = 3000;
 
-function json(statusCode, payload) {
+function enforceBotChecks() {
+  return String(process.env.LEAD_INGEST_ENFORCE_TURNSTILE || "").toLowerCase() === "true";
+}
+
+function requestOrigin(event) {
+  const origin = clip(event.headers.origin || event.headers.Origin, 200);
+  const host = normalizeDomain(origin);
+  if (origin && ALLOWED_DOMAINS.has(host)) return origin;
+  return "";
+}
+
+function json(statusCode, payload, event) {
+  const origin = event ? requestOrigin(event) : "";
   return {
     statusCode,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Cache-Control": "no-store",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      ...(origin
+        ? {
+            "Access-Control-Allow-Origin": origin,
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            Vary: "Origin",
+          }
+        : {}),
     },
     body: JSON.stringify(payload),
   };
+}
+
+function timingReason(startedAt) {
+  if (!clip(startedAt, 40)) return "missing";
+  const started = Date.parse(String(startedAt));
+  if (!Number.isFinite(started)) return "invalid";
+  if (Date.now() - started < MIN_FILL_MS) return "too-fast";
+  return "pass";
+}
+
+async function verifyTurnstile(token, ip, startedAt) {
+  const hasToken = Boolean(clip(token, 4000));
+  const hasTiming = Boolean(clip(startedAt, 40));
+  if (!hasToken && !hasTiming) return { ok: false, reason: "no-js-signal" };
+  const secret = process.env.TURNSTILE_SECRET_KEY || "";
+  if (!secret) return { ok: false, reason: "secret-missing" };
+  if (!hasToken) return { ok: false, reason: "token-missing" };
+  try {
+    const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        secret,
+        response: String(token),
+        remoteip: ip || "",
+      }),
+    });
+    const data = await res.json().catch(() => ({}));
+    return { ok: Boolean(data.success), reason: data.success ? "pass" : "siteverify-fail" };
+  } catch (error) {
+    return { ok: false, reason: "siteverify-error" };
+  }
 }
 
 function parseBody(event) {
@@ -227,27 +277,43 @@ function newLeadId() {
 
 async function runHandler(event) {
   if (event.httpMethod === "OPTIONS") {
-    return json(204, { ok: true });
+    return json(204, { ok: true }, event);
   }
   if (event.httpMethod !== "POST") {
-    return json(405, { ok: false, error: "Method not allowed" });
+    return json(405, { ok: false, error: "Method not allowed" }, event);
   }
 
   const ip = clientIp(event);
   if (rateLimited(ip)) {
-    return json(429, { ok: false, error: "Too many requests" });
+    return json(429, { ok: false, error: "Too many requests" }, event);
   }
 
   const data = parseBody(event);
   if (data.__tooLarge) {
-    return json(413, { ok: false, error: "Request too large" });
+    return json(413, { ok: false, error: "Request too large" }, event);
   }
   if (data["bot-field"]) {
-    return json(200, { ok: true, ignored: true });
+    return json(200, { ok: true, ignored: true }, event);
+  }
+
+  const startedAt = data.form_started_at || "";
+  const token = data["cf-turnstile-response"] || data.cf_turnstile_response || "";
+  const timing = timingReason(startedAt);
+  const turnstile = await verifyTurnstile(token, ip, startedAt);
+  console.log(
+    "lead-ingest bot-check",
+    "enforce=" + enforceBotChecks(),
+    "turnstile=" + turnstile.reason,
+    "timing=" + timing,
+    "form=" + clip(data.form_name || data["form-name"], 80),
+    "source=" + clip(data.source_domain || data.source, 80)
+  );
+  if (enforceBotChecks() && (timing !== "pass" || !turnstile.ok)) {
+    return json(400, { ok: false, error: "Verification failed." }, event);
   }
 
   if (digits(data.phone).length < 10) {
-    return json(400, { ok: false, error: "A valid phone number is required." });
+    return json(400, { ok: false, error: "A valid phone number is required." }, event);
   }
 
   const host = String(event.headers.host || event.headers.Host || "");
@@ -262,15 +328,15 @@ async function runHandler(event) {
   );
 
   if (!lead.lead_id) {
-    return json(400, { ok: false, error: "Invalid lead." });
+    return json(400, { ok: false, error: "Invalid lead." }, event);
   }
 
   try {
     const result = await upsertLead(event, lead);
-    return json(200, { ok: true, lead_id: result.lead.lead_id, duplicate: result.duplicate });
+    return json(200, { ok: true, lead_id: result.lead.lead_id, duplicate: result.duplicate }, event);
   } catch (error) {
     console.error("lead-ingest failed", error && error.message);
-    return json(503, { ok: false, error: "Lead ledger unavailable." });
+    return json(503, { ok: false, error: "Lead ledger unavailable." }, event);
   }
 };
 
