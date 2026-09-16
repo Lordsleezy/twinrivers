@@ -279,9 +279,7 @@ async function runHandler(event) {
   if (event.httpMethod === "OPTIONS") {
     return json(204, { ok: true }, event);
   }
-  if (event.httpMethod !== "POST") {
-    return json(405, { ok: false, error: "Method not allowed" }, event);
-  }
+  return json(410, { ok: false, error: "Online requests are closed. Call (916) 906-2254." }, event);
 
   const ip = clientIp(event);
   if (rateLimited(ip)) {

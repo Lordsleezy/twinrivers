@@ -74,46 +74,11 @@ function extractLeadChatJs(html) {
 
 function buildBodySnippet(prefix) {
   return `${BODY_START}
-<form name="lead-chat" method="POST" action="/" data-netlify="true" netlify>
-  <input type="hidden" name="form-name" value="lead-chat">
-  <p style="display:none;">
-    <label>Project Type <input name="project_type"></label>
-    <label>City <input name="city"></label>
-    <label>Size <input name="size"></label>
-    <label>Name <input name="name"></label>
-    <label>Phone <input name="phone"></label>
-  </p>
-</form>
-<div class="lead-chat-nudge" id="leadChatNudge" role="status" aria-live="polite">
-  Want a quick fence estimate?
-  <button type="button" id="leadChatNudgeBtn">Open chat</button>
-</div>
-<button type="button" class="lead-chat-toggle" id="leadChatToggle" aria-label="Open chat" aria-expanded="false" aria-controls="leadChatPanel">
+<a class="lead-chat-toggle" id="leadChatToggle" href="tel:+19169062254" aria-label="Call Twin Rivers Fence at (916) 906-2254">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
   </svg>
-</button>
-<div class="lead-chat-backdrop" id="leadChatBackdrop" hidden></div>
-<section class="lead-chat-panel" id="leadChatPanel" role="dialog" aria-labelledby="leadChatTitle" aria-modal="true" hidden>
-  <header class="lead-chat-header">
-    <div>
-      <h2 id="leadChatTitle">Twin Rivers Assistant</h2>
-      <span>Usually replies instantly</span>
-    </div>
-    <button type="button" class="lead-chat-close" id="leadChatClose" aria-label="Close chat">×</button>
-  </header>
-  <div class="lead-chat-messages" id="leadChatMessages" role="log" aria-live="polite" aria-relevant="additions"></div>
-  <div class="lead-chat-typing" id="leadChatTyping" aria-hidden="true">
-    <span></span><span></span><span></span>
-  </div>
-  <div class="lead-chat-options" id="leadChatOptions" hidden></div>
-  <p class="lead-chat-status" id="leadChatStatus"></p>
-  <p class="lead-chat-consent" id="leadChatConsent">By submitting your information, you agree to be contacted by Twin Rivers Fence regarding your project.</p>
-  <div class="lead-chat-input-row">
-    <input type="text" id="leadChatInput" placeholder="Type your message…" autocomplete="section-chat" enterkeyhint="send">
-    <button type="button" class="lead-chat-send" id="leadChatSend">Send</button>
-  </div>
-</section>
+</a>
 <script src="${prefix}assets/lead-chat.js" defer></script>
 ${BODY_END}`;
 }
@@ -151,8 +116,11 @@ function main() {
   }
   const master = fs.readFileSync(GRASS, "utf8").replace(/\r\n/g, "\n");
   fs.mkdirSync(ASSETS, { recursive: true });
-  fs.writeFileSync(path.join(ASSETS, "lead-chat.css"), extractLeadChatCss(master));
-  fs.writeFileSync(path.join(ASSETS, "lead-chat.js"), extractLeadChatJs(master));
+  try {
+    fs.writeFileSync(path.join(ASSETS, "lead-chat.css"), extractLeadChatCss(master));
+  } catch (error) {
+    console.warn("Keeping existing lead-chat.css:", error.message);
+  }
 
   const files = walkHtml(REPO);
   let n = 0;

@@ -2,6 +2,10 @@
 [build]
   publish = "."
 
+[[edge_functions]]
+  path = "/*"
+  function = "block-forms"
+
 [functions]
   directory = "netlify/functions"
 
