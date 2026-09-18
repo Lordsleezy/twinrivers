@@ -2603,22 +2603,6 @@ footer a:hover {
   font-size: 0.92rem;
 }
 
-.quote-call-cta {
-  display: grid;
-  gap: .85rem;
-  margin-top: 1rem;
-  justify-items: start;
-}
-.contact-call-card {
-  display: grid;
-  align-content: center;
-  gap: 1rem;
-  padding: 1.35rem 1.5rem;
-}
-.contact-call-card p {
-  margin: 0;
-  color: var(--soft);
-}
 .quote-lead-form {
   display: grid;
   gap: 0.85rem;
@@ -3335,10 +3319,26 @@ main .commercial-intro .section-tag { color: var(--gold); }
             <div class="offer-card"><strong>🤝 Refer A Friend</strong><span>Receive up to 25% off for both you and your referred friend.</span></div>
           </div>
           <p class="estimate-note">Want to research costs, permits, and materials first? Visit the <a href="/fence-learning-center/">Fence Learning Center</a>.</p>
-          <div class="quote-call-cta">
-            <p class="estimate-note">Online quote requests are paused. Call Twin Rivers Fence for an exact quote.</p>
-            <a class="btn-gold" href="tel:+19169062254">Call (916) 906-2254</a>
-          </div>
+          <form name="instant-quote" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" class="quote-lead-form" data-quote-lead-form>
+            <input type="hidden" name="form-name" value="instant-quote">
+            <input type="text" name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <input type="hidden" name="source" value="Twin Rivers Fence instant estimate calculator">
+            <input type="hidden" name="estimated_range">
+            <input type="hidden" name="fence_type">
+            <input type="hidden" name="height">
+            <input type="hidden" name="footage">
+            <input type="hidden" name="gates">
+            <input type="hidden" name="removal">
+            <input type="hidden" name="city">
+            <input type="hidden" name="lead_id">
+            <input type="hidden" name="lead_type" value="fence-quote">
+            <div class="quote-field"><label for="quote-name">Name</label><input id="quote-name" name="name" type="text" autocomplete="name"></div>
+            <div class="quote-field"><label for="quote-phone">Phone Number (Required)</label><input id="quote-phone" name="phone" type="tel" autocomplete="tel" required></div>
+            <div class="quote-field"><label for="quote-email">Email (Optional)</label><input id="quote-email" name="email" type="email" autocomplete="email"></div>
+            <div class="quote-field"><label for="quote-notes">Project Notes</label><textarea id="quote-notes" name="notes"></textarea></div>
+            <button class="btn-gold" type="submit">Get My Exact Quote</button>
+            <p class="quote-status" data-quote-status aria-live="polite"></p>
+          </form>
         </aside>
       </div>
     </div>
@@ -3350,13 +3350,30 @@ main .commercial-intro .section-tag { color: var(--gold); }
       <h2>Contact Us</h2>
     </div>
     <div class="ai-contact-layout">
-      <section class="river-chat contact-call-card" aria-label="Call Twin Rivers Fence">
-        <p>Online requests are paused. Call Twin Rivers Fence for a free estimate.</p>
-        <a class="btn-gold" href="tel:+19169062254">Call (916) 906-2254</a>
+      <section class="river-chat" aria-label="Twin Rivers Fence project assistant chat">
+        <div class="river-chat-top">
+          <div class="river-status">
+            <div class="river-avatar" aria-hidden="true">TR</div>
+            <div>
+              <strong>River</strong>
+              <span>Twin Rivers estimate desk</span>
+            </div>
+          </div>
+          <div class="river-live-dot" aria-label="Assistant is online"></div>
+        </div>
+        <div id="chat-log" class="chat-log" role="log" aria-live="polite" aria-relevant="additions"></div>
+        <div class="quick-replies" aria-label="Suggested replies"></div>
+        <div class="chat-composer">
+          <label class="sr-only" for="chat-input">Message River</label>
+          <input id="chat-input" type="text" autocomplete="off" placeholder="Tell River about your project...">
+          <button class="chat-send" type="button">Send</button>
+        </div>
+        <p class="read-receipt" id="read-receipt" aria-live="polite"></p>
+        <div class="lead-complete-note" aria-live="polite">Thanks - your request was sent to Twin Rivers Fence. A team member will follow up soon.</div>
       </section>
 
       <aside class="river-mascot-card" aria-label="River, a Twin Rivers Fence construction professional">
-          <div class="speech-bubble">Call us and we will get you scheduled.</div>
+        <div class="speech-bubble">I'm ready when you are. The questions on the left help our crew price the right solution.</div>
         <div class="pro-worker" aria-hidden="true">
           <div class="pro-worker-shadow"></div>
           <div class="pro-hardhat">
@@ -3392,6 +3409,22 @@ main .commercial-intro .section-tag { color: var(--gold); }
         </div>
       </aside>
 
+      <form name="lead-chat" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" class="netlify-lead-form" aria-hidden="true">
+        <input type="hidden" name="form-name" value="lead-chat">
+        <input type="text" name="bot-field" tabindex="-1" autocomplete="off">
+        <input type="hidden" name="name">
+        <input type="hidden" name="phone">
+        <input type="hidden" name="email">
+        <input type="hidden" name="project_type">
+        <input type="hidden" name="material">
+        <input type="hidden" name="approximate_length">
+        <input type="hidden" name="city">
+        <input type="hidden" name="notes">
+        <input type="hidden" name="source" value="Twin Rivers Fence homepage lead chat">
+        <input type="hidden" name="lead_id">
+        <input type="hidden" name="lead_type" value="chat">
+        <textarea name="message"></textarea>
+      </form>
       </div>
   </section>
 </main>
@@ -4427,6 +4460,38 @@ main .commercial-intro .section-tag { color: var(--gold); }
     var leadForm = document.querySelector(".netlify-lead-form");
     if (!log || !input || !send || !leadForm) return;
 
+    function formProof(startedAt) {
+      var s = String(startedAt || "");
+      var n = 2166136261;
+      for (var i = 0; i < s.length; i++) {
+        n ^= s.charCodeAt(i);
+        n = Math.imul(n, 16777619);
+      }
+      return (n >>> 0).toString(16);
+    }
+    function solvePow(startedAt) {
+      var n = 0;
+      var s = String(startedAt || "");
+      while (n < 250000) {
+        if (formProof(s + ":" + n).slice(0, 3) === "000") return String(n);
+        n++;
+      }
+      return "";
+    }
+    function markJsCookie() {
+      document.cookie = "tr_js=1; Path=/; SameSite=Lax; Max-Age=86400";
+    }
+    function bumpInt() {
+      var n = Number(leadForm.dataset.int || 0) + 1;
+      leadForm.dataset.int = String(n);
+      return n;
+    }
+    function stampFormStart() {
+      markJsCookie();
+      if (!leadForm.dataset.startedAt) leadForm.dataset.startedAt = new Date().toISOString();
+    }
+    stampFormStart();
+
     var assistantState = {
       step: "name",
       submitted: false,
@@ -4589,6 +4654,9 @@ main .commercial-intro .section-tag { color: var(--gold); }
       });
       var idField = leadForm.querySelector('[name="lead_id"]');
       if (idField) idField.value = leadId;
+      stampFormStart();
+      bumpInt();
+      var startedAt = leadForm.dataset.startedAt;
       var ledgerBody = {
         lead_id: leadId,
         name: assistantState.data.name || "",
@@ -4601,7 +4669,13 @@ main .commercial-intro .section-tag { color: var(--gold); }
         lead_type: "chat",
         message: visitorRequest || "",
         project_details: assistantState.data.message || "",
-        referrer: document.referrer || ""
+        referrer: document.referrer || "",
+        form_started_at: startedAt,
+        form_js: formProof(startedAt),
+        form_pow: solvePow(startedAt),
+        form_int: leadForm.dataset.int || "2",
+        "bot-field": "",
+        website: ""
       };
 
       if (!/^(localhost|127\.0\.0\.1)$/i.test(window.location.hostname)) {
@@ -4610,7 +4684,8 @@ main .commercial-intro .section-tag { color: var(--gold); }
         try {
           var ledgerRes = await fetch("/.netlify/functions/lead-ingest", {
             method: "POST",
-            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            headers: { "Content-Type": "application/json", Accept: "application/json", "X-Fence-Lead": "1" },
+            credentials: "same-origin",
             body: JSON.stringify(ledgerBody)
           });
           ledgerOk = ledgerRes.ok;
@@ -4618,7 +4693,7 @@ main .commercial-intro .section-tag { color: var(--gold); }
         try {
           var response = await fetch(leadForm.getAttribute("action") || "/", {
             method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            headers: { "Content-Type": "application/x-www-form-urlencoded", "X-Fence-Lead": "1" },
             body: encodeFormData(leadForm)
           });
           netlifyOk = response.ok;
@@ -4642,6 +4717,7 @@ main .commercial-intro .section-tag { color: var(--gold); }
     function handleUserMessage(text) {
       if (assistantState.responding) return;
       if (!text.trim()) return;
+      bumpInt();
       if (/start another/i.test(text)) {
         assistantState.step = "name";
         assistantState.submitted = false;
@@ -4726,10 +4802,11 @@ main .commercial-intro .section-tag { color: var(--gold); }
   initGsap();
   initSoftParallax();
   initCounters();
+  initRiverAssistant();
 }());
 </script>
 <script src="/assets/js/fence-pricing.js?v=20260818-quote1" defer></script>
-<script src="/assets/js/quote-calculator.js?v=20260916-noform1" defer></script>
+<script src="/assets/js/quote-calculator.js?v=20260917-bot4" defer></script>
 <script src="/assets/js/google-reviews.js?v=20260630-2" defer></script>
 </body>
 </html>

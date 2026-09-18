@@ -163,13 +163,80 @@ async function upsertLead(event, lead) {
   return { lead, duplicate: false };
 }
 
+const CITY_GATE_SECRET = "trf-city-gate-v4";
 const rateWindow = new Map();
-const RATE_LIMIT = 12;
+const RATE_LIMIT = 6;
 const RATE_WINDOW_MS = 10 * 60 * 1000;
-const MIN_FILL_MS = 3000;
+const MIN_FILL_MS = 4000;
 
-function enforceBotChecks() {
-  return String(process.env.LEAD_INGEST_ENFORCE_TURNSTILE || "").toLowerCase() === "true";
+function formProof(startedAt) {
+  const s = String(startedAt || "");
+  let n = 2166136261;
+  for (let i = 0; i < s.length; i++) {
+    n ^= s.charCodeAt(i);
+    n = Math.imul(n, 16777619);
+  }
+  return (n >>> 0).toString(16);
+}
+
+function cityGateToken(leadId) {
+  return crypto.createHash("sha256").update(CITY_GATE_SECRET + "|" + String(leadId || "")).digest("hex").slice(0, 24);
+}
+
+function headerValue(event, name) {
+  const headers = event.headers || {};
+  return String(headers[name] || headers[name.toLowerCase()] || headers[name.toUpperCase()] || "").trim();
+}
+
+function headerHost(value) {
+  try {
+    return new URL(value).hostname.replace(/^www\./i, "").toLowerCase();
+  } catch (error) {
+    return "";
+  }
+}
+
+function botUa(event) {
+  const ua = headerValue(event, "user-agent").toLowerCase();
+  return /python-requests|curl\/|scrapy|httpx|aiohttp|go-http-client|libwww-perl|php\/|java\/|wget|postman|insomnia|node-fetch|axios\/|okhttp|libcurl/.test(ua);
+}
+
+function phoneSane(phone) {
+  const d = digits(phone);
+  if (d.length < 10) return false;
+  if (/^(\d)\1{9,}$/.test(d)) return false;
+  const last10 = d.slice(-10);
+  return !["1234567890", "0123456789", "9876543210", "5555555555", "1111111111"].includes(last10);
+}
+
+function powOk(data) {
+  const started = clip(data.form_started_at, 80);
+  const nonce = clip(data.form_pow, 20);
+  if (!started || !/^\d+$/.test(nonce)) return false;
+  if (Number(nonce) > 400000) return false;
+  return formProof(started + ":" + nonce).slice(0, 3) === "000";
+}
+
+function cityGateOk(event, data) {
+  const leadId = clip(data.lead_id, 160);
+  const sent = headerValue(event, "x-fence-city");
+  return Boolean(leadId && sent && sent === cityGateToken(leadId));
+}
+
+function browserGateOk(data, event) {
+  const startedAt = data.form_started_at || "";
+  const timing = timingReason(startedAt);
+  const proofOk = clip(data.form_js, 40) === formProof(startedAt);
+  const headerOk = headerValue(event, "x-fence-lead") === "1";
+  const jsonOk = headerValue(event, "content-type").includes("application/json");
+  const fetchOk = /^(same-origin|same-site)$/i.test(headerValue(event, "sec-fetch-site"));
+  const cookieOk = /(?:^|;\s*)tr_js=1(?:;|$)/.test(headerValue(event, "cookie"));
+  const intOk = Number(data.form_int) >= 2;
+  const originHost = headerHost(headerValue(event, "origin") || headerValue(event, "referer"));
+  const originOk = ALLOWED_DOMAINS.has(originHost) || originHost.endsWith(".netlify.app");
+  const uaOk = !botUa(event);
+  const workOk = powOk(data);
+  return timing === "pass" && proofOk && headerOk && jsonOk && fetchOk && cookieOk && intOk && originOk && uaOk && workOk;
 }
 
 function requestOrigin(event) {
@@ -189,7 +256,7 @@ function json(statusCode, payload, event) {
       ...(origin
         ? {
             "Access-Control-Allow-Origin": origin,
-            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Allow-Headers": "Content-Type, X-Fence-Lead",
             "Access-Control-Allow-Methods": "POST, OPTIONS",
             Vary: "Origin",
           }
@@ -279,7 +346,9 @@ async function runHandler(event) {
   if (event.httpMethod === "OPTIONS") {
     return json(204, { ok: true }, event);
   }
-  return json(410, { ok: false, error: "Online requests are closed. Call (916) 906-2254." }, event);
+  if (event.httpMethod !== "POST") {
+    return json(405, { ok: false, error: "Method not allowed" }, event);
+  }
 
   const ip = clientIp(event);
   if (rateLimited(ip)) {
@@ -290,27 +359,20 @@ async function runHandler(event) {
   if (data.__tooLarge) {
     return json(413, { ok: false, error: "Request too large" }, event);
   }
-  if (data["bot-field"]) {
+  if (data["bot-field"] || clip(data.website, 200)) {
     return json(200, { ok: true, ignored: true }, event);
   }
 
-  const startedAt = data.form_started_at || "";
-  const token = data["cf-turnstile-response"] || data.cf_turnstile_response || "";
-  const timing = timingReason(startedAt);
-  const turnstile = await verifyTurnstile(token, ip, startedAt);
-  console.log(
-    "lead-ingest bot-check",
-    "enforce=" + enforceBotChecks(),
-    "turnstile=" + turnstile.reason,
-    "timing=" + timing,
-    "form=" + clip(data.form_name || data["form-name"], 80),
-    "source=" + clip(data.source_domain || data.source, 80)
-  );
-  if (enforceBotChecks() && (timing !== "pass" || !turnstile.ok)) {
+  if (!cityGateOk(event, data) && !browserGateOk(data, event)) {
+    console.warn(
+      "lead-ingest blocked",
+      "form=" + clip(data.form_name || data["form-name"], 80),
+      "source=" + clip(data.source_domain || data.source, 80)
+    );
     return json(400, { ok: false, error: "Verification failed." }, event);
   }
 
-  if (digits(data.phone).length < 10) {
+  if (!phoneSane(data.phone)) {
     return json(400, { ok: false, error: "A valid phone number is required." }, event);
   }
 
