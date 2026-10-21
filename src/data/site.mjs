@@ -7,6 +7,8 @@ export const site = {
   phoneTel: "+19169062254",
   license: "1089233",
   yearsExperience: 40,
+  hoursDisplay: "Monday–Friday 8:00 AM–5:00 PM",
+  openingHours: ["Mo-Fr 08:00-17:00"],
   priceRange: "$$",
   email: "info@twinriversfence.com",
   mapsUrl: "https://maps.app.goo.gl/rXBxsJXV2E6Z3Luu6",
