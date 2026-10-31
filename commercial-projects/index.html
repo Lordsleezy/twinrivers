@@ -10,6 +10,22 @@
 <style>
 :root{--bg:#0b0b0b;--panel:#151515;--gold:#d4a853;--text:#f5f2ea;--muted:rgba(255,255,255,.68);--line:rgba(255,255,255,.1);--display:'Playfair Display',serif;--body:'Inter',sans-serif}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.65}a{color:inherit}.topbar{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:1rem 1.5rem;background:rgba(8,8,8,.88);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}.topbar a{text-decoration:none}.brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase}.call{color:var(--gold);font-weight:800}.hero{padding:7rem 1.5rem 4rem;text-align:center;background:radial-gradient(circle at 50% 0,rgba(212,168,83,.18),transparent 44%),#101010}.hero h1{max-width:980px;margin:0 auto 1rem;font-family:var(--display);font-size:clamp(2.7rem,7vw,5.7rem);line-height:.96}.hero p{max-width:790px;margin:0 auto;color:var(--muted);font-size:1.08rem}.wrap{max-width:1180px;margin:0 auto;padding:3rem 1.5rem}.trust{display:flex;flex-wrap:wrap;justify-content:center;gap:.7rem;margin:0 0 2.4rem}.trust span{border:1px solid rgba(212,168,83,.3);border-radius:999px;padding:.75rem 1rem;background:rgba(212,168,83,.06);text-transform:uppercase;letter-spacing:.08em;font-size:.8rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}.card{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:1.45rem}.card h2{font-family:var(--display);font-size:1.7rem;line-height:1.05;margin:.4rem 0;color:#fff}.card p{color:var(--muted)}.tag{color:var(--gold);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;font-weight:800}.process{margin:3rem 0}.process h2{font-family:var(--display);font-size:clamp(2rem,4vw,3.6rem);text-align:center;color:var(--gold)}.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}.step{border:1px solid rgba(255,255,255,.1);padding:1.2rem;border-radius:8px;background:#101010}.step strong{display:block;color:var(--gold);margin-bottom:.5rem}.cta{border:1px solid rgba(212,168,83,.34);background:linear-gradient(135deg,rgba(212,168,83,.13),rgba(255,255,255,.03));padding:2rem;border-radius:8px;text-align:center;margin:3rem 0}.btn{display:inline-block;margin-top:1rem;background:var(--gold);color:#111;padding:.9rem 1.2rem;border-radius:4px;text-decoration:none;font-weight:800}@media(max-width:700px){.topbar{flex-direction:column}.hero{padding-top:5rem}.wrap{padding:2rem 1rem}}
 </style>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:image" content="https://twinriversfence.com/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Wood privacy fence installed by Twin Rivers Fence">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://twinriversfence.com/og-cover.jpg">
+<style>
+.sticky-call-bar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:80;padding:.65rem 1rem calc(.65rem + env(safe-area-inset-bottom,0));background:rgba(10,10,10,.96);border-top:1px solid rgba(212,168,83,.35)}
+.sticky-call-bar a{display:block;max-width:28rem;margin:0 auto;text-align:center;padding:.9rem 1rem;background:#d4a853;color:#0a0a0a;font-weight:700;text-decoration:none;border-radius:6px;font-family:system-ui,sans-serif}
+@media(max-width:900px){.sticky-call-bar{display:block}body{padding-bottom:5rem}}
+</style>
 </head>
 <body>
 <header class="topbar"><a class="brand" href="/">Twin Rivers Fence</a><a class="call" href="tel:+19169062254">Call (916) 906-2254</a></header>
@@ -28,5 +44,6 @@
 <div class="cta"><h2>Need a commercial fence quote?</h2><p>Share the property type, city, linear footage, gates, and security goals.</p><a class="btn" href="/#contact">Request a Commercial Quote</a></div>
 <section style="max-width:1100px;margin:0 auto;padding:40px 20px"><p><a href="/services/temporary-fence-rental/">Temporary Fence Rental</a> is available for short-term construction and commercial perimeter control.</p></section>
 </main>
+<div class="sticky-call-bar"><a href="tel:+19169062254">Call (916) 906-2254 — Free Estimate</a></div>
 </body>
 </html>
